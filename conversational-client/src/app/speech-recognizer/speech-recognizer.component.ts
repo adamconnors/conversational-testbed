@@ -22,9 +22,10 @@ export class SpeechRecognizerComponent {
   currentLine = 0;
 
   dialog: string[] = [];
+  audioPlayer = new Audio();
 
   @Output() newDialogLineEvent = new EventEmitter<string>();
-
+  
   constructor(private zone: NgZone) { 
     if ( !('webkitSpeechRecognition' in window) ) {
       console.log("webkitSpeechRecognition not found in window");
@@ -101,8 +102,35 @@ export class SpeechRecognizerComponent {
   
   handleLLMResponse(response: string) {
     this.dialog[this.currentLine] = response;
+
+    let audio = new Audio();
+    audio.src = "http://localhost:8080/tts?text=" + response;
+    
+    // Pause the speech recognition while the audio is playing
+    this.recognition.stop();
+    audio.load();
+    audio.play();
+    audio.onended = () => {
+      this.recognition.start();
+    }
+
     this.currentLine++;
   }
+
+  /*playAudio(dialog: ): void {
+    const audio = this.dialogs[dialogIndex]?.audio;
+    if (audio) {
+      const playback = this.audioPlayer.play(audio);
+      this.dialogPlaying = {playback, dialogIndex};
+
+      playback.finished.then(() => {
+        if (this.dialogPlaying?.playback === playback) {
+          this.dialogPlaying = null;
+        }
+      });
+    }
+  }*/
+
 
   // Called by user button press. 
   onStartStop() {
