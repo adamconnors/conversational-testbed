@@ -1,0 +1,10 @@
+<button (click)="onStartStop()">
+    @if (!recognizing) {
+        Start Listening
+    } @else {
+        Stop Listening
+    }
+</button>
+<div class="dialog">
+    <div *ngFor="let line of dialog">{{ line }}</div>
+</div>
