@@ -14,6 +14,9 @@ declare var webkitSpeechRecognition: any;
 })
 export class SpeechRecognizerComponent {
 
+  backendUrl = "http://localhost:8080/tts?text=";
+  // backendUrl = "/tts?text="
+
   final_transcript = "";
   recognizing = false;
   ignore_onend = false;
@@ -23,6 +26,9 @@ export class SpeechRecognizerComponent {
 
   dialog: string[] = [];
   audioPlayer = new Audio();
+  audio = new Audio();
+
+  status = "Click to start the conversation... NB, if you're viewing this on app engine I haven't made it maintain conversation state yet.";
 
   @Output() newDialogLineEvent = new EventEmitter<string>();
   
@@ -38,6 +44,9 @@ export class SpeechRecognizerComponent {
   
     this.recognition.onstart = () => {
       this.recognizing = true;
+      this.zone.run(() => {
+        this.status = "Listening...";
+      });
       console.log('info_speak_now');
     };
   
@@ -64,7 +73,7 @@ export class SpeechRecognizerComponent {
     this.recognition.onend = () => {
       console.log('info_end');
       this.zone.run(() => {
-        this.recognizing = false;
+        this.recognizing = false;  
       });
     };
   
@@ -72,16 +81,21 @@ export class SpeechRecognizerComponent {
     this.recognition.onresult = (event: any) => {
       console.log("onresult:" + event.results);
       this.zone.run(() => {
-        this.updateDialog(event);
+        this.handleUserRequest(event);
       });
     };
   }
 
-  updateDialog(event: any) {
+  handleUserRequest(event: any) {
+    this.status = "Processing...";
     let interim_transcript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         let line: string = event.results[i][0].transcript;
+        if (line == '') {
+          return;
+        }
+
         this.dialog[this.currentLine] = line;
         this.currentLine++;
 
@@ -101,45 +115,38 @@ export class SpeechRecognizerComponent {
   }
   
   handleLLMResponse(response: string) {
+    this.status = "Talking...";
     this.dialog[this.currentLine] = response;
 
-    let audio = new Audio();
-    audio.src = "http://localhost:8080/tts?text=" + response;
+    this.audio.src = this.backendUrl + response;
     
     // Pause the speech recognition while the audio is playing
-    this.recognition.stop();
-    audio.load();
-    audio.play();
-    audio.onended = () => {
-      this.recognition.start();
-    }
+    this.zone.run(() => {
+      this.recognition.stop();
+    });
+
+    this.audio.load();
+    this.audio.play();
+    this.audio.onended = () => {
+      this.zone.run(() => {
+        this.recognition.start();
+        this.status = "Listening...";
+      });
+    }   
 
     this.currentLine++;
   }
-
-  /*playAudio(dialog: ): void {
-    const audio = this.dialogs[dialogIndex]?.audio;
-    if (audio) {
-      const playback = this.audioPlayer.play(audio);
-      this.dialogPlaying = {playback, dialogIndex};
-
-      playback.finished.then(() => {
-        if (this.dialogPlaying?.playback === playback) {
-          this.dialogPlaying = null;
-        }
-      });
-    }
-  }*/
-
 
   // Called by user button press. 
   onStartStop() {
     if (this.recognizing) {
       console.log("stop listening");
+      this.status = "Click to start the conversation...";
       this.recognition.stop();
       this.recognizing = false;
     } else {
       console.log("start listening");
+      this.audio.pause(); // Stop the audio from playing
       this.recognition.lang = "en-GB";
       this.recognition.start();
       this.recognizing = true;

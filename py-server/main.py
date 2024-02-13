@@ -10,6 +10,7 @@ import google.cloud.texttospeech_v1 as texttospeech
 app = flask.Flask(__name__)
 chat_model = ChatModel.from_pretrained("chat-bison@002")
 chat = chat_model.start_chat()
+
 tts_client = texttospeech.TextToSpeechClient()
 
 # Combine these to save ourselves a server roundtrip.
