@@ -14,7 +14,7 @@ declare var webkitSpeechRecognition: any;
 })
 export class SpeechRecognizerComponent {
 
-  backendUrl = "http://localhost:8080/tts?text=";
+  //backendUrl = "http://localhost:8080/tts?text=";
   // backendUrl = "/tts?text="
 
   final_transcript = "";
