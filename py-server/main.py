@@ -3,20 +3,37 @@ from flask_cors import CORS
 from vertexai.language_models import ChatModel, InputOutputTextPair
 import base64
 import google.cloud.texttospeech_v1 as texttospeech
+import prompts
 
+DRY_RUN_MODE = True
+
+# CHAT_VERSION = "no-prompting"
+CHAT_VERSION = "prompted-v1"
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = flask.Flask(__name__)
-chat_model = ChatModel.from_pretrained("chat-bison@002")
-chat = chat_model.start_chat()
-
 tts_client = texttospeech.TextToSpeechClient()
+
+# TODO: How do I keep the context of this instance of chat for a given user session when running in 
+chat_model = ChatModel.from_pretrained("chat-bison@002")
+global chat
+chat = None
+
+
+if CHAT_VERSION == "no-prompting":
+    chat = chat_model.start_chat()
+elif CHAT_VERSION == "prompted-v1":
+    chat = chat_model.start_chat(
+        context=prompts.CONTEXT_v1,
+    )
 
 # Combine these to save ourselves a server roundtrip.
 @app.route('/tts', methods = ['POST', 'GET'])
 def tts():
     text = flask.request.args.get('text') or flask.request.form.get('text')
+    text = text.replace('*', '')
+
     synthesis_input = texttospeech.SynthesisInput(text=text)
     voice = texttospeech.VoiceSelectionParams(
         language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL)
@@ -31,7 +48,8 @@ def tts():
 
 @app.route('/api', methods = ['POST', 'GET'])
 def api():
-
+    global chat
+    
     q = flask.request.args.get('q') or flask.request.form.get('q')
     
     print("Got query: ", q)
@@ -47,7 +65,12 @@ def api():
     return rtn
 
 if __name__ == "__main__":
-    # Used when running locally only. When deploying to Google App
-    # Engine, a webserver process such as Gunicorn will serve the app. This
-    # can be configured by adding an `entrypoint` to app.yaml.
-    app.run(host="localhost", port=8080, debug=True)
+    
+    if not DRY_RUN_MODE:
+        # Used when running locally only. When deploying to Google App
+        # Engine, a webserver process such as Gunicorn will serve the app. This
+        # can be configured by adding an `entrypoint` to app.yaml.
+        app.run(host="localhost", port=8080, debug=True)
+    else:
+        prompts.dry_run(chat)    
+    
