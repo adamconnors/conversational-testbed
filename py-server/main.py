@@ -5,10 +5,15 @@ import base64
 import google.cloud.texttospeech_v1 as texttospeech
 import prompts
 
-DRY_RUN_MODE = True
+global chat, dry_run_function
+chat = None
+
+DRY_RUN_MODE = False
+dry_run_function = prompts.dry_run_general
 
 # CHAT_VERSION = "no-prompting"
-CHAT_VERSION = "prompted-v1"
+# CHAT_VERSION = "prompted-v1"
+CHAT_VERSION = "prompted-history-tutor"
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -17,16 +22,26 @@ tts_client = texttospeech.TextToSpeechClient()
 
 # TODO: How do I keep the context of this instance of chat for a given user session when running in 
 chat_model = ChatModel.from_pretrained("chat-bison@002")
-global chat
-chat = None
 
 
+def load_file(filename):
+    with open(filename, 'r') as file:
+        return file.read()
+
+# Load chat model with prompt.
 if CHAT_VERSION == "no-prompting":
     chat = chat_model.start_chat()
 elif CHAT_VERSION == "prompted-v1":
-    chat = chat_model.start_chat(
-        context=prompts.CONTEXT_v1,
-    )
+    chat = chat_model.start_chat(context=prompts.CONTEXT_v1)
+elif CHAT_VERSION == "prompted-history-tutor":
+    
+    history_tutor_context = prompts.CONTEXT_HISTORY_TUTOR
+    lister_and_carbolic_acid_context = load_file("./history_tutor/lister_and_carbolic_acid.md")
+    
+    history_tutor_context = history_tutor_context.replace("%%CONTEXT%%", lister_and_carbolic_acid_context)
+    chat = chat_model.start_chat(context=prompts.CONTEXT_HISTORY_TUTOR)
+    dry_run_function = prompts.dry_run_history_tutor
+
 
 # Combine these to save ourselves a server roundtrip.
 @app.route('/tts', methods = ['POST', 'GET'])
@@ -72,5 +87,6 @@ if __name__ == "__main__":
         # can be configured by adding an `entrypoint` to app.yaml.
         app.run(host="localhost", port=8080, debug=True)
     else:
-        prompts.dry_run(chat)    
+        dry_run_function(chat)
+            
     
