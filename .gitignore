@@ -1,0 +1,4 @@
+.DS_Store
+conversational-client/node_modules
+conversational-client/.angular
+py-server/dist
