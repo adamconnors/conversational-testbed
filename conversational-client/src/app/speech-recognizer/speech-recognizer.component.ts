@@ -3,6 +3,8 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgZone, Output, EventEmitter } from '@angular/core';
+import { environment } from '../../environments/environment';
+
 declare var webkitSpeechRecognition: any;
 
 @Component({
@@ -14,10 +16,8 @@ declare var webkitSpeechRecognition: any;
 })
 export class SpeechRecognizerComponent {
 
-  backendUrl = "http://localhost:8080/tts?text=";
-  // backendUrl = "/tts?text="
+  private apiUrl = `${environment.apiUrl}/tts?text=`;
 
-  final_transcript = "";
   recognizing = false;
   ignore_onend = false;
   start_timestamp = 0;
@@ -118,7 +118,7 @@ export class SpeechRecognizerComponent {
     this.status = "Talking...";
     this.dialog[this.currentLine] = response;
 
-    this.audio.src = this.backendUrl + response;
+    this.audio.src = this.apiUrl + response;
     
     // Pause the speech recognition while the audio is playing
     this.zone.run(() => {
