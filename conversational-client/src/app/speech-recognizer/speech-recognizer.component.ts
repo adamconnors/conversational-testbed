@@ -28,9 +28,9 @@ export class SpeechRecognizerComponent {
   audioPlayer = new Audio();
   audio = new Audio();
 
-  status = "Click to start the conversation... NB, if you're viewing this on app engine I haven't made it maintain conversation state yet.";
+  status = "Click to start the conversation...";
 
-  @Output() newDialogLineEvent = new EventEmitter<string>();
+  @Output() newDialogLineEvent = new EventEmitter<string[]>();
   
   constructor(private zone: NgZone) { 
     if ( !('webkitSpeechRecognition' in window) ) {
@@ -92,7 +92,7 @@ export class SpeechRecognizerComponent {
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         let line: string = event.results[i][0].transcript;
-        if (line == '') {
+        if (!line) {
           return;
         }
 
@@ -100,7 +100,7 @@ export class SpeechRecognizerComponent {
         this.currentLine++;
 
         // Emit an event in app.component
-        this.newDialogLineEvent.emit(line);
+        this.newDialogLineEvent.emit(this.dialog);
         
       } else {
         interim_transcript += event.results[i][0].transcript;
