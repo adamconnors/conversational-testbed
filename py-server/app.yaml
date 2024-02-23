@@ -7,8 +7,9 @@ handlers:
     script: auto
 
   # Serve all static files from Angular build
-  - url: /
-    static_dir: dist/browser
+  - url: /(.*\.(js|css|html|jpg|png|gif|svg|ico|map|woff|woff2|eot|ttf))
+    static_files: dist/browser/\1
+    upload: dist/browser/(.*\.(js|css|html|jpg|png|gif|svg|ico|map|woff|woff2|eot|ttf))
 
   # Serve 'index.html' for all other routes
   - url: /.*
