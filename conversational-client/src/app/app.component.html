@@ -1,1 +1,4 @@
-<app-speech-recognizer (newDialogLineEvent)="handleNewLineOfDialog($event)"></app-speech-recognizer>
+<app-speech-recognizer
+	(newDialogLineEvent)="handleNewLineOfDialog($event)"
+	(transcriptDowloadEvent)="handleTranscriptDowloadEvent($event)">
+</app-speech-recognizer>

@@ -9,3 +9,7 @@
 <div class="dialog">
     <div *ngFor="let line of dialog">{{ line }}</div>
 </div>
+<br/><br/>
+<div *ngIf="dialog.length > 1">
+    <button (click)="onTranscriptDonwload()">Download transcript</button>
+</div>

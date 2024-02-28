@@ -1,6 +1,6 @@
 //https://developer.chrome.com/blog/voice-driven-web-apps-introduction-to-the-web-speech-api
 
-import { NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgZone, Output, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
@@ -10,7 +10,7 @@ declare var webkitSpeechRecognition: any;
 @Component({
   selector: 'app-speech-recognizer',
   standalone: true,
-  imports: [NgFor],
+  imports: [CommonModule],
   templateUrl: './speech-recognizer.component.html',
   styleUrl: './speech-recognizer.component.css'
 })
@@ -31,6 +31,7 @@ export class SpeechRecognizerComponent {
   status = "Click to start the conversation...";
 
   @Output() newDialogLineEvent = new EventEmitter<string[]>();
+  @Output() transcriptDowloadEvent = new EventEmitter<string[]>();
   
   constructor(private zone: NgZone) { 
     if ( !('webkitSpeechRecognition' in window) ) {
@@ -153,5 +154,9 @@ export class SpeechRecognizerComponent {
       this.ignore_onend = true;
       this.start_timestamp = Date.now(); // Assign current timestamp  
     }
+  }
+
+  onTranscriptDonwload() {
+    this.transcriptDowloadEvent.emit(this.dialog);
   }
 }

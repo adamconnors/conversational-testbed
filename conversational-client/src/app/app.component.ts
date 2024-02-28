@@ -35,4 +35,7 @@ export class AppComponent {
 
   }
 
+  handleTranscriptDowloadEvent(dialog: string[]) {
+    this.chatService.downloadTranscript(dialog);
+  }
 }
