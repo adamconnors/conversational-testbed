@@ -9,10 +9,8 @@ declare var webkitSpeechRecognition: any;
 
 @Component({
   selector: 'app-speech-recognizer',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './speech-recognizer.component.html',
-  styleUrl: './speech-recognizer.component.css'
+  styleUrl: './speech-recognizer.component.scss'
 })
 export class SpeechRecognizerComponent {
 
@@ -142,7 +140,7 @@ export class SpeechRecognizerComponent {
   onStartStop() {
     if (this.recognizing) {
       console.log("stop listening");
-      this.status = "Click to start the conversation...";
+      this.status = "Click to continue the conversation...";
       this.recognition.stop();
       this.recognizing = false;
     } else {

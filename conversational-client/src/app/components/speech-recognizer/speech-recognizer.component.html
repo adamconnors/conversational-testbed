@@ -1,15 +1,20 @@
-<button (click)="onStartStop()">
-    @if (!recognizing) {
-        Start Listening
-    } @else {
-        Stop Listening
-    }
-</button><br/><br/>
-{{ status }}
+<div class="status">{{ status }}</div>
 <div class="dialog">
     <div *ngFor="let line of dialog">{{ line }}</div>
 </div>
-<br/><br/>
-<div *ngIf="dialog.length > 1">
-    <button (click)="onTranscriptDonwload()">Download transcript</button>
-</div>
+
+<button id="talkback-btn"
+        mat-fab color="primary"
+        (click)="onStartStop()">
+@if (!recognizing) {
+    <mat-icon>mic_off</mat-icon>
+} @else {
+    <mat-icon>mic</mat-icon>
+}
+</button>
+
+<button *ngIf="dialog.length > 1"
+    mat-mini-fab color="accent"
+    (click)="onTranscriptDonwload()">
+    <mat-icon>download</mat-icon>
+</button>

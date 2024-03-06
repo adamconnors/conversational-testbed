@@ -1,3 +1,6 @@
+<mat-toolbar color="primary">
+  <span>Conversational Client</span>
+</mat-toolbar>
 <app-speech-recognizer
 	(newDialogLineEvent)="handleNewLineOfDialog($event)"
 	(transcriptDowloadEvent)="handleTranscriptDowloadEvent($event)">
