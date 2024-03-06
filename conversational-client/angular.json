@@ -25,8 +25,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/global.scss",
+              "src/styles/theme.scss",
+              "src/styles/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles/"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -90,8 +97,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/global.scss",
+              "src/styles/theme.scss",
+              "src/styles/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles/"
+              ]
+            },
             "scripts": []
           }
         }

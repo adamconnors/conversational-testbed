@@ -1,14 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { SpeechRecognizerComponent } from '@components/speech-recognizer/speech-recognizer.component';
 import { ChatService } from '@services/chat.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, SpeechRecognizerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
