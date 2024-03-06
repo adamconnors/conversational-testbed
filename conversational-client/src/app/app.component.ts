@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { SpeechRecognizerComponent } from './speech-recognizer/speech-recognizer.component';
-import { ChatService } from './chat.service';
+import { SpeechRecognizerComponent } from '@components/speech-recognizer/speech-recognizer.component';
+import { ChatService } from '@services/chat.service';
 import { Observable } from 'rxjs';
 
 @Component({

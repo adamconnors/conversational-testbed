@@ -3,7 +3,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgZone, Output, EventEmitter } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 
 declare var webkitSpeechRecognition: any;
 
