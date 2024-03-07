@@ -5,12 +5,10 @@ import google.cloud.texttospeech_v1 as texttospeech
 import prompts
 from vertexai.language_models import ChatMessage, ChatModel
 
+
+CHAT_VERSION = 'prompted-v1' # 'no-prompting'|'prompted-history-tutor'
 DRY_RUN_MODE = False
 dry_run_function = prompts.dry_run_general
-
-# CHAT_VERSION = 'no-prompting'
-# CHAT_VERSION = 'prompted-v1'
-CHAT_VERSION = 'prompted-history-tutor'
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
