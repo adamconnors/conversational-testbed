@@ -2,3 +2,5 @@
 conversational-client/node_modules
 conversational-client/.angular
 py-server/dist
+.venv
+__pycache__

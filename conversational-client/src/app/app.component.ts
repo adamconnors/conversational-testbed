@@ -1,17 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SpeechRecognizerComponent } from '@components/speech-recognizer/speech-recognizer.component';
-import { ChatService } from '@services/chat.service';
-import { Observable } from 'rxjs';
+import {Component, ViewChild} from '@angular/core';
+import {SpeechRecognizerComponent} from '@components/speech-recognizer/speech-recognizer.component';
+import {ChatService} from '@services/chat.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-
-  @ViewChild(SpeechRecognizerComponent) speechRecognizerComponent!: SpeechRecognizerComponent;
+  @ViewChild(SpeechRecognizerComponent)
+  speechRecognizerComponent!: SpeechRecognizerComponent;
 
   title = 'conversational-client';
 
@@ -22,14 +20,16 @@ export class AppComponent {
     if (!newLine) {
       return;
     }
-    console.log("Got new dialog: ", newLine);
+    console.log('Got new dialog: ', newLine);
     const message_history = dialog.slice(0, -1);
-    const responseObservable = this.chatService.getLLMLineOfDialog(newLine, message_history);
-    
+    const responseObservable = this.chatService.getLLMLineOfDialog(
+      newLine,
+      message_history
+    );
+
     responseObservable.subscribe((llmResponse: string) => {
       this.speechRecognizerComponent.handleLLMResponse(llmResponse);
     });
-
   }
 
   handleTranscriptDowloadEvent(dialog: string[]) {
