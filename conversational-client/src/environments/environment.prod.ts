@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: '' // Use relative paths
+  apiUrl: '', // Use relative paths
 };
