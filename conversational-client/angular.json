@@ -26,7 +26,7 @@
             ],
             "styles": [
               "src/styles/global.scss",
-              "src/styles/theme.scss",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles/styles.scss"
             ],
             "stylePreprocessorOptions": {
@@ -98,7 +98,7 @@
             ],
             "styles": [
               "src/styles/global.scss",
-              "src/styles/theme.scss",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles/styles.scss"
             ],
             "stylePreprocessorOptions": {
