@@ -4,6 +4,14 @@ import {Component} from '@angular/core';
 import {NgZone, Output, EventEmitter} from '@angular/core';
 import {environment} from 'environments/environment';
 
+enum ListenState {
+  New,
+  Listening,
+  Processing,
+  Speaking,
+  Paused
+}
+
 @Component({
   selector: 'app-speech-recognizer',
   templateUrl: './speech-recognizer.component.html',
@@ -19,8 +27,8 @@ export class SpeechRecognizerComponent {
   private currentLine = 0;
 
   dialog: string[] = [];
-  recognizing = false;
-  status = 'Click to start the conversation...';
+
+  listenState: ListenState = ListenState.New;
 
   @Output() newDialogLineEvent = new EventEmitter<string[]>();
   @Output() transcriptDowloadEvent = new EventEmitter<string[]>();
@@ -35,10 +43,10 @@ export class SpeechRecognizerComponent {
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
 
+    // called by speech recognition engine
     this.recognition.onstart = () => {
-      this.recognizing = true;
       this.zone.run(() => {
-        this.status = 'Listening...';
+        this.listenState = ListenState.Listening;
       });
       console.log('info_speak_now');
     };
@@ -65,25 +73,26 @@ export class SpeechRecognizerComponent {
     // called by speech recognition engine
     this.recognition.onend = () => {
       console.log('info_end');
-      this.zone.run(() => {
-        this.recognizing = false;
-      });
+      if (this.listenState === ListenState.Listening) {
+        // This is a timeout from the speechAPI so automatically restart.
+        console.log("SpeechAPI timeout, automatically restarting.");
+        this.recognition!.start();
+      }
     };
 
     // called by speech recognition engine
     this.recognition.onresult = (event: SpeechRecognitionEvent) => {
-      console.log('onresult:' + event.results);
       this.zone.run(() => {
-        this.handleUserRequest(event);
+        this.handleSpeechResult(event);
       });
     };
   }
 
-  handleUserRequest(event: SpeechRecognitionEvent) {
-    this.status = 'Processing...';
+  handleSpeechResult(event: SpeechRecognitionEvent) {
     let interim_transcript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
+      // confidence > 0 is required for Android Chrome
+      if (event.results[i].isFinal && event.results[i][0].confidence > 0) {
         const line: string = event.results[i][0].transcript;
         if (!line) {
           return;
@@ -92,7 +101,8 @@ export class SpeechRecognizerComponent {
         this.dialog[this.currentLine] = line;
         this.currentLine++;
 
-        // Emit an event in app.component
+        // Emit an event to send this line of dialog to the request to the server
+        this.listenState = ListenState.Processing;
         this.newDialogLineEvent.emit(this.dialog);
       } else {
         interim_transcript += event.results[i][0].transcript;
@@ -106,14 +116,33 @@ export class SpeechRecognizerComponent {
     window.scrollTo(0, document.body.scrollHeight);
   }
 
+  isListening() {
+    return this.listenState === ListenState.Listening;
+  }
+
+  getStatusMessage() {
+    switch (this.listenState) {
+      case ListenState.New:
+        return 'Click the microphone icon to start the conversation...';
+      case ListenState.Listening:
+        return 'Listening...';
+      case ListenState.Processing:
+        return 'Processing...';
+      case ListenState.Speaking:
+        return 'Talking...';
+      case ListenState.Paused:
+        return 'Click the microphone to continue the conversation...';
+    }
+  }
+
   handleLLMResponse(response: string) {
-    this.status = 'Talking...';
     this.dialog[this.currentLine] = response;
 
     this.audio.src = this.apiUrl + response;
 
     // Pause the speech recognition while the audio is playing
     this.zone.run(() => {
+      this.listenState = ListenState.Speaking;
       this.recognition!.stop();
     });
 
@@ -121,8 +150,8 @@ export class SpeechRecognizerComponent {
     this.audio.play();
     this.audio.onended = () => {
       this.zone.run(() => {
+        this.listenState = ListenState.Listening;
         this.recognition!.start();
-        this.status = 'Listening...';
       });
     };
 
@@ -131,17 +160,16 @@ export class SpeechRecognizerComponent {
 
   // Called by user button press.
   onStartStop() {
-    if (this.recognizing) {
+    if (this.isListening()) {
       console.log('stop listening');
-      this.status = 'Click to continue the conversation...';
+      this.listenState = ListenState.Paused;
       this.recognition!.stop();
-      this.recognizing = false;
     } else {
       console.log('start listening');
+      this.listenState = ListenState.Listening;
       this.audio.pause(); // Stop the audio from playing
       this.recognition!.lang = 'en-GB';
       this.recognition!.start();
-      this.recognizing = true;
       this.ignore_onend = true;
       this.start_timestamp = Date.now(); // Assign current timestamp
     }
