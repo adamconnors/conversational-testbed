@@ -12,6 +12,11 @@ Server:
   python main.py
 ```
 
+To commit changes:
+```
+npm run lint
+```
+
 To push to Cloud:
 
 ```sh

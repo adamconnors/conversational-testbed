@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ModeSelectorComponent } from './mode-selector.component';
+import {ModeSelectorComponent} from './mode-selector.component';
 
 describe('ModeSelectorComponent', () => {
   let component: ModeSelectorComponent;
@@ -8,10 +8,9 @@ describe('ModeSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModeSelectorComponent]
-    })
-    .compileComponents();
-    
+      imports: [ModeSelectorComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ModeSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
