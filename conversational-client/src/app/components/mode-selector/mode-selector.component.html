@@ -1,0 +1,5 @@
+<mat-list>
+    <mat-list-item *ngFor="let mode of modes" (click)="onSelectMode(mode)" [class.selected]="mode === currentMode">
+        {{ mode }}
+    </mat-list-item>
+</mat-list>

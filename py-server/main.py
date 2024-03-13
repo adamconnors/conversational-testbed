@@ -3,7 +3,9 @@ import flask
 from flask_cors import CORS
 import google.cloud.texttospeech_v1 as texttospeech
 import prompts
-from vertexai.language_models import ChatMessage, ChatModel
+from vertexai.language_models import ChatMessage
+from default_model import DefaultModel
+from fake_model import FakeModel
 
 
 CHAT_VERSION = "prompted-v1"  # 'no-prompting'|'prompted-history-tutor'
@@ -15,27 +17,12 @@ dry_run_function = prompts.dry_run_general
 app = flask.Flask(__name__)
 tts_client = texttospeech.TextToSpeechClient()
 
-chat_model = ChatModel.from_pretrained("chat-bison@002")
-chat_context = ""
-
-
-def load_file(filename):
-    with open(filename, "r") as file:
-        return file.read()
-
-
-# Load chat context.
-if CHAT_VERSION == "prompted-v1":
-    chat_context = prompts.CONTEXT_v1
-elif CHAT_VERSION == "prompted-history-tutor":
-    history_tutor_context = prompts.CONTEXT_HISTORY_TUTOR
-    lister_and_carbolic_acid_context = load_file(
-        "./history_tutor/lister_and_carbolic_acid.md"
-    )
-    history_tutor_context = history_tutor_context.replace(
-        "%%CONTEXT%%", lister_and_carbolic_acid_context
-    )
-    dry_run_function = prompts.dry_run_history_tutor
+# Create chat models. A model is just a class that implements the chat method
+# in order to respond to the chat history and any other context passed in.
+MODES = {
+    "default": DefaultModel(),
+    "fake": FakeModel()
+}
 
 
 # Combine these to save ourselves a server roundtrip.
@@ -68,6 +55,7 @@ def tts():
 @app.route("/chat", methods=["POST", "GET"])
 def chat():
     q = flask.request.args.get("q") or flask.request.form.get("q")
+    mode_param = flask.request.args.get("mode") or flask.request.form.get("mode")
     if q is None:
         return "No request sent, use ?q=", 200
     print("q", q)
@@ -93,11 +81,14 @@ def chat():
     except Exception as e:
         print("failed to parse chat history", e)
 
-    chat_session = chat_model.start_chat(
-        context=chat_context, message_history=message_history
-    )
-    res = chat_session.send_message(q)
-    text = res.candidates[0].text
+    # Get the right model for this use-case
+    if mode_param in MODES:     
+        mode = MODES[mode_param]
+    else:
+        mode = MODES["default"]
+
+    print(f"Responding with {mode}.")
+    text = mode.chat(message_history, q)
     return text, 200, {"Access-Control-Allow-Origin": "*"}
 
 
@@ -108,4 +99,6 @@ if __name__ == "__main__":
         # can be configured by adding an `entrypoint` to app.yaml.
         app.run(host="localhost", port=8080, debug=True)
     else:
-        dry_run_function(chat_model.start_chat(context=chat_context))
+        pass
+        # Temporarily disable
+        # dry_run_function(chat_model.start_chat(context=chat_context))
