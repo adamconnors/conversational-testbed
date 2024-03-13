@@ -4,11 +4,7 @@
 </div>
 
 <button id="talkback-btn" mat-fab color="primary" (click)="onStartStop()">
-  @if (!isListening()) {
-    <mat-icon>mic_off</mat-icon>
-  } @else {
-    <mat-icon>mic</mat-icon>
-  }
+  <mat-icon>{{ isListening() ? 'mic' : 'mic_off' }}</mat-icon>
 </button>
 
 <button

@@ -5,7 +5,7 @@ import {NgZone, Output, EventEmitter} from '@angular/core';
 import {environment} from 'environments/environment';
 
 enum ListenState {
-  New,
+  Stopped,
   Listening,
   Processing,
   Speaking,
@@ -28,7 +28,7 @@ export class SpeechRecognizerComponent {
 
   dialog: string[] = [];
 
-  listenState: ListenState = ListenState.New;
+  listenState: ListenState = ListenState.Stopped;
 
   @Output() newDialogLineEvent = new EventEmitter<string[]>();
   @Output() transcriptDowloadEvent = new EventEmitter<string[]>();
@@ -122,7 +122,7 @@ export class SpeechRecognizerComponent {
 
   getStatusMessage() {
     switch (this.listenState) {
-      case ListenState.New:
+      case ListenState.Stopped:
         return 'Click the microphone icon to start the conversation...';
       case ListenState.Listening:
         return 'Listening...';
