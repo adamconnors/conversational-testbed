@@ -8,7 +8,7 @@ import {environment} from 'environments/environment';
 })
 export class ChatService {
   private apiUrl = `${environment.apiUrl}/chat`;
-
+  private currentMode: string | null = null;
   constructor(private http: HttpClient) {}
 
   getLLMLineOfDialog(
@@ -18,7 +18,12 @@ export class ChatService {
     const formData = new FormData();
     formData.append('q', request);
     formData.append('message_history', JSON.stringify(messageHistory));
+    if (this.currentMode !== null) formData.append('mode', this.currentMode);
     return this.http.post(this.apiUrl, formData, {responseType: 'text'});
+  }
+
+  setMode(mode: string) {
+    this.currentMode = mode;
   }
 
   downloadTranscript(messageHistory: string[]) {
