@@ -9,7 +9,7 @@ enum ListenState {
   Listening,
   Processing,
   Speaking,
-  Paused
+  Paused,
 }
 
 @Component({
@@ -75,7 +75,7 @@ export class SpeechRecognizerComponent {
       console.log('info_end');
       if (this.listenState === ListenState.Listening) {
         // This is a timeout from the speechAPI so automatically restart.
-        console.log("SpeechAPI timeout, automatically restarting.");
+        console.log('SpeechAPI timeout, automatically restarting.');
         this.recognition!.start();
       }
     };

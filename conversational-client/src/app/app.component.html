@@ -1,15 +1,18 @@
 <mat-sidenav-container>
-  <mat-sidenav opened #sidenav mode="side"><app-mode-selector></app-mode-selector></mat-sidenav>
+  <mat-sidenav opened #sidenav mode="side"
+    ><app-mode-selector></app-mode-selector
+  ></mat-sidenav>
 
   <mat-sidenav-content id="content">
-
     <mat-toolbar color="primary">
       <mat-icon (click)="sidenav.toggle()">menu</mat-icon>&nbsp;
       <span>Conversational Client</span>
     </mat-toolbar>
 
-    <app-speech-recognizer (newDialogLineEvent)="handleNewLineOfDialog($event)"
-      (transcriptDowloadEvent)="handleTranscriptDowloadEvent($event)">
+    <app-speech-recognizer
+      (newDialogLineEvent)="handleNewLineOfDialog($event)"
+      (transcriptDowloadEvent)="handleTranscriptDowloadEvent($event)"
+    >
     </app-speech-recognizer>
   </mat-sidenav-content>
 </mat-sidenav-container>
