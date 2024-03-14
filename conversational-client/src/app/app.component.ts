@@ -32,6 +32,7 @@ export class AppComponent {
     );
 
     responseObservable.subscribe((llmResponse: string) => {
+      // Update the UI only once, when we receive the LLM response.
       this.interimDialogLine = '';
       const userMessage = {content: dialog, author: 'user'};
       const llmMessage = {content: llmResponse, author: 'llm'};
