@@ -19,10 +19,7 @@ tts_client = texttospeech.TextToSpeechClient()
 
 # Create chat models. A model is just a class that implements the chat method
 # in order to respond to the chat history and any other context passed in.
-MODES = {
-    "default": DefaultModel(),
-    "fake": FakeModel()
-}
+MODES = {"default": DefaultModel(), "fake": FakeModel()}
 
 
 # Combine these to save ourselves a server roundtrip.
@@ -65,14 +62,9 @@ def chat():
     ) or flask.request.form.get("message_history")
     message_history = None
     try:
-        # Assume user takes first turn.
         message_history = [
-            (
-                ChatMessage(content=msg, author="user")
-                if i % 2 == 0
-                else ChatMessage(content=msg, author="bot")
-            )
-            for i, msg in enumerate(json.loads(message_history_json))
+            ChatMessage(content=msg.content, author=msg.author)
+            for msg in json.loads(message_history_json)
         ]
         print("message_history", message_history)
         if not message_history:
@@ -82,7 +74,7 @@ def chat():
         print("failed to parse chat history", e)
 
     # Get the right model for this use-case
-    if mode_param in MODES:     
+    if mode_param in MODES:
         mode = MODES[mode_param]
     else:
         mode = MODES["default"]

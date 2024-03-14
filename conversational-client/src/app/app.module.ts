@@ -11,6 +11,7 @@ import {SpeechRecognizerComponent} from '@components/speech-recognizer/speech-re
 import {ModeSelectorComponent} from '@components/mode-selector/mode-selector.component';
 
 import {MatButtonModule} from '@angular/material/button';
+import {MatChipsModule} from '@angular/material/chips';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -18,6 +19,7 @@ import {MatList, MatListItem} from '@angular/material/list';
 
 const materialModules = [
   MatButtonModule,
+  MatChipsModule,
   MatIconModule,
   MatToolbarModule,
   MatSidenavModule,

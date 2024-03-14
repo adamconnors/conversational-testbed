@@ -1,38 +1,50 @@
 import {Component, ViewChild} from '@angular/core';
 import {SpeechRecognizerComponent} from '@components/speech-recognizer/speech-recognizer.component';
+import {ModeSelectorComponent} from '@components/mode-selector/mode-selector.component';
 import {ChatService} from '@services/chat.service';
+import {ChatMessage} from 'app/data/conversation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   @ViewChild(SpeechRecognizerComponent)
   speechRecognizerComponent!: SpeechRecognizerComponent;
+  @ViewChild(ModeSelectorComponent)
+  modeSelectorComponent!: ModeSelectorComponent;
 
-  title = 'conversational-client';
+  conversation: ChatMessage[] = [];
+  interimDialogLine: string = '';
 
   constructor(private chatService: ChatService) {}
 
-  handleNewLineOfDialog(dialog: string[]) {
-    const newLine = dialog.at(-1);
-    if (!newLine) {
+  handleNewLineOfDialog(dialog: string) {
+    if (!dialog) {
       return;
     }
-    console.log('Got new dialog: ', newLine);
-    const message_history = dialog.slice(0, -1);
+    console.log('Got new dialog: ', dialog);
     const responseObservable = this.chatService.getLLMLineOfDialog(
-      newLine,
-      message_history
+      dialog,
+      this.conversation,
+      this.modeSelectorComponent.currentMode
     );
 
     responseObservable.subscribe((llmResponse: string) => {
+      this.interimDialogLine = '';
+      const userMessage = {content: dialog, author: 'user'};
+      const llmMessage = {content: llmResponse, author: 'llm'};
+      this.conversation = [...this.conversation, userMessage, llmMessage];
       this.speechRecognizerComponent.handleLLMResponse(llmResponse);
     });
   }
 
-  handleTranscriptDowloadEvent(dialog: string[]) {
-    this.chatService.downloadTranscript(dialog);
+  handleNewInterimDialogLineEvent(dialog: string) {
+    this.interimDialogLine = dialog;
+  }
+
+  donwloadTranscript() {
+    this.chatService.downloadTranscript(this.conversation);
   }
 }

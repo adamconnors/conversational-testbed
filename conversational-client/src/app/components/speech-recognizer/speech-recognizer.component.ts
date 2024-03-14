@@ -5,11 +5,11 @@ import {NgZone, Output, EventEmitter} from '@angular/core';
 import {environment} from 'environments/environment';
 
 enum ListenState {
-  Stopped,
-  Listening,
-  Processing,
-  Speaking,
-  Paused,
+  Stopped = 'stopped',
+  Listening = 'listening',
+  Processing = 'processing',
+  Speaking = 'speaking',
+  Paused = 'paused',
 }
 
 @Component({
@@ -21,17 +21,13 @@ export class SpeechRecognizerComponent {
   private apiUrl = `${environment.apiUrl}/tts?text=`;
   private recognition: SpeechRecognition | null = null;
   private audio = new Audio();
-
-  private ignore_onend = false;
   private start_timestamp = 0;
-  private currentLine = 0;
 
-  dialog: string[] = [];
-
+  dialogLine: string = '';
   listenState: ListenState = ListenState.Stopped;
 
-  @Output() newDialogLineEvent = new EventEmitter<string[]>();
-  @Output() transcriptDowloadEvent = new EventEmitter<string[]>();
+  @Output() newDialogLineEvent = new EventEmitter<string>();
+  @Output() newInterimDialogLineEvent = new EventEmitter<string>();
 
   constructor(private zone: NgZone) {
     if (!('webkitSpeechRecognition' in window)) {
@@ -54,11 +50,9 @@ export class SpeechRecognizerComponent {
     this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       if (event.error === 'no-speech') {
         console.log('info_no_speech');
-        this.ignore_onend = true;
       }
       if (event.error === 'audio-capture') {
         console.log('info_no_microphone');
-        this.ignore_onend = true;
       }
       if (event.error === 'not-allowed') {
         if (event.timeStamp - this.start_timestamp < 100) {
@@ -66,7 +60,6 @@ export class SpeechRecognizerComponent {
         } else {
           console.log('info_denied');
         }
-        this.ignore_onend = true;
       }
     };
 
@@ -89,7 +82,7 @@ export class SpeechRecognizerComponent {
   }
 
   handleSpeechResult(event: SpeechRecognitionEvent) {
-    let interim_transcript = '';
+    let interimTranscript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       // confidence > 0 is required for Android Chrome
       if (event.results[i].isFinal && event.results[i][0].confidence > 0) {
@@ -97,19 +90,17 @@ export class SpeechRecognizerComponent {
         if (!line) {
           return;
         }
-
-        this.dialog[this.currentLine] = line;
-        this.currentLine++;
-
+        this.dialogLine = line;
         // Emit an event to send this line of dialog to the request to the server
         this.listenState = ListenState.Processing;
-        this.newDialogLineEvent.emit(this.dialog);
+        this.newDialogLineEvent.emit(this.dialogLine);
       } else {
-        interim_transcript += event.results[i][0].transcript;
+        interimTranscript += event.results[i][0].transcript;
       }
     }
-    if (interim_transcript !== '') {
-      this.dialog[this.currentLine] = interim_transcript;
+    if (interimTranscript !== '') {
+      this.dialogLine = interimTranscript;
+      this.newInterimDialogLineEvent.emit(this.dialogLine);
     }
 
     // Scroll to the bottom of the page
@@ -136,7 +127,7 @@ export class SpeechRecognizerComponent {
   }
 
   handleLLMResponse(response: string) {
-    this.dialog[this.currentLine] = response;
+    this.dialogLine = '';
 
     this.audio.src = this.apiUrl + response;
 
@@ -154,8 +145,6 @@ export class SpeechRecognizerComponent {
         this.recognition!.start();
       });
     };
-
-    this.currentLine++;
   }
 
   // Called by user button press.
@@ -170,12 +159,7 @@ export class SpeechRecognizerComponent {
       this.audio.pause(); // Stop the audio from playing
       this.recognition!.lang = 'en-GB';
       this.recognition!.start();
-      this.ignore_onend = true;
       this.start_timestamp = Date.now(); // Assign current timestamp
     }
-  }
-
-  onTranscriptDonwload() {
-    this.transcriptDowloadEvent.emit(this.dialog);
   }
 }

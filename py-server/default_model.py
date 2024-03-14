@@ -24,7 +24,7 @@ PROMPT = """
 class DefaultModel:
     def __init__(self):
         self.chat_model = ChatModel.from_pretrained("chat-bison@002")
-    
+
     def chat(self, message_history, message):
         chat_session = self.chat_model.start_chat(
             context=PROMPT, message_history=message_history

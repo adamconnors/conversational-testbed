@@ -1,6 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+import {ChatMessage, PromptMode} from 'app/data/conversation';
 import {environment} from 'environments/environment';
 
 @Injectable({
@@ -8,27 +9,24 @@ import {environment} from 'environments/environment';
 })
 export class ChatService {
   private apiUrl = `${environment.apiUrl}/chat`;
-  private currentMode: string | null = null;
+
   constructor(private http: HttpClient) {}
 
   getLLMLineOfDialog(
     request: string,
-    messageHistory: string[]
+    messageHistory: ChatMessage[],
+    promptMode: PromptMode
   ): Observable<string> {
     const formData = new FormData();
     formData.append('q', request);
     formData.append('message_history', JSON.stringify(messageHistory));
-    if (this.currentMode !== null) formData.append('mode', this.currentMode);
+    formData.append('mode', promptMode);
     return this.http.post(this.apiUrl, formData, {responseType: 'text'});
   }
 
-  setMode(mode: string) {
-    this.currentMode = mode;
-  }
-
-  downloadTranscript(messageHistory: string[]) {
+  downloadTranscript(messageHistory: ChatMessage[]) {
     const transcript = messageHistory
-      .map((s, i) => `${i % 2 === 0 ? '<me>' : '<llm>'}${s.trim()}</end>`)
+      .map(msg => `<${msg.author}>${msg.content}</${msg.author}>`)
       .join('\n\n');
     const filename = `chat_transcript-${Date.now()}.txt`;
     this.downloadFile(transcript, filename, 'text/plain');

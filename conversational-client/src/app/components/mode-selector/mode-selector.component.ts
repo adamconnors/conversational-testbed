@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {ChatService} from '@services/chat.service';
-
-type PromptMode = 'default' | 'fake';
+import {PromptMode} from 'app/data/conversation';
 
 @Component({
   selector: 'app-mode-selector',
@@ -9,14 +7,12 @@ type PromptMode = 'default' | 'fake';
   styleUrl: './mode-selector.component.css',
 })
 export class ModeSelectorComponent {
-  // Passed to the server to control the model used for the chat.
   modes: PromptMode[] = ['default', 'fake'];
   currentMode: PromptMode = 'default';
 
-  constructor(private chatService: ChatService) {}
+  constructor() {}
 
   onSelectMode(mode: PromptMode) {
     this.currentMode = mode;
-    this.chatService.setMode(mode);
   }
 }

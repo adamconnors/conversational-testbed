@@ -11,8 +11,28 @@
 
     <app-speech-recognizer
       (newDialogLineEvent)="handleNewLineOfDialog($event)"
-      (transcriptDowloadEvent)="handleTranscriptDowloadEvent($event)"
+      (newInterimDialogLineEvent)="handleNewInterimDialogLineEvent($event)"
     >
     </app-speech-recognizer>
+
+    <div class="conversation">
+      <div *ngFor="let msg of conversation" class="message-container">
+        <mat-chip-set>
+          <mat-chip>{{ msg.author }}</mat-chip>
+        </mat-chip-set>
+        <span class="message-content">{{ msg.content }}</span>
+      </div>
+      <div class="message-content" *ngIf="!!interimDialogLine">
+        {{ interimDialogLine }}
+      </div>
+    </div>
+    <button
+      *ngIf="conversation.length > 1"
+      mat-mini-fab
+      color="primary"
+      (click)="donwloadTranscript()"
+    >
+      <mat-icon>download</mat-icon>
+    </button>
   </mat-sidenav-content>
 </mat-sidenav-container>
