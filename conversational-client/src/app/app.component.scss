@@ -7,12 +7,16 @@
   justify-content: space-between;
 }
 
+mat-toolbar {
+  min-height: 64px;
+}
+
 button {
   margin: 12px;
 }
 
 .conversation {
-  padding: 0px 12px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -46,6 +50,6 @@ mat-chip-set {
 .toolbar {
   display: flex;
   padding: 12px;
-  margin-top: 24px;
+  margin-top: 12px;
   align-items: center;
 }

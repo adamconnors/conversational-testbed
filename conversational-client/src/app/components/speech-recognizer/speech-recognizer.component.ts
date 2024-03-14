@@ -102,9 +102,6 @@ export class SpeechRecognizerComponent {
       this.dialogLine = interimTranscript;
       this.newInterimDialogLineEvent.emit(this.dialogLine);
     }
-
-    // Scroll to the bottom of the page
-    window.scrollTo(0, document.body.scrollHeight);
   }
 
   isListening() {
