@@ -2,6 +2,9 @@
 
 #content {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 button {
@@ -10,6 +13,16 @@ button {
 
 .conversation {
   padding: 0px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-user {
+  align-self: flex-end;
+}
+
+.message-user .message-content {
+  background-color: $primary-lightest;
 }
 
 .message-container {
@@ -20,7 +33,7 @@ button {
 }
 
 .message-content {
-  background-color: $primary-lightest;
+  background-color: $muted-lightest;
   padding: 12px;
   border-radius: 5px;
 }
@@ -30,6 +43,9 @@ mat-chip-set {
   margin-right: 8px;
 }
 
-mat-chip {
-  width: 48px;
+.toolbar {
+  display: flex;
+  padding: 12px;
+  margin-top: 24px;
+  align-items: center;
 }
