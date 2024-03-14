@@ -1,17 +1,5 @@
 <div class="status">{{ getStatusMessage() }}</div>
-<div class="dialog">
-  <div *ngFor="let line of dialog">{{ line }}</div>
-</div>
 
 <button id="talkback-btn" mat-fab color="primary" (click)="onStartStop()">
   <mat-icon>{{ isListening() ? 'mic' : 'mic_off' }}</mat-icon>
-</button>
-
-<button
-  *ngIf="dialog.length > 1"
-  mat-mini-fab
-  color="primary"
-  (click)="onTranscriptDonwload()"
->
-  <mat-icon>download</mat-icon>
 </button>

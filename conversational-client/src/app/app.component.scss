@@ -1,0 +1,35 @@
+@import 'global';
+
+#content {
+  height: 100vh;
+}
+
+button {
+  margin: 12px;
+}
+
+.conversation {
+  padding: 0px 12px;
+}
+
+.message-container {
+  display: flex;
+  margin: 4px;
+  border-radius: 5px;
+  white-space: pre-line;
+}
+
+.message-content {
+  background-color: $primary-lightest;
+  padding: 12px;
+  border-radius: 5px;
+}
+
+mat-chip-set {
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+mat-chip {
+  width: 48px;
+}
