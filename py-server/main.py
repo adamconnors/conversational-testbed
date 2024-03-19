@@ -5,7 +5,9 @@ import google.cloud.texttospeech_v1 as texttospeech
 import prompts
 from vertexai.language_models import ChatMessage
 from default_model import DefaultModel
+from history_tutor.history_tutor import HistoryTutor
 from fake_model import FakeModel
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
 
 CHAT_VERSION = "prompted-v1"  # 'no-prompting'|'prompted-history-tutor'
@@ -19,7 +21,11 @@ tts_client = texttospeech.TextToSpeechClient()
 
 # Create chat models. A model is just a class that implements the chat method
 # in order to respond to the chat history and any other context passed in.
-MODES = {"default": DefaultModel(), "fake": FakeModel()}
+MODES = {
+    "default": DefaultModel(),
+    "fake": FakeModel(),
+    "history tutor": HistoryTutor(),
+}
 
 
 # Combine these to save ourselves a server roundtrip.
@@ -60,18 +66,7 @@ def chat():
     message_history_json = flask.request.args.get(
         "message_history"
     ) or flask.request.form.get("message_history")
-    message_history = None
-    try:
-        message_history = [
-            ChatMessage(content=msg["content"], author=msg["author"])
-            for msg in json.loads(message_history_json)
-        ]
-        print("message_history", message_history)
-        if not message_history:
-            # Don't send an empty message history list
-            message_history = None
-    except Exception as e:
-        print("failed to parse chat history", e)
+    message_history = build_message_history(message_history_json)
 
     # Get the right model for this use-case
     if mode_param in MODES:
@@ -82,6 +77,26 @@ def chat():
     print(f"Responding with {mode}.")
     text = mode.chat(message_history, q)
     return text, 200, {"Access-Control-Allow-Origin": "*"}
+
+
+def build_message_history(message_history_json):
+    """Parses client provided message history into ChatMessage objects
+
+    Args:
+        message_history_json (_type_): [ {content="xxx", author="AI|USER"} ]
+
+    Returns:
+        [ ChatMessage ]: List of ChatMessage objects, or None if empty list.
+    """
+    messages = []
+    for message in json.loads(message_history_json):
+        if message["author"] == "user":
+            messages.append(HumanMessage(message["content"]))
+        elif message["author"] == "llm":
+            messages.append(AIMessage(message["content"]))
+        else:
+            raise ValueError(f"Unknown message type: {message}")
+    return messages
 
 
 if __name__ == "__main__":
