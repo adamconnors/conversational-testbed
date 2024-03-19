@@ -1,4 +1,5 @@
 from vertexai.language_models import ChatMessage, ChatModel
+import time
 
 PROMPT = """
     You are an expert AUDIO chatbot designed to support my project work.
@@ -23,12 +24,19 @@ PROMPT = """
 
 class DefaultModel:
     def __init__(self):
+
+        start_time = time.time()
         self.chat_model = ChatModel.from_pretrained("chat-bison@002")
+        end_time = time.time()
+        print(f"Created DefaultModel in: {end_time - start_time:.2f} seconds")
 
     def chat(self, message_history, message):
+        start_time = time.time()
         chat_session = self.chat_model.start_chat(
             context=PROMPT, message_history=message_history
         )
         res = chat_session.send_message(message)
+        end_time = time.time()
+        print(f"DefaultModel chat took: {end_time - start_time:.2f} seconds")
         text = res.candidates[0].text
         return text
