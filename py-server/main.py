@@ -63,7 +63,7 @@ def chat():
     message_history = None
     try:
         message_history = [
-            ChatMessage(content=msg.content, author=msg.author)
+            ChatMessage(content=msg["content"], author=msg["author"])
             for msg in json.loads(message_history_json)
         ]
         print("message_history", message_history)
