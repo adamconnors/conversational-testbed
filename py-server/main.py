@@ -24,7 +24,7 @@ tts_client = texttospeech.TextToSpeechClient()
 MODES = {
     "default": DefaultModel(),
     "fake": FakeModel(),
-    "history tutor": HistoryTutor(),
+    "history_tutor": HistoryTutor(),
 }
 
 
@@ -86,16 +86,24 @@ def build_message_history(message_history_json):
         message_history_json (_type_): [ {content="xxx", author="AI|USER"} ]
 
     Returns:
-        [ ChatMessage ]: List of ChatMessage objects, or None if empty list.
+        list[langchain.BaseMessage]: List of either AIMessage or HumanMessage
+        objects, or None if empty list.
+
+    Raises:
+        ValueError: If the message author is neither "user" nor "llm" or the
+        message history can't be parsed.
     """
     messages = []
-    for message in json.loads(message_history_json):
-        if message["author"] == "user":
-            messages.append(HumanMessage(message["content"]))
-        elif message["author"] == "llm":
-            messages.append(AIMessage(message["content"]))
-        else:
-            raise ValueError(f"Unknown message type: {message}")
+    try:
+        for message in json.loads(message_history_json):
+            if message["author"] == "user":
+                messages.append(HumanMessage(message["content"]))
+            elif message["author"] == "llm":
+                messages.append(AIMessage(message["content"]))
+            else:
+                raise ValueError(f"Unknown message type: {message}")
+    except Exception as e:
+        raise ValueError(f"Couldn't parse message history: {message_history_json}: {e}")
     return messages
 
 

@@ -5,4 +5,5 @@ export interface ChatMessage {
 }
 
 // Controls the model and prompt used in a conversation.
-export type PromptMode = 'default' | 'fake' | 'history tutor';
+// TODO: Prettify display strings in the menu.
+export type PromptMode = 'default' | 'fake' | 'history_tutor';
