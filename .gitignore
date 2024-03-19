@@ -4,3 +4,4 @@ conversational-client/.angular
 py-server/dist
 .venv
 __pycache__
+.env
