@@ -26,5 +26,13 @@ class TestMain(unittest.TestCase):
         self.assertEqual(output, expected_messages)
 
 
+    def test_invalid_history(self):
+        incoming_messages = "xxx"
+        try:
+            output = build_message_history(incoming_messages)
+            self.fail("Should have thrown an exception")
+        except Exception as e:
+            pass
+
 if __name__ == "__main__":
     unittest.main()
