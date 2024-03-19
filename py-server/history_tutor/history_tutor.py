@@ -7,7 +7,6 @@ import json
 from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 
 PROMPT = """
-
     You are an expert AUDIO chatbot designed to support my project work.
     
     Respond as if you are having a natural VOICE conversation.
@@ -28,6 +27,11 @@ PROMPT = """
 """
 
 
+def load_file(filename):
+    with open(filename, "r") as file:
+        return file.read()
+
+
 class HistoryTutor:
     def __init__(self):
         start = time.time()
@@ -44,15 +48,3 @@ class HistoryTutor:
         messages.append(HumanMessage(message))
         response = self.chat_model.invoke(messages)
         return response.content
-
-    def load_file(filename):
-        with open(filename, "r") as file:
-            return file.read()
-
-        history_tutor_context = prompts.CONTEXT_HISTORY_TUTOR
-        lister_and_carbolic_acid_context = load_file(
-            "./history_tutor/lister_and_carbolic_acid.md"
-        )
-        history_tutor_context = history_tutor_context.replace(
-            "%%CONTEXT%%", lister_and_carbolic_acid_context
-        )
