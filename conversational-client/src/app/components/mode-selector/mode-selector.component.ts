@@ -7,7 +7,7 @@ import {PromptMode} from 'app/data/conversation';
   styleUrl: './mode-selector.component.css',
 })
 export class ModeSelectorComponent {
-  modes: PromptMode[] = ['default', 'fake', 'history tutor'];
+  modes: PromptMode[] = ['default', 'fake', 'history_tutor'];
   currentMode: PromptMode = 'default';
 
   constructor() {}

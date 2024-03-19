@@ -12,15 +12,13 @@ class TestDefaultModel(unittest.TestCase):
     def setUp(self):
         self.model = DefaultModel()
 
-    def test_build_message_history(self):
-        incoming_messages = json.dumps(
-            [
-                {"content": "Message 1", "author": "user"},
-                {"content": "Message 2", "author": "llm"},
-                {"content": "Message 3", "author": "user"},
-                {"content": "Message 4", "author": "llm"},
-            ]
-        )
+    def test_convert_message_history(self):
+        incoming_messages = [
+            HumanMessage("Message 1"),
+            AIMessage("Message 2"),
+            HumanMessage("Message 3"),
+            AIMessage("Message 4"),
+        ]
 
         expected_messages = [
             ChatMessage("Message 1", "user"),
@@ -29,8 +27,7 @@ class TestDefaultModel(unittest.TestCase):
             ChatMessage("Message 4", "llm"),
         ]
 
-        message_history = build_message_history(incoming_messages)
-        vertex_message_history = self.model.convert_message_history(message_history)
+        vertex_message_history = self.model.convert_message_history(incoming_messages)
         self.assertEqual(vertex_message_history, expected_messages)
 
 
