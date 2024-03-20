@@ -12,10 +12,10 @@
     </mat-toolbar>
 
     <!-- Custom UI for specific modes -->
-    <div *ngIf="currentMode === 'history_tutor'" class="additional-ui">
+    <div *ngIf="currentMode === 'history_tutor'" class="prompt-mode-container">
       <app-history-tutor></app-history-tutor>
     </div>
-    <div *ngIf="currentMode === 'fake'" class="additional-ui">
+    <div *ngIf="currentMode === 'fake'" class="prompt-mode-container">
       <app-fake-mode></app-fake-mode>
     </div>
     <!-- End custom UI -->

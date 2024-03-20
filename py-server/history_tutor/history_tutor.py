@@ -102,6 +102,11 @@ Chat history: {chat_history}
 BLACK_DEATH_TUTOR_CONTEXT = "./history_tutor/the_black_death.md"
 
 
+def load_file(filename):
+    with open(filename, "r") as file:
+        return file.read()
+
+
 class HistoryTutor:
     def __init__(self):
         start = time.time()
@@ -112,9 +117,12 @@ class HistoryTutor:
         end = time.time()
         print(f"HistoryTutor loaded in {end - start:0.2f} seconds")
 
-        self.lesson_context = self.load_file(BLACK_DEATH_TUTOR_CONTEXT)
+        self.lesson_context = load_file(BLACK_DEATH_TUTOR_CONTEXT)
 
     def chat(self, message_history, world_state, message):
+        if not world_state:
+            print("No world state received, creating new one")
+            world_state = self.build_world_state()
 
         updated_world_state = self.update_world_state(world_state, message_history)
 
@@ -152,7 +160,3 @@ class HistoryTutor:
             return ["failed"]
 
         return output
-
-    def load_file(self, filename):
-        with open(filename, "r") as file:
-            return file.read()
