@@ -16,6 +16,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatList, MatListItem} from '@angular/material/list';
+import {HistoryTutorComponent} from '@components/history-tutor/history-tutor.component';
+import {FakeModeComponent} from '@components/fake-mode/fake-mode.component';
 
 const materialModules = [
   MatButtonModule,
@@ -32,6 +34,8 @@ const materialModules = [
     AppComponent,
     SpeechRecognizerComponent,
     ModeSelectorComponent,
+    HistoryTutorComponent,
+    FakeModeComponent,
   ],
   imports: [
     BrowserModule,

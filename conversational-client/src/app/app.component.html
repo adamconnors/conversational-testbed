@@ -1,6 +1,8 @@
 <mat-sidenav-container>
   <mat-sidenav opened #sidenav mode="side"
-    ><app-mode-selector></app-mode-selector
+    ><app-mode-selector
+      (modeChange)="handleModeChange($event)"
+    ></app-mode-selector
   ></mat-sidenav>
 
   <mat-sidenav-content id="content" #content>
@@ -9,7 +11,17 @@
       <span>Conversational Client</span>
     </mat-toolbar>
 
+    <!-- Custom UI for specific modes -->
+    <div *ngIf="currentMode === 'history_tutor'" class="additional-ui">
+      <app-history-tutor></app-history-tutor>
+    </div>
+    <div *ngIf="currentMode === 'fake'" class="additional-ui">
+      <app-fake-mode></app-fake-mode>
+    </div>
+    <!-- End custom UI -->
+
     <div>
+      <!-- Main conversation panel-->
       <div class="conversation">
         <div
           *ngFor="let msg of conversation"

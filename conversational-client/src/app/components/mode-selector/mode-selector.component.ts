@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {PromptMode} from 'app/data/conversation';
 
 @Component({
@@ -10,9 +10,10 @@ export class ModeSelectorComponent {
   modes: PromptMode[] = ['default', 'fake', 'history_tutor'];
   currentMode: PromptMode = 'default';
 
-  constructor() {}
+  @Output() modeChange = new EventEmitter<PromptMode>();
 
   onSelectMode(mode: PromptMode) {
     this.currentMode = mode;
+    this.modeChange.emit(mode);
   }
 }
