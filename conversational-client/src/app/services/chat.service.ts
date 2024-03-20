@@ -12,7 +12,7 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  sendMessageToServer(
+  sendMessage(
     request: string,
     messageHistory: ChatMessage[],
     worldState: object,

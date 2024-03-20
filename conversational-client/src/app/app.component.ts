@@ -26,6 +26,8 @@ export class AppComponent {
 
   conversation: ChatMessage[] = [];
   interimDialogLine: string = '';
+
+  // TODO: Create an object definition for this.
   worldState: object = {};
 
   // TODO: Refactor so this is only set in one place.
@@ -41,9 +43,6 @@ export class AppComponent {
     this.currentMode = this.modeSelectorComponent.currentMode;
   }
 
-  // TODO: Is it possible to directly reference the modeSelectorComponent.currentMode
-  // instead?I tried this but I get an ExpressionChangedAfterItHasBeenCheckedError and the
-  // fix for that seemed even more messy. Sending an event feels like overkill though?
   handleModeChange(mode: PromptMode) {
     this.currentMode = mode;
   }
@@ -52,7 +51,7 @@ export class AppComponent {
     if (!dialog) {
       return;
     }
-    const responseObservable = this.chatService.sendMessageToServer(
+    const responseObservable = this.chatService.sendMessage(
       dialog,
       this.conversation,
       this.worldState,

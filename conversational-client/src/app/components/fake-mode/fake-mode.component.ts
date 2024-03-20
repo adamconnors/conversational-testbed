@@ -7,12 +7,10 @@ import {NgZone} from '@angular/core';
   styleUrl: './fake-mode.component.css',
 })
 export class FakeModeComponent {
-  worldState: object | undefined = undefined;
   worldStateDisplay: string = '';
   constructor(private zone: NgZone) {}
 
   updateWorldState(worldState: object): object {
-    this.worldState = worldState;
     this.worldStateDisplay = JSON.stringify(worldState);
     return worldState;
   }
