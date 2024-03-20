@@ -12,14 +12,16 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  getLLMLineOfDialog(
+  sendMessageToServer(
     request: string,
     messageHistory: ChatMessage[],
+    worldState: object,
     promptMode: PromptMode
   ): Observable<string> {
     const formData = new FormData();
     formData.append('q', request);
     formData.append('message_history', JSON.stringify(messageHistory));
+    formData.append('world_state', JSON.stringify(worldState));
     formData.append('mode', promptMode);
     return this.http.post(this.apiUrl, formData, {responseType: 'text'});
   }

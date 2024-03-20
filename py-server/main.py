@@ -63,10 +63,18 @@ def chat():
         return "No request sent, use ?q=", 200
     print("q", q)
 
+    # Message History
     message_history_json = flask.request.args.get(
         "message_history"
     ) or flask.request.form.get("message_history")
     message_history = build_message_history(message_history_json)
+
+    # World State
+    world_state_json = flask.request.args.get("world_state") or flask.request.form.get(
+        "world_state"
+    )
+    world_state = json.loads(world_state_json) if world_state_json else None
+    print(f"World state in main: {world_state}")
 
     # Get the right model for this use-case
     if mode_param in MODES:
@@ -75,8 +83,14 @@ def chat():
         mode = MODES["default"]
 
     print(f"Responding with {mode}.")
-    text = mode.chat(message_history, q)
-    return text, 200, {"Access-Control-Allow-Origin": "*"}
+    text, world_state = mode.chat(message_history, world_state, q)
+
+    response = {
+        "response": text,
+        "world_state": world_state,
+    }
+
+    return response, 200, {"Access-Control-Allow-Origin": "*"}
 
 
 def build_message_history(message_history_json):
@@ -94,6 +108,8 @@ def build_message_history(message_history_json):
         message history can't be parsed.
     """
     messages = []
+    if not message_history_json:
+        return messages
     try:
         for message in json.loads(message_history_json):
             if message["author"] == "user":

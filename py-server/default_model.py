@@ -31,7 +31,7 @@ class DefaultModel:
         end_time = time.time()
         print(f"Created DefaultModel in: {end_time - start_time:.2f} seconds")
 
-    def chat(self, message_history, message):
+    def chat(self, message_history, world_state, message):
         start_time = time.time()
         messages = self.convert_message_history(message_history)
         chat_session = self.chat_model.start_chat(
@@ -41,7 +41,7 @@ class DefaultModel:
         end_time = time.time()
         print(f"DefaultModel chat took: {end_time - start_time:.2f} seconds")
         text = res.candidates[0].text
-        return text
+        return text, None
 
     def convert_message_history(self, message_history):
         """
