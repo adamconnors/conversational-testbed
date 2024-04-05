@@ -10,7 +10,7 @@ export class FakeModeComponent {
   worldStateDisplay: string = '';
   constructor(private zone: NgZone) {}
 
-  updateWorldState(worldState: object): object {
+  updateWorldState(worldState: object[]): object[] {
     this.worldStateDisplay = JSON.stringify(worldState);
     return worldState;
   }

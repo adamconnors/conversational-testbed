@@ -15,6 +15,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card'; 
 import {MatList, MatListItem} from '@angular/material/list';
 import {HistoryTutorComponent} from '@components/history-tutor/history-tutor.component';
 import {FakeModeComponent} from '@components/fake-mode/fake-mode.component';
@@ -27,6 +28,7 @@ const materialModules = [
   MatSidenavModule,
   MatList,
   MatListItem,
+  MatCardModule,
 ];
 
 @NgModule({

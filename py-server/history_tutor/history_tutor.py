@@ -7,6 +7,21 @@ import json
 from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 from langchain_google_vertexai import VertexAI
 
+USE_FAKE_WORLD_STATE = False
+FAKE_WORLD_STATE_FOR_TESTING = """
+    [
+        {
+            "question": "What were the different theories about the cause of the Black Death?",
+            "answers": [
+            {"answer": "Religion: God sent the plague as a punishment for people's sins.", "hasAnswered": false},
+            {"answer": "Miasma: bad air or smells caused by decaying rubbish.", "hasAnswered": false},
+            {"answer": "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", "hasAnswered": false},
+            {"answer": "Outsiders: strangers or witches had caused the disease.", "hasAnswered": false}
+            ]
+        }
+    ]
+    """
+
 PROMPT = """
     You are an expert AUDIO chatbot designed to teach GCSE History.
     
@@ -15,7 +30,9 @@ PROMPT = """
     {lesson_context}
     ```
     
-    The JSON below represents all the questions the student needs to answer and whether or not they have answered:
+    The JSON below represents all the questions and multiple answers per question.
+    The hasAnswered flag indicates whether the student has already answered this question or not.
+    
     ```
     {world_state}
     ```
@@ -23,9 +40,11 @@ PROMPT = """
     Start by introducing the topic and giving a short summary of the main areas you'll be asking
     questions about.
     
-    Then pick the next unanswered question from the list and ask it.
+    Then pick the next question for which there are still unanswered answers.
     
-    If they have answer correctly and completely, immediately ask the next unanswered question.
+    Prompt the student to answer the question.
+    
+    If they have answered correctly and completely, immediately ask the next unanswered question.
     
     If they don't know the answer to the question or give an incorrect answer, provide a hint.
     
@@ -60,14 +79,13 @@ INITIAL_WORLD_STATE_PROMPT = """
         {{
             "question": "What were the different theories about the cause of the Black Death?",
             "answers": [
-            {{answer: "Religion: God sent the plague as a punishment for people's sins.", has_answered="false"}},
-            {{answer: "Miasma: 'bad air' or smells caused by decaying rubbish.", has_answered="false}},
-            {{answer: "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", has_answered="false}},
-            {{answer: "Outsiders: strangers or witches had caused the disease.", has_answered="false"}}
+            {{"answer": "Religion: God sent the plague as a punishment for people's sins.", "hasAnswered": false}},
+            {{"answer": "Miasma: bad air or smells caused by decaying rubbish.", "hasAnswered": false}},
+            {{"answer": "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", "hasAnswered": false}},
+            {{"answer": "Outsiders: strangers or witches had caused the disease.", "hasAnswered": false}}
             ]
         }}
-        ...
-    ] 
+    ]
 """
 
 UPDATE_WORLD_STATE_PROMPT = """
@@ -78,24 +96,23 @@ questions they need to answer and whether or not that have answered.
 {world_state}
 ```
 
-Based on the previous chat history with the student, update the world state to reflect
+Based on the previous chat history with the student and their last message, update the world state to reflect
 any questions they have answered.
 
 Chat history: {chat_history}
+Last message: {last_message}
 
     Return results as an array of JSON objects.   
-    For Example:
     [
         {{
             "question": "What were the different theories about the cause of the Black Death?",
             "answers": [
-            {{answer: "Religion: God sent the plague as a punishment for people's sins.", has_answered="false"}},
-            {{answer: "Miasma: 'bad air' or smells caused by decaying rubbish.", has_answered="false}},
-            {{answer: "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", has_answered="false}},
-            {{answer: "Outsiders: strangers or witches had caused the disease.", has_answered="false"}}
+            {{"answer": "Religion: God sent the plague as a punishment for people's sins.", "hasAnswered": false}},
+            {{"answer": "Miasma: bad air or smells caused by decaying rubbish.", "hasAnswered": false}},
+            {{"answer": "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", "hasAnswered": false}},
+            {{"answer": "Outsiders: strangers or witches had caused the disease.", "hasAnswered": false}}
             ]
         }}
-        ...
     ] 
 """
 
@@ -123,32 +140,38 @@ class HistoryTutor:
         if not world_state:
             print("No world state received, creating new one")
             world_state = self.build_world_state()
-
-        updated_world_state = self.update_world_state(world_state, message_history)
+            print("World state created", world_state)
+        else:
+            world_state = self.update_world_state(world_state, message_history, message)
 
         system_prompt = PromptTemplate.from_template(PROMPT).format(
             lesson_context=self.lesson_context,
-            world_state=json.dumps(updated_world_state),
+            world_state=json.dumps(world_state),
         )
         messages = [SystemMessage(system_prompt)]
         messages.extend(message_history)
         messages.append(HumanMessage(message))
         response = self.chat_model.invoke(messages)
-        return response.content, updated_world_state
+        return response.content, world_state
 
     def build_world_state(self):
+        if USE_FAKE_WORLD_STATE:
+            return json.loads(FAKE_WORLD_STATE_FOR_TESTING)
+
         world_state = {}
         prompt = PromptTemplate.from_template(INITIAL_WORLD_STATE_PROMPT).format(
             lesson_context=self.lesson_context
         )
         response = self.gemini.invoke(prompt)
         parser = JsonOutputParser()
-        json = parser.parse(response)
-        return json
+        rtn = parser.parse(response)
+        return rtn
 
-    def update_world_state(self, world_state, chat_history):
+    def update_world_state(self, world_state, chat_history, message):
         prompt = PromptTemplate.from_template(UPDATE_WORLD_STATE_PROMPT).format(
-            world_state=json.dumps(world_state), chat_history=chat_history
+            world_state=json.dumps(world_state),
+            chat_history=chat_history,
+            last_message=message,
         )
 
         try:

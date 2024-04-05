@@ -1,4 +1,39 @@
-.container {
-    padding-left: 4em;
-    white-space: pre;
+mat-card {
+    width: 600px;
+    margin: 0 auto;
+    padding:1em;
+}
+.percentage-complete {
+    font-size:2em;
+    padding-top: 1em;
+    font-style: italic;
+    text-align: center;
+}
+
+.question-block {
+    margin-top: 2em;
+    padding: 1em;
+    text-align: center;
+    border: 1px solid #cccccc;
+}
+
+.question {
+    background-color: lightgoldenrodyellow;
+    padding: 3px;
+}
+
+.answer {
+    margin: 10px;
+    text-align: center;
+    max-width:600px;
+}
+
+.redacted {
+    background-color: #cccccc;
+    border-radius: 10px; /* Add this line to create rounded corners */
+    color:#cccccc;
+}
+
+.no-questions {
+    text-align: center;
 }
