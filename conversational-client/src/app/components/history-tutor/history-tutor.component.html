@@ -1,5 +1,27 @@
-<div class="container">
-  <b>History Tutor State:</b>
-  {{ worldStateDisplay }}
-  ----
-</div>
+<mat-card>
+    <h1>History Tutor</h1>
+
+    <ng-container *ngIf="(worldState?.questions && worldState?.questions!.length > 0); else noQuestions">
+      Answer the questions to reveal the answers and complete the lesson.
+      You can ask for help or further clarification if you need it.
+      
+      <div class="percentage-complete">
+        {{ calculatePercentageComplete() }}% complete
+      </div>
+    
+      <div class="question-block" *ngFor="let question of worldState?.questions">
+        <div class="question"><b>{{ question.question }}</b></div>
+        <div
+          *ngFor="let answer of question.answers"
+          class="answer" 
+          [class.redacted]="answer.hasAnswered === false">
+          {{ answer.answer }}
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #noQuestions>
+      <div class="no-questions">Say: "start lesson"</div>
+    </ng-template>
+
+  </mat-card>

@@ -28,7 +28,7 @@ export class AppComponent {
   interimDialogLine: string = '';
 
   // TODO: Create an object definition for this.
-  worldState: object = {};
+  worldState: object[] = [];
 
   // TODO: Refactor so this is only set in one place.
   currentMode: PromptMode = 'default';
@@ -73,7 +73,9 @@ export class AppComponent {
       // new components that can handle world state.
       if (this.historyTutorComponent) {
         this.worldState = this.historyTutorComponent.updateWorldState(
-          this.worldState
+          // TODO: Each module defines its own world state object so we need 
+          // a clean way to do this.
+          this.worldState as object[]
         );
       }
 
