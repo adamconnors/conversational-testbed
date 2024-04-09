@@ -1,16 +1,16 @@
 import json
 import unittest
 from main import build_message_history
-from default_model import DefaultModel
+from default_model import DefaultAgent
 from vertexai.language_models import ChatMessage
 from langchain_core.messages import HumanMessage, AIMessage
 
 
 # Create a test class for the build_message_history function
-class TestDefaultModel(unittest.TestCase):
+class TestDefaultAgent(unittest.TestCase):
 
     def setUp(self):
-        self.model = DefaultModel()
+        self.model = DefaultAgent()
 
     def test_convert_message_history(self):
         incoming_messages = [

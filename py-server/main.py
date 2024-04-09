@@ -4,14 +4,13 @@ from flask_cors import CORS
 import google.cloud.texttospeech_v1 as texttospeech
 import vertexai
 import prompts
-from vertexai.language_models import ChatMessage
-from default_model import DefaultModel
+from default_model import DefaultAgent
 from history_tutor.history_tutor import HistoryTutor
-from fake_model import FakeModel
-from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from fake_model import FakeAgent
+from agents import AgentState
+from langchain_core.messages import HumanMessage, AIMessage
 
 
-CHAT_VERSION = "prompted-v1"  # 'no-prompting'|'prompted-history-tutor'
 DRY_RUN_MODE = False
 dry_run_function = prompts.dry_run_general
 
@@ -20,11 +19,12 @@ dry_run_function = prompts.dry_run_general
 app = flask.Flask(__name__)
 tts_client = texttospeech.TextToSpeechClient()
 
-# Create chat models. A model is just a class that implements the chat method
-# in order to respond to the chat history and any other context passed in.
-MODES = {
-    "default": DefaultModel(),
-    "fake": FakeModel(),
+# Create conversational agents. An agent is a ConversationalAgent subclass.
+# It's able to respond to user messages based on the conversation history
+# and previous state.
+AGENT_BY_ID = {
+    "default": DefaultAgent(),
+    "fake": FakeAgent(),
     "history_tutor": HistoryTutor(),
 }
 
@@ -78,17 +78,19 @@ def chat():
     print(f"World state in main: {world_state}")
 
     # Get the right model for this use-case
-    if mode_param in MODES:
-        mode = MODES[mode_param]
+    # TODO(alalama): update param name
+    if mode_param in AGENT_BY_ID:
+        agent = AGENT_BY_ID[mode_param]
     else:
-        mode = MODES["default"]
+        agent = AGENT_BY_ID["default"]
 
-    print(f"Responding with {mode}.")
-    text, world_state = mode.chat(message_history, world_state, q)
+    print(f"Responding with {agent}.")
+    agent_state = agent.update_state(AgentState(q, message_history, world_state))
+    text = agent.chat(q)
 
     response = {
         "response": text,
-        "world_state": world_state,
+        "world_state": agent_state.world_state,
     }
 
     return response, 200, {"Access-Control-Allow-Origin": "*"}

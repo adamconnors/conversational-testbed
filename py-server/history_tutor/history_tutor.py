@@ -1,28 +1,16 @@
-import time
-from langchain_google_vertexai import ChatVertexAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain_core.output_parsers import JsonOutputParser
 import json
-from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
-from langchain_google_vertexai import VertexAI
+import time
+import sys
+from langchain_google_vertexai import ChatVertexAI, VertexAI
+from langchain.prompts import PromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
 
-USE_FAKE_WORLD_STATE = False
-FAKE_WORLD_STATE_FOR_TESTING = """
-    [
-        {
-            "question": "What were the different theories about the cause of the Black Death?",
-            "answers": [
-            {"answer": "Religion: God sent the plague as a punishment for people's sins.", "hasAnswered": false},
-            {"answer": "Miasma: bad air or smells caused by decaying rubbish.", "hasAnswered": false},
-            {"answer": "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", "hasAnswered": false},
-            {"answer": "Outsiders: strangers or witches had caused the disease.", "hasAnswered": false}
-            ]
-        }
-    ]
-    """
+# set parent directory path
+sys.path.append("../py-server")
+from agents import ConversationalAgent
 
-CONVERSATION_PROMPT = """
+
+PROMPT = """
     You are an expert AUDIO chatbot designed to teach GCSE History.
     
     This is the history lesson plan.:
@@ -30,44 +18,37 @@ CONVERSATION_PROMPT = """
     {lesson_context}
     ```
     
-    The JSON below represents all the questions to ask. Each question has multiple parts to the answer.
+    The JSON below represents all the questions and multiple answers per question.
     The hasAnswered flag indicates whether the student has already answered this question or not.
     
     ```
     {world_state}
     ```
     
-    Chat history: {chat_history}
-    Last message: {last_message}
-
-    
     Start by introducing the topic and giving a short summary of the main areas you'll be asking
     questions about.
-        
-    Ask the next question for which there are still unanswered parts.
     
-    Always prompt the student to answer the question unless they have asked you a question.
+    Then pick the next question for which there are still unanswered answers.
     
-    Think step-by-step:
+    Prompt the student to answer the question.
     
-    1. Have they answered the question correctly?
-    If they have, congratulation them and add a few more details if appropriate.
+    If they have answered correctly and completely, immediately ask the next unanswered question.
     
-    2. Are there more answers to this question? If so, ask the student for more information.
-    Don't repeat the last phrase you said, it sounds silly.
+    If they don't know the answer to the question or give an incorrect answer, provide a hint.
     
-    3. If they got the answer wrong or don't know, provide a subtle clue to guide them to the right answer.
+    If they don't get it after two hints, give them the answer.
     
-    4. Don't move on to the next question until all parts of the current question have been answered.
+    If there are multiple answers to a question, stay on that topic until it has been answered completely.
     
-    5. If they ask a question about the topic, answer it, even if it is not in the provided information.
-        
+    If they ask a question about the topic, answer it, even if it is not in the provided information.
+    
+    If they give an incomplete answer, prompt them for more details.   
+    
     Always be warm and encouraging. Before you reply, attend, think and remember all the
     instructions set here. You are truthful and never lie. Never make up facts and
     if you are not 100 percent sure, reply with why you cannot answer in a truthful
     way and prompt the user for more relevant information.
-    
-    Always finish with a prompt to answer the next question.
+  
 """
 
 INITIAL_WORLD_STATE_PROMPT = """
@@ -109,7 +90,18 @@ any questions they have answered.
 Chat history: {chat_history}
 Last message: {last_message}
 
-    Return results as an array of JSON objects. Return ALL answers in the original world state.  
+    Return results as an array of JSON objects.   
+    [
+        {{
+            "question": "What were the different theories about the cause of the Black Death?",
+            "answers": [
+            {{"answer": "Religion: God sent the plague as a punishment for people's sins.", "hasAnswered": false}},
+            {{"answer": "Miasma: bad air or smells caused by decaying rubbish.", "hasAnswered": false}},
+            {{"answer": "Four Humours: most physicians believed that disease was caused by an imbalance in the Four Humours.", "hasAnswered": false}},
+            {{"answer": "Outsiders: strangers or witches had caused the disease.", "hasAnswered": false}}
+            ]
+        }}
+    ] 
 """
 
 BLACK_DEATH_TUTOR_CONTEXT = "./history_tutor/the_black_death.md"
@@ -120,7 +112,7 @@ def load_file(filename):
         return file.read()
 
 
-class HistoryTutor:
+class HistoryTutor(ConversationalAgent):
     def __init__(self):
         start = time.time()
         self.gemini = VertexAI(model_name="gemini-pro")
@@ -132,80 +124,39 @@ class HistoryTutor:
 
         self.lesson_context = load_file(BLACK_DEATH_TUTOR_CONTEXT)
 
-    def chat(self, message_history, world_state, message):
-        
-        log_entry = f"""
-        --- INCOMING ---
-          ** message_history **
-          {message_history}
-          
-          ** message **
-          {message}
-          
-          ** world state **
-          {world_state}
-        ----------------
-        """
-        #self.log.write_log(log_entry)
-        
-        if not world_state:
-            print("No world state received, creating new one")
-            world_state = self.build_world_state()
-            print("World state created", world_state)
-        else:
-            world_state = self.update_world_state(world_state, message_history, message)
+    def chat(self, message: str):
+        response = self.chat_model.invoke(self._state.message_history)
+        return response.content
 
-        system_prompt = PromptTemplate.from_template(CONVERSATION_PROMPT).format(
+    def _build_system_prompt(self, state):
+        return PromptTemplate.from_template(PROMPT).format(
             lesson_context=self.lesson_context,
-            chat_history=message_history,
-            last_message=message,
-            world_state=json.dumps(world_state),
+            world_state=json.dumps(state.world_state),
         )
-        messages = [SystemMessage(system_prompt)]
-        messages.extend(message_history)
-        messages.append(HumanMessage(message))
-        response = self.chat_model.invoke(messages)
-        
-        log_entry = f"""
-        --- OUTGOING ---
-            ** response **
-            {response}
-            
-            ** world state **
-            {world_state}
-        ----------------
-        """
-        #self.log.write_log(log_entry)
-        
-        return response.content, world_state
 
-    def build_world_state(self):
-        if USE_FAKE_WORLD_STATE:
-            return json.loads(FAKE_WORLD_STATE_FOR_TESTING)
-
-        world_state = {}
+    def _init_world_state(self):
         prompt = PromptTemplate.from_template(INITIAL_WORLD_STATE_PROMPT).format(
             lesson_context=self.lesson_context
         )
         response = self.gemini.invoke(prompt)
-        parser = JsonOutputParser()
-        rtn = parser.parse(response)
-        return rtn
+        return JsonOutputParser().parse(response)
 
-    def update_world_state(self, world_state, chat_history, message):
-        print(message)
+    def _build_world_state(self, state):
+        world_state = None
+        if not state.world_state:
+            print("No world state received, creating new one")
+            world_state = self._init_world_state()
+            print("World state created", world_state)
+            return world_state
+
         prompt = PromptTemplate.from_template(UPDATE_WORLD_STATE_PROMPT).format(
-            world_state=json.dumps(world_state),
-            chat_history=chat_history,
-            last_message=message,
+            world_state=json.dumps(state.world_state),
+            chat_history=state.message_history,
+            last_message=state.message,
         )
-
         try:
             response = self.gemini.invoke(prompt)
-            parser = JsonOutputParser()
-            output = parser.parse(response)
+            return JsonOutputParser().parse(response)
         except Exception as e:
             print("Couldn't parse world_state", e)
-            return ["failed"]
-
-        return output
+            return {"failed": True}
