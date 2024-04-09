@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from typing import Any, List, Tuple
-from langchain_core.messages import BaseMessage
+from langchain_core.messages import BaseMessage, SystemMessage
 
 MessageHistory = List[BaseMessage]
 WorldState = dict[str, Any]
@@ -51,6 +51,17 @@ class ConversationalAgent(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def _build_system_prompt(self, state: AgentState) -> str:
+        """Constructs the agent's system prompt. Protected method.
+
+        Args:
+            state: current agent state
+        Returns:
+            Agent's system prompt
+        """
+        pass
+
+    @abstractmethod
     def _build_world_state(self, state: AgentState) -> WorldState:
         """Builds a new world state. Protected method.
 
@@ -61,7 +72,6 @@ class ConversationalAgent(metaclass=ABCMeta):
         """
         pass
 
-    @abstractmethod
     def _build_message_history(self, state: AgentState) -> MessageHistory:
         """Builds a message history. Protected method.
 
@@ -70,4 +80,7 @@ class ConversationalAgent(metaclass=ABCMeta):
         Returns:
             New MessageHistory.
         """
-        pass
+        messages = [SystemMessage(self._build_system_prompt(state))]
+        messages.extend(state.message_history)
+        messages.append(state.message)
+        return messages
