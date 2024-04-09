@@ -36,7 +36,7 @@ class ConversationalAgent(metaclass=ABCMeta):
         new_state = state
         new_state.world_state = self._build_world_state(new_state)
         new_state.message_history = self._build_message_history(new_state)
-        self._state = state
+        self._state = new_state
         return self._state
 
     @abstractmethod
