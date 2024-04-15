@@ -14,7 +14,7 @@ export class HistoryTutorComponent {
 
   // Called when the worldstate is returned from the server.
   updateWorldState(state: object[]): object[] {
-    console.log("Got updated world state");
+    console.log('Got updated world state');
     console.log(state);
     const questions: Question[] = [];
     for (const question of state) {
