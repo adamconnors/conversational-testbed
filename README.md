@@ -3,6 +3,7 @@ To run locally:
 Client:
 ```
   cd conversational-client
+  npm install
   ng serve
 ```
 
