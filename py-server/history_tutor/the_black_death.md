@@ -45,9 +45,3 @@ The Black Death reached Britain in 1348, killing about one-third of the populati
 * holding bread against the buboes, then burying it in the ground
 
 * eating cool things and taking cold baths.
-
-## Key facts
-
-* Most people thought the Black Death was sent by God. Physicians and some others believed it was caused by an imbalance in the humours, or by miasma. 
-
-* People used a mix of rational and supernatural methods to try to prevent or treat the Black Death.
