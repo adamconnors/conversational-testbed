@@ -24,7 +24,8 @@ class TestMain(unittest.TestCase):
         resp = self.client.post("/chat", data=req)
         data = json.loads(resp.get_data())
         self.assertEqual(data["response"], "This is a canned response.")
-        self.assertEqual(data["world_state"][0]["user"], "user message")
+        print(data["world_state"])
+        self.assertEqual(data["world_state"]["user_messages"][0], "user message")
 
     def test_world_state_round_trip(self):
         req = {
@@ -45,8 +46,8 @@ class TestMain(unittest.TestCase):
         resp2 = self.client.post("/chat", data=next_req)
         data2 = json.loads(resp2.get_data())
         world_state2 = data2["world_state"]
-        self.assertEqual(world_state2[0]["user"], "user message 1")
-        self.assertEqual(world_state2[1]["user"], "user message 2")
+        self.assertEqual(world_state2["user_messages"][0], "user message 1")
+        self.assertEqual(world_state2["user_messages"][1], "user message 2")
 
     @unittest.skip("Not implemented")
     def test_build_message_history(self):

@@ -73,7 +73,7 @@ export class AppComponent {
       // new components that can handle world state.
       if (this.historyTutorComponent) {
         this.worldState = this.historyTutorComponent.updateWorldState(
-          // TODO: Each module defines its own world state object so we need 
+          // TODO: Each module defines its own world state object so we need
           // a clean way to do this.
           this.worldState as object[]
         );

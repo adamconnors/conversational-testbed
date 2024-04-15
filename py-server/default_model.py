@@ -1,7 +1,8 @@
-import vertexai
-from vertexai.language_models import ChatMessage, ChatModel
-from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 import time
+from langchain.prompts import PromptTemplate
+from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_google_vertexai import ChatVertexAI
+from agents import ConversationalAgent
 
 PROMPT = """
     You are an expert AUDIO chatbot designed to support my project work.
@@ -24,38 +25,24 @@ PROMPT = """
 """
 
 
-class DefaultModel:
+class DefaultAgent(ConversationalAgent):
     def __init__(self):
-
         start_time = time.time()
-        vertexai.init()
-        self.chat_model = ChatModel.from_pretrained("chat-bison@002")
-        end_time = time.time()
-        print(f"Created DefaultModel in: {end_time - start_time:.2f} seconds")
-
-    def chat(self, message_history, world_state, message):
-        start_time = time.time()
-        messages = self.convert_message_history(message_history)
-        chat_session = self.chat_model.start_chat(
-            context=PROMPT, message_history=messages
+        self.chat_model = ChatVertexAI(
+            model="gemini-pro", convert_system_message_to_human=True
         )
-        res = chat_session.send_message(message)
         end_time = time.time()
-        print(f"DefaultModel chat took: {end_time - start_time:.2f} seconds")
-        text = res.candidates[0].text
-        return text, None
+        print(f"Created DefaultAgent in: {end_time - start_time:.2f} seconds")
 
-    def convert_message_history(self, message_history):
-        """
-        Converts langchain message history to ChatMessage format
-        so that we can always refer back to the direct API version.
-        """
-        messages = []
-        for message in message_history:
-            if isinstance(message, AIMessage):
-                messages.append(ChatMessage(content=message.content, author="llm"))
-            elif isinstance(message, HumanMessage):
-                messages.append(ChatMessage(content=message.content, author="user"))
-        if not message_history:
-            message_history = None
-        return messages
+    def chat(self, message: str):
+        start_time = time.time()
+        response = self.chat_model.invoke(self._state.message_history)
+        end_time = time.time()
+        print(f"DefaultAgent chat took: {end_time - start_time:.2f} seconds")
+        return response.content
+
+    def _build_system_prompt(self, state):
+        return PROMPT
+
+    def _build_world_state(self, state):
+        return {}
