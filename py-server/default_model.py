@@ -1,3 +1,4 @@
+import vertexai
 from vertexai.language_models import ChatMessage, ChatModel
 from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 import time
@@ -27,6 +28,7 @@ class DefaultModel:
     def __init__(self):
 
         start_time = time.time()
+        vertexai.init()
         self.chat_model = ChatModel.from_pretrained("chat-bison@002")
         end_time = time.time()
         print(f"Created DefaultModel in: {end_time - start_time:.2f} seconds")

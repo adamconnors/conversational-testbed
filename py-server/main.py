@@ -2,6 +2,7 @@ import json
 import flask
 from flask_cors import CORS
 import google.cloud.texttospeech_v1 as texttospeech
+import vertexai
 import prompts
 from vertexai.language_models import ChatMessage
 from default_model import DefaultModel
