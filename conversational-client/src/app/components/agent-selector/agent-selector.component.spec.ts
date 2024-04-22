@@ -1,17 +1,17 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ModeSelectorComponent} from './mode-selector.component';
+import {AgentSelectorComponent} from './agent-selector.component';
 
-describe('ModeSelectorComponent', () => {
-  let component: ModeSelectorComponent;
-  let fixture: ComponentFixture<ModeSelectorComponent>;
+describe('AgentSelectorComponent', () => {
+  let component: AgentSelectorComponent;
+  let fixture: ComponentFixture<AgentSelectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModeSelectorComponent],
+      imports: [AgentSelectorComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModeSelectorComponent);
+    fixture = TestBed.createComponent(AgentSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,9 @@
+<mat-list>
+  <mat-list-item
+    *ngFor="let agentId of _agentIds"
+    (click)="agentSelectionChanged(agentId)"
+    [class.selected]="agentId === selectedAgentId"
+  >
+    {{ getAgentDisplayName(agentId) }}
+  </mat-list-item>
+</mat-list>

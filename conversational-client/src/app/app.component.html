@@ -1,8 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav opened #sidenav mode="side"
-    ><app-mode-selector
-      (modeChange)="handleModeChange($event)"
-    ></app-mode-selector
+    ><app-agent-selector [(selectedAgentId)]="agentId"></app-agent-selector
   ></mat-sidenav>
 
   <mat-sidenav-content id="content" #content>
@@ -12,10 +10,10 @@
     </mat-toolbar>
 
     <!-- Custom UI for specific modes -->
-    <div *ngIf="currentMode === 'history_tutor'" class="prompt-mode-container">
+    <div *ngIf="agentId === 'history_tutor'" class="prompt-mode-container">
       <app-history-tutor></app-history-tutor>
     </div>
-    <div *ngIf="currentMode === 'fake'" class="prompt-mode-container">
+    <div *ngIf="agentId === 'fake'" class="prompt-mode-container">
       <app-fake-mode></app-fake-mode>
     </div>
     <!-- End custom UI -->

@@ -1,22 +1,23 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SpeechRecognizerComponent} from '@components/speech-recognizer/speech-recognizer.component';
-import {ModeSelectorComponent} from '@components/mode-selector/mode-selector.component';
+import {AgentSelectorComponent} from '@components/agent-selector/agent-selector.component';
 import {ChatService} from '@services/chat.service';
-import {ChatMessage, PromptMode} from 'app/data/conversation';
+import {ChatMessage, AgentId, AGENT_IDS} from 'app/data/conversation';
 import {debounce} from './util/debounce';
 import {HistoryTutorComponent} from '@components/history-tutor/history-tutor.component';
 import {FakeModeComponent} from '@components/fake-mode/fake-mode.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild(SpeechRecognizerComponent)
   speechRecognizerComponent!: SpeechRecognizerComponent;
-  @ViewChild(ModeSelectorComponent)
-  modeSelectorComponent!: ModeSelectorComponent;
+  @ViewChild(AgentSelectorComponent)
+  agentSelectorComponent!: AgentSelectorComponent;
   @ViewChild('content', {read: ElementRef})
   contentElement!: ElementRef;
   @ViewChild(HistoryTutorComponent)
@@ -30,32 +31,35 @@ export class AppComponent {
   // TODO: Create an object definition for this.
   worldState: object[] = [];
 
-  // TODO: Refactor so this is only set in one place.
-  currentMode: PromptMode = 'default';
+  agentId: AgentId | null = 'default';
 
   private debouncedScrollToBottom: () => void;
 
-  constructor(private chatService: ChatService) {
+  constructor(
+    private chatService: ChatService,
+    private route: ActivatedRoute
+  ) {
     this.debouncedScrollToBottom = debounce(this.scrollToBottom);
   }
 
-  nAfterViewInit(): void {
-    this.currentMode = this.modeSelectorComponent.currentMode;
-  }
-
-  handleModeChange(mode: PromptMode) {
-    this.currentMode = mode;
+  ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      const agentIdParam = params.get('agent');
+      if (AGENT_IDS.includes(agentIdParam as AgentId)) {
+        this.agentId = agentIdParam as AgentId;
+      }
+    });
   }
 
   handleNewLineOfDialog(dialog: string) {
-    if (!dialog) {
+    if (!dialog || !this.agentId) {
       return;
     }
     const responseObservable = this.chatService.sendMessage(
       dialog,
       this.conversation,
       this.worldState,
-      this.modeSelectorComponent.currentMode
+      this.agentId
     );
     responseObservable.subscribe((llmResponse: string) => {
       // Update the UI only once, when we receive the LLM response.

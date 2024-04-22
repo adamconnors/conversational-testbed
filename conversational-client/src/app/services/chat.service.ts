@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ChatMessage, PromptMode} from 'app/data/conversation';
+import {ChatMessage, AgentId} from 'app/data/conversation';
 import {environment} from 'environments/environment';
 
 @Injectable({
@@ -16,13 +16,13 @@ export class ChatService {
     request: string,
     messageHistory: ChatMessage[],
     worldState: object,
-    promptMode: PromptMode
+    agentId: AgentId
   ): Observable<string> {
     const formData = new FormData();
     formData.append('q', request);
     formData.append('message_history', JSON.stringify(messageHistory));
     formData.append('world_state', JSON.stringify(worldState));
-    formData.append('mode', promptMode);
+    formData.append('agent_id', agentId);
     return this.http.post(this.apiUrl, formData, {responseType: 'text'});
   }
 
