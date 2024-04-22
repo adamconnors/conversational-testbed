@@ -4,6 +4,6 @@ export interface ChatMessage {
   content: string;
 }
 
-// Controls the model and prompt used in a conversation.
-// TODO: Prettify display strings in the menu.
-export type PromptMode = 'default' | 'fake' | 'history_tutor';
+// Controls the agent used in a conversation.
+export const AGENT_IDS = ['default', 'fake', 'history_tutor'] as const;
+export type AgentId = (typeof AGENT_IDS)[number];

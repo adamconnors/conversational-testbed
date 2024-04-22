@@ -59,8 +59,7 @@ def tts():
 @app.route("/chat", methods=["POST", "GET"])
 def chat():
     q = flask.request.args.get("q") or flask.request.form.get("q")
-    # TODO(alalama): update param name
-    agent_mode = flask.request.args.get("mode") or flask.request.form.get("mode")
+    agent_id = flask.request.args.get("agent_id") or flask.request.form.get("agent_id")
     if q is None:
         return "No request sent, use ?q=", 200
     print("q", q)
@@ -79,8 +78,8 @@ def chat():
     print(f"World state in main: {world_state}")
 
     # Get the right model for this use-case
-    if agent_mode in AGENT_BY_ID:
-        agent = AGENT_BY_ID[agent_mode]
+    if agent_id in AGENT_BY_ID:
+        agent = AGENT_BY_ID[agent_id]
     else:
         agent = AGENT_BY_ID["default"]
 
