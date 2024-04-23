@@ -10,6 +10,9 @@
     Answer the questions to reveal the answers and complete the lesson. You can
     ask for help or further clarification if you need it.
 
+    <div id="note">NB: This is an experimental experience, your mileage may vary.</div>
+
+
     <div class="percentage-complete">
       {{ calculatePercentageComplete() }}% complete
     </div>
@@ -21,14 +24,14 @@
       <div
         *ngFor="let answer of question.answers"
         class="answer"
-        [class.redacted]="answer.hasAnswered === false"
+        [class.redacted]="!hasAnswered(answer)"
       >
-        {{ answer.answer }}
+        {{ answer.answer }} 
       </div>
     </div>
   </ng-container>
 
   <ng-template #noQuestions>
-    <div class="no-questions">Say: "start lesson"</div>
+    <div class="no-questions">Loading... Please wait.</div>
   </ng-template>
 </mat-card>
