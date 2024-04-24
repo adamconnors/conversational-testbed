@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   interimDialogLine: string = '';
 
   // TODO: Create an object definition for this.
-  worldState: object[] = [];
+  worldState: object = {};
 
   agentId: AgentId | null = 'default';
 
@@ -76,10 +76,9 @@ export class AppComponent implements OnInit {
       // TODO: Make this an interface so it's easy to add
       // new components that can handle world state.
       if (this.historyTutorComponent) {
+        // TODO: This is temporarily broken while fixing up APIs.
         this.worldState = this.historyTutorComponent.updateWorldState(
-          // TODO: Each module defines its own world state object so we need
-          // a clean way to do this.
-          this.worldState as object[]
+          []
         );
       }
 

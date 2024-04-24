@@ -2,11 +2,10 @@ import json
 import flask
 from flask_cors import CORS
 import google.cloud.texttospeech_v1 as texttospeech
-import vertexai
 import prompts
-from default_model import DefaultAgent
+from default_agent import DefaultAgent
+from fake_agent import FakeAgent
 from history_tutor.history_tutor import HistoryTutor
-from fake_model import FakeAgent
 from agents import AgentState
 from langchain_core.messages import HumanMessage, AIMessage
 
@@ -84,12 +83,12 @@ def chat():
         agent = AGENT_BY_ID["default"]
 
     print(f"Responding with {agent}.")
-    agent_state = agent.update_state(AgentState(q, message_history, world_state))
-    text = agent.chat(q)
+    agent_response, agent_world_state = agent.chat(AgentState(q, message_history, world_state))
 
+    # TODO: Can we skip this step and pass it directly to the response?
     response = {
-        "response": text,
-        "world_state": agent_state.world_state,
+        "response": agent_response,
+        "world_state": agent_world_state,
     }
 
     return response, 200, {"Access-Control-Allow-Origin": "*"}

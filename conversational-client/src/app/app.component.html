@@ -21,7 +21,7 @@
     <div>
       <!-- Main conversation panel-->
       <div class="conversation">
-        <!--<div
+        <div
           *ngFor="let msg of conversation"
           class="message-container"
           [class.message-user]="msg.author === 'user'"
@@ -30,7 +30,7 @@
             <mat-chip>{{ msg.author }}</mat-chip>
           </mat-chip-set>
           <span class="message-content">{{ msg.content }}</span>
-        </div>-->
+        </div>
         <div class="message-container message-user" *ngIf="!!interimDialogLine">
           <span class="message-content">{{ interimDialogLine }}</span>
         </div>
