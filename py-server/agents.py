@@ -1,7 +1,9 @@
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from typing import Any, List, Tuple
-from langchain_core.messages import BaseMessage, SystemMessage
+from langchain_core.messages import BaseMessage, SystemMessage, HumanMessage
+from langchain_core.prompts import ChatPromptTemplate
+
 
 MessageHistory = List[BaseMessage]
 WorldState = dict[str, Any]
@@ -25,22 +27,8 @@ class ConversationalAgent(metaclass=ABCMeta):
     def __init__(self) -> None:
         self._state: AgentState = None
 
-    def update_state(self, state: AgentState) -> AgentState:
-        """Updates the agent's state with new information.
-
-        Args:
-            state: new state to incorporate into the agent's state.
-        Returns:
-            Updated AgentState.
-        """
-        new_state = state
-        new_state.world_state = self._build_world_state(new_state)
-        new_state.message_history = self._build_message_history(new_state)
-        self._state = new_state
-        return self._state
-
     @abstractmethod
-    def chat(self, message: str) -> str:
+    def chat(self, agent_state: AgentState) -> AgentResponse:
         """Handles a single message exchange with the conversational agent.
 
         Args:
@@ -50,37 +38,18 @@ class ConversationalAgent(metaclass=ABCMeta):
         """
         pass
 
-    @abstractmethod
-    def _build_system_prompt(self, state: AgentState) -> str:
-        """Constructs the agent's system prompt. Protected method.
-
+    def _from_messages(self, system_prompt: str, state: AgentState):
+        """
+        Builds the prompt template value from the agent's state.
+        Equivalent to ChatPromptTemplate.from_messages but adds
+        the current message and the system prompt to the message history.
         Args:
+            system_prompt: the system prompt for this agent
             state: current agent state
         Returns:
-            Agent's system prompt
+            ChatPromptValue object.
         """
-        pass
-
-    @abstractmethod
-    def _build_world_state(self, state: AgentState) -> WorldState:
-        """Builds a new world state. Protected method.
-
-        Args:
-            state: current agent's state
-        Returns:
-            New WorldState.
-        """
-        pass
-
-    def _build_message_history(self, state: AgentState) -> MessageHistory:
-        """Builds a message history. Protected method.
-
-        Args:
-            state: current agent's state
-        Returns:
-            New MessageHistory.
-        """
-        messages = [SystemMessage(self._build_system_prompt(state))]
-        messages.extend(state.message_history)
-        messages.append(state.message)
-        return messages
+        messages = state.message_history
+        messages.insert(0, ("system", system_prompt))
+        messages.append(HumanMessage(state.message))
+        return ChatPromptTemplate.from_messages(messages)

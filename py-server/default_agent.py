@@ -1,11 +1,11 @@
 import time
-from langchain.prompts import PromptTemplate
+from langchain.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_google_vertexai import ChatVertexAI
-from agents import ConversationalAgent
+from agents import AgentResponse, AgentState, ConversationalAgent
 
-PROMPT = """
-    You are an expert AUDIO chatbot designed to support my project work.
+SYSTEM_PROMPT = """
+    You are an expert AUDIO chatbot designed to help me.
     
     Respond as if you are having a natural VOICE conversation.
     
@@ -18,6 +18,9 @@ PROMPT = """
     DON'T try to answer if you don't have enough information. Prompt the user
     for more relevant information.
     
+    Some information that might be useful for you:
+      - The current time is {current_time}.
+            
     Before you reply, attend, think and remember all the
     instructions set here. You are truthful and never lie. Never make up facts and
     if you are not 100 percent sure, reply with why you cannot answer in a truthful
@@ -34,15 +37,13 @@ class DefaultAgent(ConversationalAgent):
         end_time = time.time()
         print(f"Created DefaultAgent in: {end_time - start_time:.2f} seconds")
 
-    def chat(self, message: str):
+    def chat(self, agent_state) -> AgentResponse:
         start_time = time.time()
-        response = self.chat_model.invoke(self._state.message_history)
+        promptTemplate = self._from_messages(SYSTEM_PROMPT, agent_state)
+        prompt = promptTemplate.invoke({"current_time": time.strftime("%I:%M %p")})
+
+        # Invoke the model with the prompt.
+        response = self.chat_model.invoke(prompt)
         end_time = time.time()
         print(f"DefaultAgent chat took: {end_time - start_time:.2f} seconds")
-        return response.content
-
-    def _build_system_prompt(self, state):
-        return PROMPT
-
-    def _build_world_state(self, state):
-        return {}
+        return (response.content, {})
