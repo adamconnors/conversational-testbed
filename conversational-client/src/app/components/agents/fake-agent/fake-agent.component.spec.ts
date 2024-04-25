@@ -1,17 +1,17 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {FakeModeComponent} from './fake-mode.component';
+import {FakeAgentComponent} from './fake-agent.component';
 
-describe('FakeModeComponent', () => {
-  let component: FakeModeComponent;
-  let fixture: ComponentFixture<FakeModeComponent>;
+describe('FakeAgentComponent', () => {
+  let component: FakeAgentComponent;
+  let fixture: ComponentFixture<FakeAgentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FakeModeComponent],
+      imports: [FakeAgentComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FakeModeComponent);
+    fixture = TestBed.createComponent(FakeAgentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

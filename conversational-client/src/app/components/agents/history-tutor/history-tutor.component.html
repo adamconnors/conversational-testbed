@@ -10,8 +10,9 @@
     Answer the questions to reveal the answers and complete the lesson. You can
     ask for help or further clarification if you need it.
 
-    <div id="note">NB: This is an experimental experience, your mileage may vary.</div>
-
+    <div id="note">
+      NB: This is an experimental experience, your mileage may vary.
+    </div>
 
     <div class="percentage-complete">
       {{ calculatePercentageComplete() }}% complete
@@ -26,7 +27,7 @@
         class="answer"
         [class.redacted]="!hasAnswered(answer)"
       >
-        {{ answer.answer }} 
+        {{ answer.answer }}
       </div>
     </div>
   </ng-container>
