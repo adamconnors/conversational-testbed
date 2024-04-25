@@ -15,7 +15,7 @@ export class ChatService {
   sendMessage(
     request: string,
     messageHistory: ChatMessage[],
-    worldState: object,
+    worldState: unknown,
     agentId: AgentId
   ): Observable<string> {
     const formData = new FormData();
