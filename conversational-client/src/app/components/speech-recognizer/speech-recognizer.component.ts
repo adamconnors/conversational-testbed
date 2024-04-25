@@ -44,7 +44,6 @@ export class SpeechRecognizerComponent {
       this.zone.run(() => {
         this.listenState = ListenState.Listening;
       });
-      console.log('info_speak_now');
     };
 
     this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
@@ -65,7 +64,6 @@ export class SpeechRecognizerComponent {
 
     // called by speech recognition engine
     this.recognition.onend = () => {
-      console.log('info_end');
       if (this.listenState === ListenState.Listening) {
         // This is a timeout from the speechAPI so automatically restart.
         console.log('SpeechAPI timeout, automatically restarting.');
@@ -147,11 +145,9 @@ export class SpeechRecognizerComponent {
   // Called by user button press.
   onStartStop() {
     if (this.isListening()) {
-      console.log('stop listening');
       this.listenState = ListenState.Paused;
       this.recognition!.stop();
     } else {
-      console.log('start listening');
       this.listenState = ListenState.Listening;
       this.audio.pause(); // Stop the audio from playing
       this.recognition!.lang = 'en-GB';

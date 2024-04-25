@@ -1,26 +1,38 @@
 import {Component} from '@angular/core';
+import {Agent, AgentState} from '@data/conversation';
+
+interface WorldState {
+  questions: Question[];
+}
+
+interface Question {
+  question: string;
+  answers: Answer[];
+}
+
+interface Answer {
+  answer: string;
+  hasAnswered: boolean | string;
+  has_answered: boolean | string;
+}
 
 @Component({
   selector: 'app-history-tutor',
   templateUrl: './history-tutor.component.html',
   styleUrl: './history-tutor.component.css',
 })
-export class HistoryTutorComponent {
-  worldState: WorldState | undefined;
-
-  getInitialWorldState(): object[] {
-    return [];
-  }
+export class HistoryTutorComponent implements Agent {
+  worldState: WorldState = {questions: []};
 
   // Called when the worldstate is returned from the server.
-  updateWorldState(state: object[]): object[] {
-    this.worldState = {questions: state as Question[]};
+  updateState(state: AgentState) {
+    this.worldState = {questions: state.worldState as Question[]};
 
     // TODO: I'm converting into an object model so I can render if more cleanly,
     // but the object model is specific to each module so I end up returning the original
     // JSON object. If the client ends up needing to update the world state this will mean
     // converting it and then converting it back. I need to find a better way to do this.
-    return state;
+    return {...state, worldState: this.worldState};
   }
 
   // TODO: This is because sometimes the model changes the name of the field. I need to
@@ -57,20 +69,4 @@ export class HistoryTutorComponent {
     }
     return Math.round((correctAnswers / totalAnswers) * 100);
   }
-}
-
-interface WorldState {
-  questions: Question[];
-}
-
-interface Question {
-  question: string;
-  answers: Answer[];
-}
-
-// Interface is needed since LLM object is not always consistent.
-interface Answer {
-  answer: string;
-  hasAnswered: boolean | string;
-  has_answered: boolean | string;
 }

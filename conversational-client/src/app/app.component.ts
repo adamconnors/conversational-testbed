@@ -1,4 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {SpeechRecognizerComponent} from '@components/speech-recognizer/speech-recognizer.component';
 import {AgentSelectorComponent} from '@components/agent-selector/agent-selector.component';
 import {ChatService} from '@services/chat.service';
@@ -7,13 +13,21 @@ import {debounce} from './util/debounce';
 import {HistoryTutorComponent} from '@components/agents/history-tutor/history-tutor.component';
 import {FakeAgentComponent} from '@components/agents/fake-agent/fake-agent.component';
 import {ActivatedRoute} from '@angular/router';
+import {Agent, AgentState} from '@data/conversation';
+
+// Conversational agent without UI or world state.
+class DefaultAgent implements Agent {
+  updateState(state: AgentState) {
+    return state;
+  }
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   @ViewChild(SpeechRecognizerComponent)
   speechRecognizerComponent!: SpeechRecognizerComponent;
   @ViewChild(AgentSelectorComponent)
@@ -28,10 +42,9 @@ export class AppComponent implements OnInit {
   conversation: ChatMessage[] = [];
   interimDialogLine: string = '';
 
-  // TODO: Create an object definition for this.
-  worldState: object = {};
-
   agentId: AgentId = 'default';
+  private agentRegistry: {[k in AgentId]: Agent} | null = null;
+  private agentState: AgentState = {messageHistory: [], worldState: {}};
 
   private debouncedScrollToBottom: () => void;
 
@@ -51,14 +64,23 @@ export class AppComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    // Initialize the agent registries once child views are ready.
+    this.agentRegistry = {
+      default: new DefaultAgent(),
+      fake: this.fakeAgentComponent,
+      history_tutor: this.historyTutorComponent,
+    };
+  }
+
   handleNewLineOfDialog(dialog: string) {
-    if (!dialog || !this.agentId) {
+    if (!dialog) {
       return;
     }
     const responseObservable = this.chatService.sendMessage(
       dialog,
       this.conversation,
-      this.worldState,
+      this.agentState.worldState as object,
       this.agentId
     );
     responseObservable.subscribe((llmResponse: string) => {
@@ -67,23 +89,16 @@ export class AppComponent implements OnInit {
 
       const parsedResponse = JSON.parse(llmResponse);
       const llmDialog = parsedResponse['response'];
-      this.worldState = parsedResponse['world_state'];
+      const worldState = parsedResponse['world_state'];
       const userMessage = {content: dialog, author: 'user'};
       const llmMessage = {content: llmDialog, author: 'llm'};
       this.conversation = [...this.conversation, userMessage, llmMessage];
       this.speechRecognizerComponent.handleLLMResponse(llmDialog);
 
-      // TODO: Make this an interface so it's easy to add
-      // new components that can handle world state.
-      if (this.historyTutorComponent) {
-        // TODO: This is temporarily broken while fixing up APIs.
-        this.worldState = this.historyTutorComponent.updateWorldState([]);
-      }
-
-      if (this.fakeAgentComponent) {
-        this.worldState = this.fakeAgentComponent.updateWorldState(
-          this.worldState
-        );
+      const agentState = {messageHistory: this.conversation, worldState};
+      const agent = this.agentRegistry![this.agentId];
+      if (agent) {
+        this.agentState = agent.updateState(agentState);
       }
 
       this.debouncedScrollToBottom();
