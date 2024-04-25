@@ -14,7 +14,7 @@ export class HistoryTutorComponent {
 
   // Called when the worldstate is returned from the server.
   updateWorldState(state: object[]): object[] {
-    this.worldState = { questions: state as Question[] };
+    this.worldState = {questions: state as Question[]};
 
     // TODO: I'm converting into an object model so I can render if more cleanly,
     // but the object model is specific to each module so I end up returning the original

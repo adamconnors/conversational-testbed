@@ -4,8 +4,8 @@ import {AgentSelectorComponent} from '@components/agent-selector/agent-selector.
 import {ChatService} from '@services/chat.service';
 import {ChatMessage, AgentId, AGENT_IDS} from 'app/data/conversation';
 import {debounce} from './util/debounce';
-import {HistoryTutorComponent} from '@components/history-tutor/history-tutor.component';
-import {FakeModeComponent} from '@components/fake-mode/fake-mode.component';
+import {HistoryTutorComponent} from '@components/agents/history-tutor/history-tutor.component';
+import {FakeAgentComponent} from '@components/agents/fake-agent/fake-agent.component';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
   contentElement!: ElementRef;
   @ViewChild(HistoryTutorComponent)
   historyTutorComponent!: HistoryTutorComponent;
-  @ViewChild(FakeModeComponent)
-  fakeModeComponent!: FakeModeComponent;
+  @ViewChild(FakeAgentComponent)
+  fakeAgentComponent!: FakeAgentComponent;
 
   conversation: ChatMessage[] = [];
   interimDialogLine: string = '';
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   // TODO: Create an object definition for this.
   worldState: object = {};
 
-  agentId: AgentId | null = 'default';
+  agentId: AgentId = 'default';
 
   private debouncedScrollToBottom: () => void;
 
@@ -77,13 +77,11 @@ export class AppComponent implements OnInit {
       // new components that can handle world state.
       if (this.historyTutorComponent) {
         // TODO: This is temporarily broken while fixing up APIs.
-        this.worldState = this.historyTutorComponent.updateWorldState(
-          []
-        );
+        this.worldState = this.historyTutorComponent.updateWorldState([]);
       }
 
-      if (this.fakeModeComponent) {
-        this.worldState = this.fakeModeComponent.updateWorldState(
+      if (this.fakeAgentComponent) {
+        this.worldState = this.fakeAgentComponent.updateWorldState(
           this.worldState
         );
       }

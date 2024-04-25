@@ -17,8 +17,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatList, MatListItem} from '@angular/material/list';
-import {HistoryTutorComponent} from '@components/history-tutor/history-tutor.component';
-import {FakeModeComponent} from '@components/fake-mode/fake-mode.component';
+import {HistoryTutorComponent} from '@components/agents/history-tutor/history-tutor.component';
+import {FakeAgentComponent} from '@components/agents/fake-agent/fake-agent.component';
 
 export const routes: Routes = [
   {
@@ -44,7 +44,7 @@ const materialModules = [
     SpeechRecognizerComponent,
     AgentSelectorComponent,
     HistoryTutorComponent,
-    FakeModeComponent,
+    FakeAgentComponent,
   ],
   imports: [
     BrowserModule,
