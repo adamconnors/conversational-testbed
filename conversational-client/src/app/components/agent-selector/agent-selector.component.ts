@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AGENT_IDS, AgentId} from '@data/agent';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {AgentId} from '@data/agent';
+import {AgentsService} from '@services/agents.service';
 
 @Component({
   selector: 'app-agent-selector',
@@ -7,11 +8,15 @@ import {AGENT_IDS, AgentId} from '@data/agent';
   styleUrl: './agent-selector.component.css',
 })
 export class AgentSelectorComponent {
-  readonly _agentIds = AGENT_IDS;
+  readonly _agentConfigs = inject(AgentsService).getAgentConfigs();
 
   @Input() selectedAgentId: AgentId | null = null;
 
   @Output() selectedAgentIdChange = new EventEmitter<AgentId>();
+
+  get _agentIds() {
+    return [...this._agentConfigs.keys()];
+  }
 
   agentSelectionChanged(agentId: AgentId) {
     this.selectedAgentId = agentId;
@@ -19,15 +24,7 @@ export class AgentSelectorComponent {
   }
 
   getAgentDisplayName(agentId: AgentId) {
-    switch (agentId) {
-      case 'default':
-        return 'Default Agent';
-      case 'fake':
-        return 'Fake Agent';
-      case 'history_tutor':
-        return 'History Tutor';
-      default:
-        return agentId;
-    }
+    const config = this._agentConfigs.get(agentId)!;
+    return config.preferences.displayName;
   }
 }
