@@ -8,14 +8,14 @@ import {AgentsService} from '@services/agents.service';
   styleUrl: './agent-selector.component.css',
 })
 export class AgentSelectorComponent {
-  readonly _agentConfigs = inject(AgentsService).getAgentConfigs();
+  private readonly agentConfigs = inject(AgentsService).getAgentConfigs();
 
   @Input() selectedAgentId: AgentId | null = null;
 
   @Output() selectedAgentIdChange = new EventEmitter<AgentId>();
 
   get _agentIds() {
-    return [...this._agentConfigs.keys()];
+    return [...this.agentConfigs.keys()];
   }
 
   agentSelectionChanged(agentId: AgentId) {
@@ -24,7 +24,7 @@ export class AgentSelectorComponent {
   }
 
   getAgentDisplayName(agentId: AgentId) {
-    const config = this._agentConfigs.get(agentId)!;
+    const config = this.agentConfigs.get(agentId)!;
     return config.preferences.displayName;
   }
 }

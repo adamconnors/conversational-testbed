@@ -16,6 +16,6 @@ export interface AgentState {
 
 // Represents a message in a conversation.
 export interface ChatMessage {
-  author: string;
+  author: 'human' | 'ai';
   content: string;
 }

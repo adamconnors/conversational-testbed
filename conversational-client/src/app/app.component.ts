@@ -64,17 +64,17 @@ export class AppComponent implements OnInit {
       this.agentState.worldState as object,
       this.agentId
     );
-    responseObservable.subscribe((llmResponse: string) => {
+    responseObservable.subscribe((agentResponse: string) => {
       // Update the UI only once, when we receive the LLM response.
       this.interimDialogLine = '';
 
-      const parsedResponse = JSON.parse(llmResponse);
-      const llmDialog = parsedResponse['response'];
+      const parsedResponse = JSON.parse(agentResponse);
+      const agentDialog = parsedResponse['response'];
       const worldState = parsedResponse['world_state'];
-      const userMessage = {content: dialog, author: 'user'};
-      const llmMessage = {content: llmDialog, author: 'llm'};
-      this.conversation = [...this.conversation, userMessage, llmMessage];
-      this.speechRecognizerComponent.handleLLMResponse(llmDialog);
+      const userMessage = {content: dialog, author: 'human' as const};
+      const agentMessage = {content: agentDialog, author: 'ai' as const};
+      this.conversation = [...this.conversation, userMessage, agentMessage];
+      this.speechRecognizerComponent.handleAgentResponse(agentDialog);
 
       const agentState = {messageHistory: this.conversation, worldState};
       const agent = this.agentComponentOutlet['_componentRef'].instance;
@@ -82,7 +82,9 @@ export class AppComponent implements OnInit {
         this.agentState = agent.processExchange(agentState);
       }
 
-      this.debouncedScrollToBottom();
+      if (this.currentAgentConfig.preferences.shouldDisplayChat) {
+        this.debouncedScrollToBottom();
+      }
     });
   }
 
