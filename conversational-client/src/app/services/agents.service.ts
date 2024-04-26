@@ -10,6 +10,7 @@ export interface AgentComponentConstructor {
 }
 
 export interface AgentComponentPreferences {
+  displayName: string;
   shouldDisplayChat: boolean;
 }
 
@@ -35,6 +36,7 @@ export class AgentsService {
             name: 'Gemini',
           },
           preferences: {
+            displayName: 'Default Agent',
             shouldDisplayChat: true,
           },
         },
@@ -45,6 +47,7 @@ export class AgentsService {
           component: FakeAgentComponent,
           inputs: {},
           preferences: {
+            displayName: 'Fake Agent',
             shouldDisplayChat: true,
           },
         },
@@ -55,6 +58,7 @@ export class AgentsService {
           component: HistoryTutorComponent,
           inputs: {},
           preferences: {
+            displayName: 'History Tutor',
             shouldDisplayChat: false,
           },
         },
