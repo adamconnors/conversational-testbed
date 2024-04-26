@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgComponentOutlet} from '@angular/common';
 import {RouterOutlet, RouterModule, Routes} from '@angular/router';
 
 import {BrowserModule} from '@angular/platform-browser';
@@ -51,6 +51,7 @@ const materialModules = [
     BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,
+    NgComponentOutlet,
     RouterModule.forRoot(routes),
     RouterOutlet,
     ...materialModules,

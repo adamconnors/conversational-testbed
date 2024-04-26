@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AGENT_IDS, AgentId} from 'app/data/conversation';
+import {AGENT_IDS, AgentId} from '@data/agent';
 
 @Component({
   selector: 'app-agent-selector',

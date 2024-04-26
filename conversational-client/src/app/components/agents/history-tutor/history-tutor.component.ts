@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Agent, AgentState} from '@data/conversation';
+import {Agent, AgentState} from '@data/agent';
 
 interface WorldState {
   questions: Question[];
@@ -25,7 +25,7 @@ export class HistoryTutorComponent implements Agent {
   worldState: WorldState = {questions: []};
 
   // Called when the worldstate is returned from the server.
-  updateState(state: AgentState) {
+  processExchange(state: AgentState) {
     this.worldState = {questions: state.worldState as Question[]};
 
     // TODO: I'm converting into an object model so I can render if more cleanly,

@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ChatMessage, AgentId} from 'app/data/conversation';
+import {ChatMessage, AgentId} from '@data/agent';
 import {environment} from 'environments/environment';
 
 @Injectable({
