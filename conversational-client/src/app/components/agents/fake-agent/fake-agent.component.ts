@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Agent, AgentState} from '@data/conversation';
+import {Agent, AgentState} from '@data/agent';
 
 interface FakeAgentWorldState {
   last_message: string;
@@ -27,13 +27,13 @@ export class FakeAgentComponent implements Agent {
   };
   worldStateDisplay: string = '';
 
-  updateState(state: AgentState) {
+  processExchange(state: AgentState): AgentState {
     if (!isValidWorldState(state.worldState)) {
       throw new Error('invalid world state');
     }
     this.worldState = state.worldState;
     this.worldState.message_count = state.messageHistory.length;
     this.worldStateDisplay = JSON.stringify(this.worldState);
-    return {...state, worldState: this.worldState};
+    return {messageHistory: state.messageHistory, worldState: this.worldState};
   }
 }
