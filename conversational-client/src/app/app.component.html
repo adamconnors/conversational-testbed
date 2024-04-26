@@ -29,9 +29,9 @@
         <div
           *ngFor="let msg of conversation"
           class="message-container"
-          [class.message-user]="msg.author === 'user'"
+          [class.message-user]="msg.author === 'human'"
         >
-          <mat-chip-set *ngIf="msg.author === 'llm'">
+          <mat-chip-set *ngIf="msg.author === 'ai'">
             <mat-chip>{{ msg.author }}</mat-chip>
           </mat-chip-set>
           <span class="message-content">{{ msg.content }}</span>

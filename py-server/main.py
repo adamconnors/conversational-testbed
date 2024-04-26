@@ -105,7 +105,7 @@ def build_message_history(message_history_json):
         objects, or None if empty list.
 
     Raises:
-        ValueError: If the message author is neither "user" nor "llm" or the
+        ValueError: If the message author is neither "ai" nor "human" or the
         message history can't be parsed.
     """
     messages = []
@@ -113,9 +113,9 @@ def build_message_history(message_history_json):
         return messages
     try:
         for message in json.loads(message_history_json):
-            if message["author"] == "user":
+            if message["author"] == "human":
                 messages.append(HumanMessage(message["content"]))
-            elif message["author"] == "llm":
+            elif message["author"] == "ai":
                 messages.append(AIMessage(message["content"]))
             else:
                 raise ValueError(f"Unknown message type: {message}")

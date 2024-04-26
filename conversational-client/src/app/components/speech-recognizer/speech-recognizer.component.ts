@@ -121,7 +121,7 @@ export class SpeechRecognizerComponent {
     }
   }
 
-  handleLLMResponse(response: string) {
+  handleAgentResponse(response: string) {
     this.dialogLine = '';
 
     this.audio.src = this.apiUrl + response;
