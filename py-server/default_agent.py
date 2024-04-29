@@ -30,20 +30,14 @@ SYSTEM_PROMPT = """
 
 class DefaultAgent(ConversationalAgent):
     def __init__(self):
-        start_time = time.time()
         self.chat_model = ChatVertexAI(
             model="gemini-pro", convert_system_message_to_human=True
         )
-        end_time = time.time()
-        print(f"Created DefaultAgent in: {end_time - start_time:.2f} seconds")
 
     def chat(self, agent_state) -> AgentResponse:
-        start_time = time.time()
         promptTemplate = self._from_messages(SYSTEM_PROMPT, agent_state)
         prompt = promptTemplate.invoke({"current_time": time.strftime("%I:%M %p")})
 
         # Invoke the model with the prompt.
         response = self.chat_model.invoke(prompt)
-        end_time = time.time()
-        print(f"DefaultAgent chat took: {end_time - start_time:.2f} seconds")
         return (response.content, {})
