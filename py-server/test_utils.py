@@ -1,8 +1,10 @@
 from typing import List
-from agents import MessageHistory
+from agents import AgentState, MessageHistory
 from langchain_core.messages import AIMessage, HumanMessage
 import tabulate
 import concurrent.futures
+from langchain.evaluation import load_evaluator, EvaluatorType
+
 
 def build_message_history_for_test(messages: List[str]) -> MessageHistory:
     """
@@ -19,31 +21,19 @@ def build_message_history_for_test(messages: List[str]) -> MessageHistory:
     return rtn
 
 
-def run_in_parallel(evaluator, times):
-        # Create a list to store the results
-        results = []
-        responses = []
+def evaluate(response, llm, last_message, criteria, reference):
+    """
+    Evaluates the response against the reference using the given criteria.
+    """
+    eval = load_evaluator(
+        EvaluatorType.LABELED_CRITERIA,
+        llm=llm,
+        criteria={ "correctness": criteria }
+    )
+    result = eval.evaluate_strings(
+        input=last_message,
+        prediction=response,
+        reference=reference
+    )
+    return result
 
-        # Create a ThreadPoolExecutor with 10 threads
-        with concurrent.futures.ThreadPoolExecutor(max_workers=times) as executor:
-            for _ in range(times):
-                future = executor.submit(evaluator)
-                results.append(future)
-        # Wait for all the results to complete
-        concurrent.futures.wait(results)
-        return results
-
-
-def tabulate_evaluator_results(responses, results):
-    table = []
-    passed = 0
-    for i, result in enumerate(responses):
-        score = results[i]["score"]
-        reasoning = results[i]["reasoning"]
-        if (score < 1.0):
-            table.append([result, score, reasoning])
-        else:
-            passed += 1
-        
-    print(f"Passed: {passed} out of {len(responses)}")
-    print(tabulate.tabulate(table, headers=["Response", "Score", "Rationale"]))
