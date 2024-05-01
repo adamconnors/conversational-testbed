@@ -50,7 +50,7 @@ class TestHistoryTutor(unittest.TestCase):
             result["value"] == "Y",
             f"Evualation of model response failed. Score was {result['value']}.  Response: {response} failed. \nReason: {result['reasoning']}",
         )
-        
+
     def test_update_world_state_no_answers(self):
         set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
@@ -78,7 +78,6 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][3]["hasAnswered"], "true")
-   
 
     def test_student_gives_two_answers_correctly(self):
         message_history = test_utils.build_message_history_for_test(
@@ -93,18 +92,14 @@ class TestHistoryTutor(unittest.TestCase):
         )
 
         # Four humours and miasma have both been marked as true.
-        self.assertEqual(
-            world_state["answers"][1]["hasAnswered"], "true", world_state
-        )
-        self.assertEqual(
-            world_state["answers"][2]["hasAnswered"], "true", world_state
-        )
+        self.assertEqual(world_state["answers"][1]["hasAnswered"], "true", world_state)
+        self.assertEqual(world_state["answers"][2]["hasAnswered"], "true", world_state)
 
         result = test_utils.evaluate(
             response,
             self.llm,
             last_message,
-            criteria="""Does the output congratulate the student. Then, does it ask the student to provide more answers to the current question?""", 
+            criteria="""Does the output congratulate the student. Then, does it ask the student to provide more answers to the current question?""",
             reference="""Great! You're correct. The four humors and the miasma theory were two theories about the cause of the Black Death. 
                         Can you think of any others?""",
         )

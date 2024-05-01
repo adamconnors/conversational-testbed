@@ -33,17 +33,18 @@ class DefaultAgentTest(unittest.TestCase):
             "time": "Does the output attempt to convey roughly the  time and is the time correct to within an hour?",
         }
 
-        eval = load_evaluator(EvaluatorType.LABELED_CRITERIA, llm=self.llm, criteria=criteria)
+        eval = load_evaluator(
+            EvaluatorType.LABELED_CRITERIA, llm=self.llm, criteria=criteria
+        )
         result = eval.evaluate_strings(
             input=message,
             prediction=response,
             criteria=criteria,
-            reference=f"The Current time is {time.strftime('%I:%M %p')}"
+            reference=f"The Current time is {time.strftime('%I:%M %p')}",
         )
-        
+
         score = result["score"]
-        self.assertTrue(score == 1.0, f"Response: {response} failed. \nReason: {result['reasoning']}")           
-
-
-
-        
+        self.assertTrue(
+            score == 1.0,
+            f"Response: {response} failed. \nReason: {result['reasoning']}",
+        )

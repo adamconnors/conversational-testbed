@@ -83,7 +83,9 @@ def chat():
         agent = AGENT_BY_ID["default"]
 
     print(f"Responding with {agent}.")
-    agent_response, agent_world_state = agent.chat(AgentState(q, message_history, world_state))
+    agent_response, agent_world_state = agent.chat(
+        AgentState(q, message_history, world_state)
+    )
 
     # TODO: Can we skip this step and pass it directly to the response?
     response = {
