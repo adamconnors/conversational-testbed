@@ -50,14 +50,17 @@ UPDATE_STATE_PROMPT = """
     This is the marking sheet with the question and the list of the correct answers:
     {question}
     
-    The student has given the following response:    
+    The student has given the following answer:    
+    ===
     {last_message}
-
-    Consider the student's response carefully. Have they correctly given
-    any of the expected answers?
+    ===
     
-    Return ONLY the answers that the STUDENT correct gave. 
-    If the student's answer contains no correct answers, return an EMPTY string.
+    Consider the student's response carefully. 
+    ONLY consider the text provided within ===
+    Think carefully, does this text give any of the answers on the marking sheet? 
+    
+    Return ONLY the answers that the STUDENT correctly gave. 
+    If the student's answer didn't contain any correct answers then return an EMPTY string.
     
     Example:
     STUDENT RESPONSE: "start lesson"
@@ -67,6 +70,7 @@ UPDATE_STATE_PROMPT = """
     
     {format_instructions}
 """
+
 
 BLACK_DEATH_TUTOR_CONTEXT = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "the_black_death.json"
@@ -82,7 +86,7 @@ class HistoryTutor(ConversationalAgent):
         self.chat_model = ChatVertexAI(
             model="gemini-pro", convert_system_message_to_human=True
         )
-        self.model = VertexAI(model_name="gemini-pro", temperature=0.5)
+        self.model = VertexAI(model_name="gemini-pro", temperature=0)
         self._lesson_context = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
 
     def chat(self, agent_state) -> AgentResponse:
@@ -101,6 +105,7 @@ class HistoryTutor(ConversationalAgent):
         response = self.chat_model.invoke(prompt2)
         return (response.content, agent_state.world_state)
 
+
     def update_question_state(self, world_state, last_answer):        
         
         parser = JsonOutputParser(pydantic_object=AnswerQuestionsList)
@@ -114,7 +119,7 @@ class HistoryTutor(ConversationalAgent):
         chain = (prompt | self.model | parser)
         response = chain.invoke(
             {
-                "question": self.convert_question_to_text(world_state),
+                "question": world_state,
                 "last_message": last_answer,
             }
         )
@@ -126,12 +131,6 @@ class HistoryTutor(ConversationalAgent):
                 answer["hasAnswered"] = "true"
                 
         return world_state
-        
-    def convert_question_to_text(self, question):
-        rtn = "Question: " + question["question"] + "\n"
-        for answer in question["answers"]:
-            rtn += "Correct Answer: " + answer["answer"] + "\n"
-        return rtn
 
 # Data structure for the output of the update_question_state function
 class AnswerQuestionsList(BaseModel):
