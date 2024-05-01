@@ -19,14 +19,11 @@ interface Answer {
 export class HistoryTutorComponent implements Agent {
   worldState: WorldState | null = null;
 
-  // Called when the server responsed.
+  // Called when server responds with a new state and chat response.
   processExchange(state: AgentState) {
-
-    console.log(state.worldState)
+    console.log(state.worldState);
 
     this.worldState = state.worldState as WorldState;
-    console.log("---as worldstate---")
-    console.log(this.worldState)
     return {...state, worldState: this.worldState};
   }
 

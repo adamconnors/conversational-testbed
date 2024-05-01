@@ -26,14 +26,9 @@ def evaluate(response, llm, last_message, criteria, reference):
     Evaluates the response against the reference using the given criteria.
     """
     eval = load_evaluator(
-        EvaluatorType.LABELED_CRITERIA,
-        llm=llm,
-        criteria={ "correctness": criteria }
+        EvaluatorType.LABELED_CRITERIA, llm=llm, criteria={"correctness": criteria}
     )
     result = eval.evaluate_strings(
-        input=last_message,
-        prediction=response,
-        reference=reference
+        input=last_message, prediction=response, reference=reference
     )
     return result
-

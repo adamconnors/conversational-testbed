@@ -22,13 +22,13 @@
 
     <div>
       <!-- Main conversation panel-->
-      <div
-        class="conversation"
-      >
+      <div class="conversation">
         <div
-          *ngFor="let msg of (!currentAgentConfig.preferences.shouldTruncateChatHistory)
-            ? conversation
-            : conversation.slice(-2)"
+          *ngFor="
+            let msg of !currentAgentConfig.preferences.shouldTruncateChatHistory
+              ? conversation
+              : conversation.slice(-2)
+          "
           class="message-container"
           [class.message-user]="msg.author === 'human'"
         >
@@ -38,8 +38,10 @@
           <span class="message-content">{{ msg.content }}</span>
         </div>
       </div>
-      <div class="conversation"
-        *ngIf="currentAgentConfig.preferences.shouldDisplayChat">
+      <div
+        class="conversation"
+        *ngIf="currentAgentConfig.preferences.shouldDisplayChat"
+      >
         <div class="message-container message-user" *ngIf="!!interimDialogLine">
           <span class="message-content">{{ interimDialogLine }}</span>
         </div>
