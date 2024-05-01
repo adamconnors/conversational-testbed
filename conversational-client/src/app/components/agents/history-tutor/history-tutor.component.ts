@@ -2,18 +2,13 @@ import {Component} from '@angular/core';
 import {Agent, AgentState} from '@data/agent';
 
 interface WorldState {
-  questions: Question[];
-}
-
-interface Question {
   question: string;
   answers: Answer[];
 }
 
 interface Answer {
   answer: string;
-  hasAnswered: boolean | string;
-  has_answered: boolean | string;
+  hasAnswered: boolean;
 }
 
 @Component({
@@ -22,30 +17,12 @@ interface Answer {
   styleUrl: './history-tutor.component.css',
 })
 export class HistoryTutorComponent implements Agent {
-  worldState: WorldState = {questions: []};
+  worldState: WorldState | null = null;
 
-  // Called when the worldstate is returned from the server.
+  // Called when the server responsed.
   processExchange(state: AgentState) {
-    this.worldState = {questions: state.worldState as Question[]};
-
-    // TODO: I'm converting into an object model so I can render if more cleanly,
-    // but the object model is specific to each module so I end up returning the original
-    // JSON object. If the client ends up needing to update the world state this will mean
-    // converting it and then converting it back. I need to find a better way to do this.
+    this.worldState = state.worldState as WorldState;
     return {...state, worldState: this.worldState};
-  }
-
-  // TODO: This is because sometimes the model changes the name of the field. I need to
-  // use pydantic instead so this is consistent.
-  hasAnswered(answer: Answer) {
-    if (answer.hasAnswered === true || answer.has_answered === true) {
-      return true;
-    }
-    if (answer.hasAnswered === 'true' || answer.has_answered === 'true') {
-      return true;
-    }
-
-    return false;
   }
 
   calculatePercentageComplete() {
@@ -56,12 +33,10 @@ export class HistoryTutorComponent implements Agent {
       return 0;
     }
 
-    for (const question of this.worldState!.questions) {
-      for (const answer of question.answers) {
-        totalAnswers += 1;
-        if (this.hasAnswered(answer)) {
-          correctAnswers += 1;
-        }
+    for (const answer of this.worldState.answers) {
+      totalAnswers += 1;
+      if (answer.hasAnswered) {
+        correctAnswers += 1;
       }
     }
     if (totalAnswers == 0) {

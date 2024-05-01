@@ -3,7 +3,7 @@
 
   <ng-container
     *ngIf="
-      worldState?.questions && (worldState?.questions)!.length > 0;
+      worldState;
       else noQuestions
     "
   >
@@ -18,21 +18,19 @@
       {{ calculatePercentageComplete() }}% complete
     </div>
 
-    <div class="question-block" *ngFor="let question of worldState?.questions">
       <div class="question">
-        <b>{{ question.question }}</b>
+        <b>{{ worldState!.question }}</b>
       </div>
       <div
-        *ngFor="let answer of question.answers"
+        *ngFor="let answer of worldState!.answers"
         class="answer"
-        [class.redacted]="!hasAnswered(answer)"
+        [class.redacted]="!answer.hasAnswered"
       >
         {{ answer.answer }}
       </div>
-    </div>
   </ng-container>
 
   <ng-template #noQuestions>
-    <div class="no-questions">Loading... Please wait.</div>
+    <div class="no-questions">Say 'start lesson' to get things going.</div>
   </ng-template>
 </mat-card>

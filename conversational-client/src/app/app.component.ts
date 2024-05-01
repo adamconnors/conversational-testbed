@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   agentId: AgentId = 'default';
   currentAgentConfig: AgentComponentConfig;
-  private agentState: AgentState = {messageHistory: [], worldState: {}};
+  private agentState: AgentState = {messageHistory: [], worldState: null};
   private readonly agentConfigs = inject(AgentsService).getAgentConfigs();
 
   private debouncedScrollToBottom: () => void;

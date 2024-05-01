@@ -11,7 +11,7 @@ export interface Agent {
 // Represents a generic agent state.
 export interface AgentState {
   messageHistory: ChatMessage[];
-  worldState: unknown;
+  worldState: unknown | null;
 }
 
 // Represents a message in a conversation.
