@@ -24,7 +24,7 @@
       <div
         *ngFor="let answer of worldState!.answers"
         class="answer"
-        [class.redacted]="!answer.hasAnswered"
+        [class.redacted]="(answer.hasAnswered === 'false')"
       >
         {{ answer.answer }}
       </div>

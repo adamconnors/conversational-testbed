@@ -8,7 +8,7 @@ interface WorldState {
 
 interface Answer {
   answer: string;
-  hasAnswered: boolean;
+  hasAnswered: string;
 }
 
 @Component({
@@ -25,6 +25,8 @@ export class HistoryTutorComponent implements Agent {
     console.log(state.worldState)
 
     this.worldState = state.worldState as WorldState;
+    console.log("---as worldstate---")
+    console.log(this.worldState)
     return {...state, worldState: this.worldState};
   }
 

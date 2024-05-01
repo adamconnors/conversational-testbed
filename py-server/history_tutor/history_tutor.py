@@ -46,28 +46,50 @@ CONVERSATION_PROMPT = """
 
 UPDATE_STATE_PROMPT = """
     You are a history tutor and you must mark a history test.
+
+    This is the marking sheet with the question, the list of the correct answers, and example responses and how they should be marked:
+
+    MARKING SHEET:
+    ```
+    {answers}
     
-    This is the marking sheet with the question and the list of the correct answers:
-    {question}
-    
-    The student has given the following answer:    
+    examples {{
+        [
+        {{
+            "response": "There was a lot of superstition and people thought that god might be angry",
+            "marks": ["religion"]
+        }},
+        {{
+            "response": "People thought the water was poisoned",
+            "marks": ["none"]
+        }},
+        {{
+            "response": "begin",
+            "marks": ["none"],
+        }},
+        {{
+            "response": "There was a hypothesis that strangers were spreading the disease and that people had an imbalance of the humours",
+            "marks": ["strangers", "humours"]
+        }},
+        {{
+            "response": "Smells from decaying rubbish caused miasma",
+            "marks": ["miasma"]
+        }}
+        ]
+    ```
+
+    This is the student's response to the question:
+
+    STUDENTS RESPONSE:
     ===
     {last_message}
     ===
-    
-    Consider the student's response carefully. 
-    ONLY consider the text provided within ===
-    Think carefully, does this text give any of the answers on the marking sheet? 
-    
-    Return ONLY the answers that the STUDENT correctly gave. 
-    If the student's answer didn't contain any correct answers then return an EMPTY string.
-    
-    Example:
-    STUDENT RESPONSE: "start lesson"
-    YOUR RESPONSE: ""
-    
-    Give the FULL TEXT of each correct answer as it appears in the marking sheet.
-    
+
+    Your task: carefully review the student's response and determine if the student's response give any of the answers on the marking sheet.
+
+    Return the keys from the marking sheet for the answers that the STUDENT correctly gave.
+    If the student's response didn't contain any correct answers then return the key "none".
+
     {format_instructions}
 """
 
@@ -81,6 +103,7 @@ def load_file(filename):
     with open(filename, "r") as file:
         return file.read()
 
+
 class HistoryTutor(ConversationalAgent):
     def __init__(self):
         self.chat_model = ChatVertexAI(
@@ -91,47 +114,55 @@ class HistoryTutor(ConversationalAgent):
 
     def chat(self, agent_state) -> AgentResponse:
         prompt = self._from_messages(CONVERSATION_PROMPT, agent_state)
-        chain = (prompt | self.model)
-        
+        chain = prompt | self.model
+
         # Set world state on first request.
         if agent_state.world_state == None:
             agent_state.world_state = self._lesson_context
-
-        # Update the question state based on the last answer.
-        agent_state.world_state = self.update_question_state(agent_state.world_state, agent_state.message)
+        else:
+            # Update the question state based on the last answer.
+            agent_state.world_state = self.update_question_state(
+                agent_state.world_state, agent_state.message
+            )
 
         # Get the response.
-        prompt2 = prompt.invoke({"lesson_context": agent_state.world_state})        
+        prompt2 = prompt.invoke({"lesson_context": agent_state.world_state})
         response = self.chat_model.invoke(prompt2)
         return (response.content, agent_state.world_state)
 
+    def update_question_state(self, world_state, last_answer):
 
-    def update_question_state(self, world_state, last_answer):        
-        
-        parser = JsonOutputParser(pydantic_object=AnswerQuestionsList)
-        
+        parser = JsonOutputParser(pydantic_object=QuestionAnswerList)
+
         prompt = PromptTemplate(
             template=UPDATE_STATE_PROMPT,
-            input_variables=["question", "last_message"],
+            input_variables=["answers", "last_message"],
             partial_variables={"format_instructions": parser.get_format_instructions()},
         )
 
-        chain = (prompt | self.model | parser)
-        response = chain.invoke(
-            {
-                "question": world_state,
-                "last_message": last_answer,
-            }
-        )
-        answered_questions = response["questions"]
-        
+        chain = prompt | self.model | parser
+
+        try:
+            response = chain.invoke(
+                {
+                    "answers": world_state,
+                    "last_message": last_answer,
+                }
+            )
+            answered_questions = response["correct_responses"]
+        except Exception as e:
+            answered_questions = []
+
         # Update the world state based on the list of answers given.
         for answer in world_state["answers"]:
-            if answer["answer"] in answered_questions:
+            if answer["key"] in answered_questions:
                 answer["hasAnswered"] = "true"
-                
+
         return world_state
 
+
 # Data structure for the output of the update_question_state function
-class AnswerQuestionsList(BaseModel):
-    questions: List[str] = Field(description="questions that have been answered")
+class QuestionAnswerList(BaseModel):
+    correct_responses: List[str] = Field(
+        description="Keys for the correct answers in the student's response or the key \"none\" if the response didn't contain any correct answers"
+    )
