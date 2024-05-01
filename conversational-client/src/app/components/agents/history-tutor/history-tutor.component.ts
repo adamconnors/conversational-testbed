@@ -21,6 +21,9 @@ export class HistoryTutorComponent implements Agent {
 
   // Called when the server responsed.
   processExchange(state: AgentState) {
+
+    console.log(state.worldState)
+
     this.worldState = state.worldState as WorldState;
     return {...state, worldState: this.worldState};
   }

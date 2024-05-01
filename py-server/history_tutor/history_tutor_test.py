@@ -52,7 +52,7 @@ class TestHistoryTutor(unittest.TestCase):
         )
         
     def test_update_world_state_no_answers(self):
-        set_debug(True)
+        set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "start lesson."
         world_state = self.tutor.update_question_state(world_state, last_answer)
@@ -62,16 +62,15 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
 
     def test_update_world_state_two_answers(self):
-        set_debug(True)
+        set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "The four humors and the miasma theory."
         world_state = self.tutor.update_question_state(world_state, last_answer)
         self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
 
-    @unittest.skip("Not reliable yet.")
     def test_update_world_state_all_answers(self):
-        set_debug(True)
+        set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "Punishment from God, the four humors theory, miasma theory, and strangers or outsiders."
         world_state = self.tutor.update_question_state(world_state, last_answer)
@@ -114,11 +113,6 @@ class TestHistoryTutor(unittest.TestCase):
             "Y" in result["value"],
             f"\nScore was {result['value']}.  \n\nResponse: {response} failed. \n\nReason: {result['reasoning']}\n\n{result}",
         )
-
-    def test_convert_question_to_text(self):
-        question = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
-        print(self.tutor.convert_question_to_text(question))
-
 
 
 if __name__ == "__main__":
