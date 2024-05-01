@@ -19,8 +19,10 @@ mat-card {
 }
 
 .question {
+  margin-top:6px;
   background-color: lightgoldenrodyellow;
-  padding: 3px;
+  text-align: center;
+  padding: 6px;
 }
 
 .answer {

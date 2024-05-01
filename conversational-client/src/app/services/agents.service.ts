@@ -12,6 +12,7 @@ export interface AgentComponentConstructor {
 export interface AgentComponentPreferences {
   displayName: string;
   shouldDisplayChat: boolean;
+  shouldTruncateChatHistory: boolean;
 }
 
 export interface AgentComponentConfig {
@@ -38,6 +39,7 @@ export class AgentsService {
           preferences: {
             displayName: 'Default Agent',
             shouldDisplayChat: true,
+            shouldTruncateChatHistory: false,
           },
         },
       ],
@@ -49,6 +51,7 @@ export class AgentsService {
           preferences: {
             displayName: 'Fake Agent',
             shouldDisplayChat: true,
+            shouldTruncateChatHistory: false,
           },
         },
       ],
@@ -59,7 +62,8 @@ export class AgentsService {
           inputs: {},
           preferences: {
             displayName: 'History Tutor',
-            shouldDisplayChat: false,
+            shouldDisplayChat: true,
+            shouldTruncateChatHistory: true,
           },
         },
       ],
