@@ -1,62 +1,125 @@
 import json
-from typing import Iterator
+from typing import Iterator, List, Optional
 import unittest
+from langchain.llms import BaseLLM
 from langchain_core.messages import AIMessage, HumanMessage
-from history_tutor.history_tutor import HistoryTutor
+from history_tutor.history_tutor import (
+    HistoryTutor,
+    load_file,
+    BLACK_DEATH_TUTOR_CONTEXT,
+)
 from agents import AgentState
 from langchain_google_vertexai import VertexAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from langchain.evaluation import load_evaluator, EvaluatorType
 import concurrent.futures
 import test_utils
+from langchain.llms import BaseLLM
+from langchain.globals import set_debug
 
 
 class TestHistoryTutor(unittest.TestCase):
 
     def setUp(self):
         self.llm = VertexAI(model_name="gemini-pro")
+        self.tutor = HistoryTutor()
 
     def test_loads_initial_world_state(self):
-        tutor = HistoryTutor()
-        lesson = tutor.lesson_context
-        self.assertEqual(len(lesson), 4)
+        lesson = self.tutor._lesson_context
+        self.assertIsNotNone(lesson["question"])
+        self.assertEqual(len(lesson["answers"]), 4)
 
     def test_introduce_lesson_and_ask_first_question(self):
-        tutor = HistoryTutor()
         last_message = "start lesson"
-        message_history = []
+        response, world_state = self.tutor.chat(AgentState(last_message, [], None))
 
-        criteria = {
-            "introduction": "Does the output provide a one sentence introduction to the topic and ask the first question?",
-        }
-
-        eval = load_evaluator(
-            EvaluatorType.LABELED_CRITERIA, llm=self.llm, criteria=criteria
+        # TODO: Evaluate N times to account for randomness of model.
+        # TODO: Create an "examples" evaluator that will accept multiple examples.
+        result = test_utils.evaluate(
+            response,
+            self.llm,
+            last_message,
+            criteria="Does the output provide a short introduction and then ask the first question?",
+            reference="""
+            Let's begin our lesson on the Black Death. 
+            What were the different theories about the cause of the Black Death?
+            """,
         )
 
+        self.assertTrue(
+            result["value"] == "Y",
+            f"Evualation of model response failed. Score was {result['value']}.  Response: {response} failed. \nReason: {result['reasoning']}",
+        )
+        
+    def test_update_world_state_no_answers(self):
+        set_debug(True)
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        last_answer = "start lesson."
+        world_state = self.tutor.update_question_state(world_state, last_answer)
+        self.assertEqual("false", world_state["answers"][0]["hasAnswered"])
+        self.assertEqual("false", world_state["answers"][1]["hasAnswered"])
+        self.assertEqual("false", world_state["answers"][2]["hasAnswered"])
+        self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
 
-        def evaluate():
-            response, world_state = tutor.chat(
-                AgentState(last_message, [], None)
-            )
-            
-            result = eval.evaluate_strings(
-                input=last_message,
-                prediction=response,
-                criteria=criteria,
-                reference=f"""
-                Let's begin our lesson on the Black Death, a devastating pandemic that swept through Europe in the 14th century. 
-                What were the different theories about the cause of the Black Death?
-            """,
-            )
-            
-            return result
+    def test_update_world_state_two_answers(self):
+        set_debug(True)
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        last_answer = "The four humors and the miasma theory."
+        world_state = self.tutor.update_question_state(world_state, last_answer)
+        self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
+        self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
 
-        results = test_utils.run_in_parallel(evaluate, 10)
-        for result in results:
-            print(result.result())
-#        test_utils.tabulate_evaluator_results(responses, results)
+    @unittest.skip("Not reliable yet.")
+    def test_update_world_state_all_answers(self):
+        set_debug(True)
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        last_answer = "Punishment from God, the four humors theory, miasma theory, and strangers or outsiders."
+        world_state = self.tutor.update_question_state(world_state, last_answer)
+        self.assertEqual(world_state["answers"][0]["hasAnswered"], "true")
+        self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
+        self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
+        self.assertEqual(world_state["answers"][3]["hasAnswered"], "true")
+   
+
+    def test_student_gives_two_answers_correctly(self):
+        message_history = test_utils.build_message_history_for_test(
+            [
+                "start lesson",
+                "Let's begin our lesson on the Black Death. What were the different theories about the cause of the Black Death?",
+            ]
+        )
+        last_message = "The four humors and the miasma theory."
+        response, world_state = self.tutor.chat(
+            AgentState(last_message, message_history, None)
+        )
+
+        # Four humours and miasma have both been marked as true.
+        self.assertEqual(
+            world_state["answers"][1]["hasAnswered"], "true", world_state
+        )
+        self.assertEqual(
+            world_state["answers"][2]["hasAnswered"], "true", world_state
+        )
+
+        result = test_utils.evaluate(
+            response,
+            self.llm,
+            last_message,
+            criteria="""Does the output congratulate the student. Then, does it ask the student to provide more answers to the current question?""", 
+            reference="""Great! You're correct. The four humors and the miasma theory were two theories about the cause of the Black Death. 
+                        Can you think of any others?""",
+        )
+
+        self.assertTrue(
+            "Y" in result["value"],
+            f"\nScore was {result['value']}.  \n\nResponse: {response} failed. \n\nReason: {result['reasoning']}\n\n{result}",
+        )
+
+    def test_convert_question_to_text(self):
+        question = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        print(self.tutor.convert_question_to_text(question))
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,4 +1,3 @@
-[
   {
     "question": "What were the different theories about the cause of the Black Death?",
     "answers": [
@@ -19,67 +18,4 @@
         "hasAnswered": "false"
       }
     ]
-  },
-  {
-    "question": "What were the methods people used to try and prevent the Black Death?",
-    "answers": [
-      {
-        "answer": "Religious methods, such as prayer, donating to the Church and flagellation.",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "Clearing up rubbish in the streets.",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "Smelling their toilets or other bad smells.",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "Lighting a fire in the room, ringing bells or having birds flying around the room to keep air moving.",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "Carrying herbs and spices to avoid breathing in 'bad air'.",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "Not letting unknown people enter the town or village.",
-        "hasAnswered": "false"
-      }
-    ]
-  },
-  {
-    "question": "What were the symptoms of the Black Death?",
-    "answers": [
-      {
-        "answer": "swelling of the lymph glands into large lumps filled with pus (known as buboes)",
-        "hasAnswered": "false"
-      },
-      { "answer": "fever and chills", "hasAnswered": "false" },
-      { "answer": "headache", "hasAnswered": "false" },
-      {
-        "answer": "vomiting, diarrhoea and abdominal pain.",
-        "hasAnswered": "false"
-      }
-    ]
-  },
-  {
-    "question": "What were the different treatments for the Black Death?",
-    "answers": [
-      { "answer": "praying and holding lucky charms", "hasAnswered": "false" },
-      {
-        "answer": "cutting open buboes to drain the pus",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "holding bread against the buboes, then burying it in the ground",
-        "hasAnswered": "false"
-      },
-      {
-        "answer": "eating cool things and taking cold baths.",
-        "hasAnswered": "false"
-      }
-    ]
   }
-]
