@@ -1,17 +1,12 @@
 import json
 import flask
-from flask_cors import CORS
 import google.cloud.texttospeech_v1 as texttospeech
-import prompts
 from default_agent import DefaultAgent
 from fake_agent import FakeAgent
 from history_tutor.history_tutor import HistoryTutor
 from agents import AgentState
 from langchain_core.messages import HumanMessage, AIMessage
 
-
-DRY_RUN_MODE = False
-dry_run_function = prompts.dry_run_general
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -54,6 +49,10 @@ def tts():
     )
     return rtn
 
+@app.route("/_ah/warmup")
+def warmup():
+    print("Warm up called.")
+    return "", 200, {}    
 
 @app.route("/chat", methods=["POST", "GET"])
 def chat():
@@ -127,12 +126,4 @@ def build_message_history(message_history_json):
 
 
 if __name__ == "__main__":
-    if not DRY_RUN_MODE:
-        # Used when running locally only. When deploying to Google App
-        # Engine, a webserver process such as Gunicorn will serve the app. This
-        # can be configured by adding an `entrypoint` to app.yaml.
-        app.run(host="localhost", port=8080, debug=True)
-    else:
-        pass
-        # Temporarily disable
-        # dry_run_function(chat_model.start_chat(context=chat_context))
+    app.run(host="localhost", port=8080, debug=True)

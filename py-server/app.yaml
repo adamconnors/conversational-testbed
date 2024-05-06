@@ -3,7 +3,9 @@ instance_class: F4_1G
 
 automatic_scaling:
   min_instances: 1
-  max_instances: 1
+  
+inbound_services:
+  - warmup
 
 handlers:
   # Serve API routes
@@ -16,6 +18,6 @@ handlers:
     upload: dist/browser/(.*\.(js|css|html|jpg|png|gif|svg|ico|map|woff|woff2|eot|ttf))
 
   # Serve 'index.html' for all other routes
-  - url: /.*
+  - url: /*
     static_files: dist/browser/index.html
     upload: dist/browser/index.html
