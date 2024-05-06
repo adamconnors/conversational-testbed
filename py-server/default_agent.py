@@ -1,8 +1,6 @@
 import time
-from langchain.prompts import ChatPromptTemplate
-from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_google_vertexai import ChatVertexAI
-from agents import AgentResponse, AgentState, ConversationalAgent
+from agents import AgentResponse, ConversationalAgent
 
 SYSTEM_PROMPT = """
     You are an expert chatbot designed to help me.
@@ -31,7 +29,7 @@ SYSTEM_PROMPT = """
 class DefaultAgent(ConversationalAgent):
     def __init__(self):
         self.chat_model = ChatVertexAI(
-            model="gemini-pro", convert_system_message_to_human=True
+            model="gemini-pro", convert_system_message_to_human=False
         )
 
     def chat(self, agent_state) -> AgentResponse:

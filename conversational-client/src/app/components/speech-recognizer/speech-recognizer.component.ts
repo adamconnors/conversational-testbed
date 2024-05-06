@@ -123,7 +123,7 @@ export class SpeechRecognizerComponent {
 
   handleAgentResponse(response: string) {
     this.dialogLine = '';
-
+    response = encodeURIComponent(response);
     this.audio.src = this.apiUrl + response;
 
     // Pause the speech recognition while the audio is playing

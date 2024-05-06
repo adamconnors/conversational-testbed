@@ -1,14 +1,11 @@
 import json
-import time
 import sys
 from typing import List
 from langchain_google_vertexai import ChatVertexAI, VertexAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-
-from langchain.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field, validator
+from langchain_core.pydantic_v1 import BaseModel, Field
 
 # set parent directory path
 sys.path.append("../py-server")
@@ -107,7 +104,7 @@ def load_file(filename):
 class HistoryTutor(ConversationalAgent):
     def __init__(self):
         self.chat_model = ChatVertexAI(
-            model="gemini-pro", convert_system_message_to_human=True
+            model="gemini-pro", convert_system_message_to_human=False
         )
         self.model = VertexAI(model_name="gemini-pro", temperature=0)
         self._lesson_context = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
