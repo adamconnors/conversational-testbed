@@ -12,7 +12,6 @@ from agents import AgentState
 from langchain_google_vertexai import VertexAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-import concurrent.futures
 import test_utils
 from langchain.llms import BaseLLM
 from langchain.globals import set_debug
@@ -51,8 +50,19 @@ class TestHistoryTutor(unittest.TestCase):
             f"Evualation of model response failed. Score was {result['value']}.  Response: {response} failed. \nReason: {result['reasoning']}",
         )
 
+    def test_restart(self):
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        for answer in world_state["answers"]:
+            answer["hasAnswered"] = "true"
+        last_message = "start again"
+        world_state = self.tutor.update_question_state(world_state, last_message)
+        self.assertEqual("false", world_state["answers"][0]["hasAnswered"])
+        self.assertEqual("false", world_state["answers"][1]["hasAnswered"])
+        self.assertEqual("false", world_state["answers"][2]["hasAnswered"])
+        self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
+        
+        
     def test_update_world_state_no_answers(self):
-        set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "start lesson."
         world_state = self.tutor.update_question_state(world_state, last_answer)
@@ -62,7 +72,6 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
 
     def test_update_world_state_two_answers(self):
-        set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "The four humors and the miasma theory."
         world_state = self.tutor.update_question_state(world_state, last_answer)
@@ -70,7 +79,6 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
 
     def test_update_world_state_all_answers(self):
-        set_debug(False)
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "Punishment from God, the four humors theory, miasma theory, and strangers or outsiders."
         world_state = self.tutor.update_question_state(world_state, last_answer)
@@ -80,6 +88,7 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual(world_state["answers"][3]["hasAnswered"], "true")
 
     def test_student_gives_two_answers_correctly(self):
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         message_history = test_utils.build_message_history_for_test(
             [
                 "start lesson",
@@ -88,7 +97,7 @@ class TestHistoryTutor(unittest.TestCase):
         )
         last_message = "The four humors and the miasma theory."
         response, world_state = self.tutor.chat(
-            AgentState(last_message, message_history, None)
+            AgentState(last_message, message_history, world_state)
         )
 
         # Four humours and miasma have both been marked as true.

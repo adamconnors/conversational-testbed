@@ -18,21 +18,25 @@ CONVERSATION_PROMPT = """
     
     The topic you're teaching is the Black Death.
     
-    This is the first question, and the answer has multiple parts. This JSON bundle will tell you the question, the answers, and
-    which answers the student has already correctly given in the conversation so far.:
+    This is the first question, and the answer has multiple parts. This JSON bundle is the lesson context and it will
+    tell you the question, the answers, and which answers the student has already correctly given in the conversation so far.:
 
     {lesson_context}
     
     Consider each of these possibilities and give the most appropriate response:
 
     1. Is this the start of the lesson? --> Provide a one sentence introduction to the topic and then ask the first question.
-    2. Has the student correctly given SOME of the answers to the current question? 
-    --> Congratulate them. Add more details based on their last answer. Then prompt them to provide more answers.
-    3. Has the student given ALL the answers to the question? --> Say well done, the lesson is complete.    
-    4. Has the student given an incorrect answer? --> Tell them its incorrect and explain why. Then prompt them to try again.
-    5. Has the student asked for a hint --> Give them a clue, then prompt them for more answers.
-    6. If the student is really stuck, give increasingly more obvious clues until they get the answer.
-    
+    2. Has the student correctly given one or more of the answers to the current question? 
+    --> Congratulate them. Add more details based on their last answer.
+    3. Are there still unanswered parts to the question? --> Ask the student to give more answers to the current question.
+    4. Did the student get the answer wrong? --> Explain to them why this answer is wrong and ask them to try again.
+    5. Has the student said they don't know or asked for a hint? --> Give them a clue but don't give
+    them the actual answer. Ask them if they know the answer now.
+    6. If the student doesn't get the answer after you've given them a hint --> give them the answer and ask the next question.
+    7. If you gave the student an answer earlier --> ask if they remember the answer you gave them earlier. 
+    8 Has the student given ALL the answers to the question? --> Say well done, the lesson is complete. DON'T ask any questions
+    that aren't in the lesson context.
+        
     ALWAYS RESPOND by asking the student another question unless the lesson is complete.
             
     Always be warm and encouraging. Before you reply, attend, think and remember all the
@@ -71,6 +75,10 @@ UPDATE_STATE_PROMPT = """
         {{
             "response": "Smells from decaying rubbish caused miasma",
             "marks": ["miasma"]
+        }},
+        {{
+            "response": "Start again",
+            "marks": ["restart"]
         }}
         ]
     ```
@@ -150,16 +158,19 @@ class HistoryTutor(ConversationalAgent):
         except Exception as e:
             answered_questions = []
 
-        # Update the world state based on the list of answers given.
+        # Update the world state based on the list of answers given.            
         for answer in world_state["answers"]:
             if answer["key"] in answered_questions:
                 answer["hasAnswered"] = "true"
-
+            if "restart" in answered_questions:
+                answer["hasAnswered"] = "false"
+                
         return world_state
 
 
 # Data structure for the output of the update_question_state function
 class QuestionAnswerList(BaseModel):
     correct_responses: List[str] = Field(
-        description="Keys for the correct answers in the student's response or the key \"none\" if the response didn't contain any correct answers"
+        description="""Keys for the correct answers in the student's response or the key \"none\"
+        if the response didn't contain any correct answers or the key \"restart\" if the student wants to start again."""
     )
