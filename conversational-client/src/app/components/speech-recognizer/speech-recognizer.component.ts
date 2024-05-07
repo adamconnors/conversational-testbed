@@ -150,7 +150,7 @@ export class SpeechRecognizerComponent {
     } else {
       this.listenState = ListenState.Listening;
       this.audio.pause(); // Stop the audio from playing
-      this.recognition!.lang = 'en-GB';
+      this.recognition!.lang = 'en-US';
       this.recognition!.start();
       this.start_timestamp = Date.now(); // Assign current timestamp
     }
