@@ -25,9 +25,16 @@ export class SpeechRecognizerComponent {
 
   dialogLine: string = '';
   listenState: ListenState = ListenState.Stopped;
+  
+  // Spinner displayed when speech recognizer is first started
+  // after loading to prevent the user speaking before the
+  // recognizer is ready.
+  microphoneSpinner = false;
+  firstStartAfterPageLoad = true;
 
   @Output() newDialogLineEvent = new EventEmitter<string>();
   @Output() newInterimDialogLineEvent = new EventEmitter<string>();
+  @Output() startListeningEvent = new EventEmitter<void>();
 
   constructor(private zone: NgZone) {
     if (!('webkitSpeechRecognition' in window)) {
@@ -41,6 +48,7 @@ export class SpeechRecognizerComponent {
 
     // called by speech recognition engine
     this.recognition.onstart = () => {
+      console.log('Speech recognition started');
       this.zone.run(() => {
         this.listenState = ListenState.Listening;
       });
@@ -148,10 +156,23 @@ export class SpeechRecognizerComponent {
       this.listenState = ListenState.Paused;
       this.recognition!.stop();
     } else {
-      this.listenState = ListenState.Listening;
+
+      // If the user starts speaking too soon the speech recognition
+      // isn't ready, in the absence of an event from the recognizer
+      // this is just a bit of syntactic sugar.
+      if (this.firstStartAfterPageLoad) {
+        this.firstStartAfterPageLoad = false;
+        this.microphoneSpinner = true;
+        setTimeout(() => {
+          this.microphoneSpinner = false;
+        }, 700);
+      }
+
       this.audio.pause(); // Stop the audio from playing
       this.recognition!.lang = 'en-US';
       this.recognition!.start();
+      this.startListeningEvent.emit();
+      this.listenState = ListenState.Listening;
       this.start_timestamp = Date.now(); // Assign current timestamp
     }
   }

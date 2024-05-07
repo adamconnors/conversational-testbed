@@ -59,6 +59,7 @@
         <app-speech-recognizer
           (newDialogLineEvent)="handleNewLineOfDialog($event)"
           (newInterimDialogLineEvent)="handleNewInterimDialogLineEvent($event)"
+          (startListeningEvent)="handleStartListening()"
         >
         </app-speech-recognizer>
       </div>

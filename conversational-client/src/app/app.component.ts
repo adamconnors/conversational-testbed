@@ -8,6 +8,8 @@ import {ChatMessage, AgentId, AgentState, AGENT_IDS} from '@data/agent';
 import {debounce} from './util/debounce';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +39,8 @@ export class AppComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.currentAgentConfig = this.agentConfigs.get(this.agentId)!;
     this.debouncedScrollToBottom = debounce(this.scrollToBottom);
@@ -49,7 +52,17 @@ export class AppComponent implements OnInit {
       if (AGENT_IDS.includes(agentIdParam as AgentId)) {
         this.handleAgentIdChange(agentIdParam as AgentId);
       }
-    });
+    });    
+  }
+
+  enterFullscreenModeOnMobile() {
+    if (this.document.fullscreenEnabled && /Mobi|Android/i.test(navigator.userAgent)) {
+      this.document.documentElement.requestFullscreen();
+    }
+  }
+
+  handleStartListening() {
+    this.enterFullscreenModeOnMobile();
   }
 
   handleAgentIdChange(agentId: AgentId) {
