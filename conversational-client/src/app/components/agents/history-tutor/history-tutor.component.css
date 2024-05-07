@@ -1,8 +1,8 @@
-mat-card {
-  width: 100%;
+.content {
   max-width: 600px;
   margin: 0 auto;
   padding: 1em;
+  text-align: center;
 }
 .percentage-complete {
   font-size: 2em;
@@ -19,8 +19,8 @@ mat-card {
 }
 
 .question {
-  margin-top: 6px;
-  background-color: lightgoldenrodyellow;
+  margin: 10px;
+  font-size: 1.1em;
   text-align: center;
   padding: 6px;
 }
@@ -33,8 +33,8 @@ mat-card {
 
 .redacted {
   background-color: #cccccc;
-  border-radius: 10px; /* Add this line to create rounded corners */
   color: #cccccc;
+  min-height: 3em;
 }
 
 .no-questions {

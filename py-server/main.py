@@ -49,10 +49,12 @@ def tts():
     )
     return rtn
 
+
 @app.route("/_ah/warmup")
 def warmup():
     print("Warm up called.")
-    return "", 200, {}    
+    return "", 200, {}
+
 
 @app.route("/chat", methods=["POST", "GET"])
 def chat():
