@@ -158,13 +158,13 @@ class HistoryTutor(ConversationalAgent):
         except Exception as e:
             answered_questions = []
 
-        # Update the world state based on the list of answers given.            
+        # Update the world state based on the list of answers given.
         for answer in world_state["answers"]:
             if answer["key"] in answered_questions:
                 answer["hasAnswered"] = "true"
             if "restart" in answered_questions:
                 answer["hasAnswered"] = "false"
-                
+
         return world_state
 
 

@@ -1,3 +1,9 @@
+.welcome {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  padding: 6px;
+}
 .worldstate {
   text-align: center;
   white-space: pre;

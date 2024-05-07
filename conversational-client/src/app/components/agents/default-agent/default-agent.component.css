@@ -2,3 +2,9 @@ h1,
 p {
   text-align: center;
 }
+
+.welcome {
+  max-width: 600px;
+  margin: auto;
+  padding: 6px;
+}

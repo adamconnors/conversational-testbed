@@ -60,8 +60,7 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual("false", world_state["answers"][1]["hasAnswered"])
         self.assertEqual("false", world_state["answers"][2]["hasAnswered"])
         self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
-        
-        
+
     def test_update_world_state_no_answers(self):
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "start lesson."

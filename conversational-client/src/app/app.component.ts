@@ -7,6 +7,8 @@ import {AgentsService, AgentComponentConfig} from '@services/agents.service';
 import {ChatMessage, AgentId, AgentState, AGENT_IDS} from '@data/agent';
 import {debounce} from './util/debounce';
 import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,7 +36,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     this.currentAgentConfig = this.agentConfigs.get(this.agentId)!;
     this.debouncedScrollToBottom = debounce(this.scrollToBottom);
@@ -52,6 +55,13 @@ export class AppComponent implements OnInit {
   handleAgentIdChange(agentId: AgentId) {
     this.agentId = agentId;
     this.currentAgentConfig = this.agentConfigs.get(this.agentId)!;
+
+    // Update browser location bar to add ?agent=[agentId]
+    this.location.replaceState(`?agent=${this.agentId}`);
+
+    // Clear conversation & world state when changing agents.
+    this.conversation = [];
+    this.agentState = {messageHistory: [], worldState: null};
   }
 
   handleNewLineOfDialog(dialog: string) {
