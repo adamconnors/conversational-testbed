@@ -25,7 +25,7 @@ export class SpeechRecognizerComponent {
 
   dialogLine: string = '';
   listenState: ListenState = ListenState.Stopped;
-  
+
   // Spinner displayed when speech recognizer is first started
   // after loading to prevent the user speaking before the
   // recognizer is ready.
@@ -156,7 +156,6 @@ export class SpeechRecognizerComponent {
       this.listenState = ListenState.Paused;
       this.recognition!.stop();
     } else {
-
       // If the user starts speaking too soon the speech recognition
       // isn't ready, in the absence of an event from the recognizer
       // this is just a bit of syntactic sugar.
