@@ -28,6 +28,7 @@ AGENT_BY_ID = {
 def tts():
     text = flask.request.args.get("text") or flask.request.form.get("text")
     text = text.replace("*", "")
+    text = text.replace("\#", "")
 
     synthesis_input = texttospeech.SynthesisInput(text=text)
     voice = texttospeech.VoiceSelectionParams(
