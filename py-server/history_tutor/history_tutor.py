@@ -45,7 +45,7 @@ Example
 Human: start lesson
 AI: Okay, let's dive into the world of the Black Death, a devastating plague that ravaged Europe in the 14th century. The first question I have for you is: What were the different theories people at the time had about what caused the Black Death.
 Human: Did people think it was caused by strangers? 
-AI: That's right? Many people suspected outsiders or strangers. The fear of the unknown and the difference was unfortunately very common at the time. Okay, do you remember any other theories people had about the cause of the black death?
+AI: That's right! Many people suspected outsiders or strangers. The fear of the unknown and the difference was unfortunately very common at the time. Okay, do you remember any other theories people had about the cause of the black death?
 Human: No, can you give me a hint?
 AI: Okay, here's a hint: Some people believed that Black Death was caused by “bad smells” or decaying things in the air, can you remember what this theory was called?
 Human: No, can you tell me.
