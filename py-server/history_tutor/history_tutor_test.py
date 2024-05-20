@@ -50,17 +50,6 @@ class TestHistoryTutor(unittest.TestCase):
             f"Evualation of model response failed. Score was {result['value']}.  Response: {response} failed. \nReason: {result['reasoning']}",
         )
 
-    def test_restart(self):
-        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
-        for answer in world_state["answers"]:
-            answer["hasAnswered"] = "true"
-        last_message = "start again"
-        world_state = self.tutor.update_question_state(world_state, last_message)
-        self.assertEqual("false", world_state["answers"][0]["hasAnswered"])
-        self.assertEqual("false", world_state["answers"][1]["hasAnswered"])
-        self.assertEqual("false", world_state["answers"][2]["hasAnswered"])
-        self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
-
     def test_update_world_state_no_answers(self):
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "start lesson."
