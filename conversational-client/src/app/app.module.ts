@@ -16,7 +16,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
-import {MatList, MatListItem} from '@angular/material/list';
+import {MatListModule, MatListItem} from '@angular/material/list';
 import {HistoryTutorComponent} from '@components/agents/history-tutor/history-tutor.component';
 import {FakeAgentComponent} from '@components/agents/fake-agent/fake-agent.component';
 
@@ -33,7 +33,7 @@ const materialModules = [
   MatIconModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatList,
+  MatListModule,
   MatListItem,
   MatCardModule,
 ];
