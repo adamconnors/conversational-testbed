@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {HistoryTutorComponent} from './history-tutor.component';
+import {HistoryTutorComponent, WorldState} from './history-tutor.component';
 
 describe('HistoryTutorComponent', () => {
   let component: HistoryTutorComponent;
@@ -8,7 +8,7 @@ describe('HistoryTutorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HistoryTutorComponent],
+      declarations: [HistoryTutorComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HistoryTutorComponent);
@@ -25,6 +25,8 @@ describe('HistoryTutorComponent', () => {
   let component: HistoryTutorComponent;
 
   it('should calculate %age questions answered', () => {
+    // Zero percent.
+    component = new HistoryTutorComponent();
     component.worldState = {
       question: 'What is the capital of France?',
       answers: [
@@ -32,8 +34,12 @@ describe('HistoryTutorComponent', () => {
         {answer: 'London', hasAnswered: 'false'},
         {answer: 'Berlin', hasAnswered: 'false'},
       ],
-    };
+    } as WorldState;
 
     expect(component.calculatePercentageComplete()).toBe(0);
+
+    // 33 percent.
+    component.worldState.answers[0].hasAnswered = 'true';
+    expect(component.calculatePercentageComplete()).toBe(33);
   });
 });

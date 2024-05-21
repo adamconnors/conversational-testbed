@@ -8,7 +8,7 @@ describe('DefaultAgentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DefaultAgentComponent],
+      declarations: [DefaultAgentComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DefaultAgentComponent);

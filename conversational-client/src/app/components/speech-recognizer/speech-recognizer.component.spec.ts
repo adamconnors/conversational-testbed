@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
+import {MatIconModule} from '@angular/material/icon';
 import {SpeechRecognizerComponent} from './speech-recognizer.component';
 
 describe('SpeechRecognizerComponent', () => {
@@ -8,7 +8,8 @@ describe('SpeechRecognizerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SpeechRecognizerComponent],
+      declarations: [SpeechRecognizerComponent],
+      imports: [MatIconModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SpeechRecognizerComponent);

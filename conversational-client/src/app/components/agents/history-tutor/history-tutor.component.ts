@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Agent, AgentState} from '@data/agent';
 
-interface WorldState {
+export interface WorldState {
   question: string;
   answers: Answer[];
 }
@@ -37,7 +37,7 @@ export class HistoryTutorComponent implements Agent {
 
     for (const answer of this.worldState.answers) {
       totalAnswers += 1;
-      if (answer.hasAnswered) {
+      if (answer.hasAnswered === 'true') {
         correctAnswers += 1;
       }
     }

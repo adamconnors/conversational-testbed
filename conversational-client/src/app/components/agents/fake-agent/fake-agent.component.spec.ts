@@ -8,7 +8,7 @@ describe('FakeAgentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FakeAgentComponent],
+      declarations: [FakeAgentComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FakeAgentComponent);
