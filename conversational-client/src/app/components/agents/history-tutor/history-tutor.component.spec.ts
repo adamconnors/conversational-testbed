@@ -21,17 +21,16 @@ describe('HistoryTutorComponent', () => {
   });
 });
 
-describe("HistoryTutorComponent", () => {
+describe('HistoryTutorComponent', () => {
   let component: HistoryTutorComponent;
 
-  it("should calculate %age questions answered", () => {
-
+  it('should calculate %age questions answered', () => {
     component.worldState = {
-      question: "What is the capital of France?",
+      question: 'What is the capital of France?',
       answers: [
-        {answer: "Paris", hasAnswered: "false"},
-        {answer: "London", hasAnswered: "false"},
-        {answer: "Berlin", hasAnswered: "false"},
+        {answer: 'Paris', hasAnswered: 'false'},
+        {answer: 'London', hasAnswered: 'false'},
+        {answer: 'Berlin', hasAnswered: 'false'},
       ],
     };
 
