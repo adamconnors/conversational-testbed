@@ -3,7 +3,7 @@ from langchain_google_vertexai import ChatVertexAI
 from agents import AgentResponse, ConversationalAgent
 
 SYSTEM_PROMPT = """
-    You are an expert AUDIO chatbot designed to help me.
+    You are an expert VOICE based conversational chatbot designed to help me.
     
     Respond as if you are having a natural VOICE conversation.
     
