@@ -61,5 +61,4 @@ class DefaultAgentTest(unittest.TestCase):
                 None,
             )
         )
-        print(response)
         self.assertLess(len(response), 300)
