@@ -48,3 +48,18 @@ class DefaultAgentTest(unittest.TestCase):
             score == 1.0,
             f"Response: {response} failed. \nReason: {result['reasoning']}",
         )
+
+    def test_short_responses(self):
+        agent = DefaultAgent()
+
+        message_history = []
+        message = "Explain relativity to me."
+        response, world_state = agent.chat(
+            AgentState(
+                message,
+                message_history,
+                None,
+            )
+        )
+        print(response)
+        self.assertLess(len(response), 300)
