@@ -10,9 +10,11 @@ export interface AgentComponentConstructor {
 }
 
 export interface AgentComponentPreferences {
-  displayName: string;
-  shouldDisplayChat: boolean;
-  shouldTruncateChatHistory: boolean;
+  // Required preferences for all agents.
+  readonly displayName: string;
+  // Optional preferences default to false
+  readonly shouldHideChat?: boolean;
+  readonly shouldTruncateChatHistory?: boolean;
 }
 
 export interface AgentComponentConfig {
@@ -34,12 +36,10 @@ export class AgentsService {
         {
           component: DefaultAgentComponent,
           inputs: {
-            name: 'Gemini',
+            model: 'Gemini',
           },
           preferences: {
             displayName: 'Default Agent',
-            shouldDisplayChat: true,
-            shouldTruncateChatHistory: false,
           },
         },
       ],
@@ -50,8 +50,6 @@ export class AgentsService {
           inputs: {},
           preferences: {
             displayName: 'Fake Agent',
-            shouldDisplayChat: true,
-            shouldTruncateChatHistory: false,
           },
         },
       ],
@@ -62,7 +60,6 @@ export class AgentsService {
           inputs: {},
           preferences: {
             displayName: 'History Tutor',
-            shouldDisplayChat: true,
             shouldTruncateChatHistory: true,
           },
         },

@@ -7,7 +7,7 @@ import {Agent, AgentState} from '@data/agent';
   styleUrl: './default-agent.component.css',
 })
 export class DefaultAgentComponent implements Agent {
-  @Input() name: string = '';
+  @Input() model: string = '';
 
   processExchange(state: AgentState): AgentState {
     return state;
