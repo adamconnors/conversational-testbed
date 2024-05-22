@@ -108,7 +108,7 @@ export class AppComponent implements OnInit {
         this.agentState = agent.processExchange(agentState);
       }
 
-      if (this.currentAgentConfig.preferences.shouldDisplayChat) {
+      if (!this.currentAgentConfig.preferences.shouldHideChat) {
         this.debouncedScrollToBottom();
       }
     });
