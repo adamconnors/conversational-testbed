@@ -1,10 +1,10 @@
 import json
 import flask
 import google.cloud.texttospeech_v1 as texttospeech
+from agents import AgentState
 from default_agent import DefaultAgent
 from fake_agent import FakeAgent
 from history_tutor.history_tutor import HistoryTutor
-from agents import AgentState
 from langchain_core.messages import HumanMessage, AIMessage
 
 
@@ -16,6 +16,7 @@ tts_client = texttospeech.TextToSpeechClient()
 # Create conversational agents. An agent is a ConversationalAgent subclass.
 # It's able to respond to user messages based on the conversation history
 # and previous state.
+# New agents should be registered here.
 AGENT_BY_ID = {
     "default": DefaultAgent(),
     "fake": FakeAgent(),
@@ -27,8 +28,7 @@ AGENT_BY_ID = {
 @app.route("/tts", methods=["POST", "GET"])
 def tts():
     text = flask.request.args.get("text") or flask.request.form.get("text")
-    text = text.replace("*", "")
-    text = text.replace("\#", "")
+    text = text.replace("*", "").replace("#", "")
 
     synthesis_input = texttospeech.SynthesisInput(text=text)
     voice = texttospeech.VoiceSelectionParams(
@@ -43,12 +43,11 @@ def tts():
     audio_bytes = response.audio_content
 
     # Return audio base64 string
-    rtn = (
+    return (
         audio_bytes,
         200,
         {"Content-Type": "audio/mpeg", "Access-Control-Allow-Origin": "*"},
     )
-    return rtn
 
 
 @app.route("/_ah/warmup")
@@ -89,13 +88,14 @@ def chat():
         AgentState(q, message_history, world_state)
     )
 
-    # TODO: Can we skip this step and pass it directly to the response?
-    response = {
-        "response": agent_response,
-        "world_state": agent_world_state,
-    }
-
-    return response, 200, {"Access-Control-Allow-Origin": "*"}
+    return (
+        {
+            "response": agent_response,
+            "world_state": agent_world_state,
+        },
+        200,
+        {"Access-Control-Allow-Origin": "*"},
+    )
 
 
 def build_message_history(message_history_json):

@@ -40,7 +40,7 @@
       </div>
       <div
         class="conversation"
-        *ngIf="currentAgentConfig.preferences.shouldDisplayChat"
+        *ngIf="!currentAgentConfig.preferences.shouldHideChat"
       >
         <div class="message-container message-user" *ngIf="!!interimDialogLine">
           <span class="message-content">{{ interimDialogLine }}</span>
