@@ -8,8 +8,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 
 # set parent directory path
-sys.path.append("../py-server")
-from agents import AgentResponse, ConversationalAgent
+# sys.path.append("../py-server")
+from agents.agents import AgentResponse, ConversationalAgent
 import os
 
 

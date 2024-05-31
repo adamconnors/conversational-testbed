@@ -55,7 +55,7 @@ To create a new agent you will need to add server and client implementations as 
 #### Server
 - Define a new python file or module that subclasses the `ConversationalAgent` base class and implement the `chat` method.
   - See agents.py for the class definition, and default_agent.py for an example implementation.
-- Add the new agent with a unique id to `AGENT_BY_ID` in main.py.
+- Add the new agent with a unique id to `AGENT_BY_ID` in `agents/registry.py`.
 
 #### Client
 - Create an Angular component for your agent:

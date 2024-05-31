@@ -1,10 +1,8 @@
 import json
 import flask
 import google.cloud.texttospeech_v1 as texttospeech
-from agents import AgentState
-from default_agent import DefaultAgent
-from fake_agent import FakeAgent
-from history_tutor.history_tutor import HistoryTutor
+from agents.agents import AgentState
+from agents.registry import AGENT_BY_ID
 from langchain_core.messages import HumanMessage, AIMessage
 
 
@@ -12,16 +10,6 @@ from langchain_core.messages import HumanMessage, AIMessage
 # called `app` in `main.py`.
 app = flask.Flask(__name__)
 tts_client = texttospeech.TextToSpeechClient()
-
-# Create conversational agents. An agent is a ConversationalAgent subclass.
-# It's able to respond to user messages based on the conversation history
-# and previous state.
-# New agents should be registered here.
-AGENT_BY_ID = {
-    "default": DefaultAgent(),
-    "fake": FakeAgent(),
-    "history_tutor": HistoryTutor(),
-}
 
 
 # Combine these to save ourselves a server roundtrip.
