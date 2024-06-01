@@ -1,9 +1,9 @@
 import json
 import flask
 import google.cloud.texttospeech_v1 as texttospeech
+from langchain_core.messages import HumanMessage, AIMessage
 from agents.agents import AgentState
 from agents.registry import AGENT_BY_ID
-from langchain_core.messages import HumanMessage, AIMessage
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
