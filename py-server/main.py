@@ -3,13 +3,14 @@ import flask
 import google.cloud.texttospeech_v1 as texttospeech
 from langchain_core.messages import HumanMessage, AIMessage
 from agents.agents import AgentState
-from agents.registry import AGENT_BY_ID
+from agents.registry import AgentRegistry
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = flask.Flask(__name__)
 tts_client = texttospeech.TextToSpeechClient()
+agent_registry = AgentRegistry()
 
 
 # Combine these to save ourselves a server roundtrip.
@@ -66,11 +67,9 @@ def chat():
     print(f"World state in main: {world_state}")
 
     # Get the right model for this use-case
-    if agent_id in AGENT_BY_ID:
-        agent = AGENT_BY_ID[agent_id]
-    else:
-        agent = AGENT_BY_ID["default"]
-
+    if not agent_registry.is_agent_registered(agent_id):
+        agent_id = "default"
+    agent = agent_registry.get_agent(agent_id)
     print(f"Responding with {agent}.")
     agent_response, agent_world_state = agent.chat(
         AgentState(q, message_history, world_state)
