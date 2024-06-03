@@ -1,6 +1,6 @@
 import time
 from langchain_google_vertexai import ChatVertexAI
-from agents import AgentResponse, ConversationalAgent
+from .agents import AgentResponse, ConversationalAgent
 
 SYSTEM_PROMPT = """
     You are an expert VOICE based conversational chatbot designed to help me.

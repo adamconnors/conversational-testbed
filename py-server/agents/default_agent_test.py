@@ -4,7 +4,7 @@ import unittest
 from langchain_google_vertexai import VertexAI
 from default_agent import DefaultAgent
 import test_utils
-from agents import AgentState, AgentResponse
+from .agents import AgentState, AgentResponse
 from langchain.evaluation import load_evaluator, EvaluatorType
 
 

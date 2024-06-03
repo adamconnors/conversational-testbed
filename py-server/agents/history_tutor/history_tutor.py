@@ -1,16 +1,12 @@
 import json
-import sys
+import os
 from typing import List
 from langchain_google_vertexai import ChatVertexAI, VertexAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
-
-# set parent directory path
-sys.path.append("../py-server")
-from agents import AgentResponse, ConversationalAgent
-import os
+from agents.agents import AgentResponse, ConversationalAgent
 
 
 # Adapted from Barista Bot: https://aistudio.google.com/app/prompts/barista-bot

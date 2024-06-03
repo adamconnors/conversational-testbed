@@ -8,7 +8,7 @@ from history_tutor.history_tutor import (
     load_file,
     BLACK_DEATH_TUTOR_CONTEXT,
 )
-from agents import AgentState
+from agents.agents import AgentState
 from langchain_google_vertexai import VertexAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser

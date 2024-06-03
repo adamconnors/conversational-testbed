@@ -1,4 +1,4 @@
-from agents import AgentResponse, ConversationalAgent
+from .agents import AgentResponse, ConversationalAgent
 
 
 class FakeAgent(ConversationalAgent):
