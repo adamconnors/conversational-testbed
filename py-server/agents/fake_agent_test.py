@@ -1,7 +1,7 @@
 import unittest
-from fake_agent import FakeAgent
+from .fake_agent import FakeAgent
 import test_utils
-from agents import AgentResponse, AgentState
+from .agents import AgentResponse, AgentState
 
 
 class TestFakeAgent(unittest.TestCase):
