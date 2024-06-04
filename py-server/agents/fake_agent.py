@@ -8,7 +8,6 @@ class FakeAgent(ConversationalAgent):
         message_count = len(agent_state.message_history)
         message = agent_state.message
         world_state = agent_state.world_state
-        print(world_state)
         if world_state == None:
             world_state = self._create_initial_world_state(message, message_count)
         else:
