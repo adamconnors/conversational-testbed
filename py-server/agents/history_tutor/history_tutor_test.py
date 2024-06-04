@@ -3,7 +3,7 @@ from typing import Iterator, List, Optional
 import unittest
 from langchain.llms import BaseLLM
 from langchain_core.messages import AIMessage, HumanMessage
-from history_tutor.history_tutor import (
+from agents.history_tutor.history_tutor import (
     HistoryTutor,
     load_file,
     BLACK_DEATH_TUTOR_CONTEXT,
