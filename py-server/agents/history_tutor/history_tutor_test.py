@@ -47,7 +47,7 @@ class TestHistoryTutor(unittest.TestCase):
 
         self.assertTrue(
             result["value"] == "Y",
-            f"Evualation of model response failed. Score was {result['value']}.  Response: {response} failed. \nReason: {result['reasoning']}",
+            f"Evaluation of model response failed. Response was: {response}.",
         )
 
     def test_update_world_state_no_answers(self):
@@ -102,8 +102,8 @@ class TestHistoryTutor(unittest.TestCase):
         )
 
         self.assertTrue(
-            "Y" in result["value"],
-            f"\nScore was {result['value']}.  \n\nResponse: {response} failed. \n\nReason: {result['reasoning']}\n\n{result}",
+            result["value"] == "Y",
+            f"Evaluation of model response failed. Response was: {response}.",
         )
 
 

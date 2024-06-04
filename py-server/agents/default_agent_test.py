@@ -10,7 +10,6 @@ from langsmith import unit, traceable
 import uuid
 
 
-
 class DefaultAgentTest(unittest.TestCase):
 
     def setUp(self):
