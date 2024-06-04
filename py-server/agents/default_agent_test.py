@@ -2,10 +2,13 @@ import time
 import unittest
 
 from langchain_google_vertexai import VertexAI
-from default_agent import DefaultAgent
+from agents.default_agent import DefaultAgent
 import test_utils
 from .agents import AgentState, AgentResponse
 from langchain.evaluation import load_evaluator, EvaluatorType
+from langsmith import unit, traceable
+import uuid
+
 
 
 class DefaultAgentTest(unittest.TestCase):
@@ -13,6 +16,8 @@ class DefaultAgentTest(unittest.TestCase):
     def setUp(self):
         self.llm = VertexAI(model_name="gemini-pro")
 
+    @traceable
+    @unit
     def test_chat(self):
         agent = DefaultAgent()
 
@@ -49,6 +54,8 @@ class DefaultAgentTest(unittest.TestCase):
             f"Response: {response} failed. \nReason: {result['reasoning']}",
         )
 
+    @traceable
+    @unit
     def test_short_responses(self):
         agent = DefaultAgent()
 
