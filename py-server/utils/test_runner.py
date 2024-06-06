@@ -5,7 +5,6 @@ import click
 import unittest
 import concurrent.futures
 
-from dotenv import load_dotenv
 from rich import print
 from rich.panel import Panel
 
@@ -16,7 +15,7 @@ DEFAULT_RUN_COUNT = 10
 # vertex ai if THREADS > 1. Use the patch described in the thread
 # above until an official fix is available.
 DEFAULT_MAX_THREADS = 5
-DEFAULT_TEST_NAME = "history_tutor_test"
+DEFAULT_TEST_NAME = "fake_agent_test"
 
 
 class TraceLogEntry:
@@ -174,5 +173,4 @@ def find_test_file(test_module):
 
 
 if __name__ == "__main__":
-    load_dotenv()
     run_tests()
