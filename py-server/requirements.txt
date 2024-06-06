@@ -1,6 +1,5 @@
 Flask==3.0.3
 click==8.1.7
-dotenv==0.0.5
 google.cloud.texttospeech==2.16.3
 langchain==0.1.17
 langchain_core==0.1.50
