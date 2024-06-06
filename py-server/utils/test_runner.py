@@ -4,6 +4,7 @@ import time
 import click
 import unittest
 import concurrent.futures
+from dotenv import load_dotenv
 
 from rich import print
 from rich.panel import Panel
@@ -173,4 +174,5 @@ def find_test_file(test_module):
 
 
 if __name__ == "__main__":
+    load_dotenv()
     run_tests()
