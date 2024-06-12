@@ -34,7 +34,11 @@ class TraceLogEntry:
     "--test_name",
     help="Name of the test suite and (optionally) the test case in the format 'suite.TestCase'",
 )
-@click.option("--run_count", default=DEFAULT_RUN_COUNT, help="Number of times to run each test or test suite")
+@click.option(
+    "--run_count",
+    default=DEFAULT_RUN_COUNT,
+    help="Number of times to run each test or test suite",
+)
 @click.option(
     "--max_threads",
     default=DEFAULT_MAX_THREADS,
@@ -49,7 +53,10 @@ def run_tests(test_name, run_count, max_threads):
         )
         test_name = DEFAULT_TEST_NAME
 
-    click.secho(f"Running tests for '{test_name}, repeating {run_count} times with {max_threads} threads.'", fg="yellow")
+    click.secho(
+        f"Running tests for '{test_name}, repeating {run_count} times with {max_threads} threads.'",
+        fg="yellow",
+    )
 
     test_suite = test_name.split(".")[0] if "." in test_name else test_name
     test_case = test_name.split(".")[1] if "." in test_name else None
