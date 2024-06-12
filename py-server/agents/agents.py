@@ -49,7 +49,7 @@ class ConversationalAgent(metaclass=ABCMeta):
         Returns:
             ChatPromptValue object.
         """
-        messages = state.message_history
+        messages = state.message_history.copy()
         messages.insert(0, ("system", system_prompt))
         messages.append(HumanMessage(state.message))
         return ChatPromptTemplate.from_messages(messages)
