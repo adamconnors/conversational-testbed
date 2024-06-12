@@ -54,7 +54,7 @@ class AgentRegistry:
 
     def list_agents(self) -> list[str]:
         """Returns a list of registered agent ids.
-        
+
         Returns:
             list[str]: List of agent ids.
         """
