@@ -38,6 +38,14 @@ class ConversationalAgent(metaclass=ABCMeta):
         """
         pass
 
+    def get_system_prompt(self) -> str:
+        """Returns the main (conversational) system prompt for the agent.
+        This is only needed in order to use interactive alignment tools.
+        """
+        raise NotImplementedError(
+            "Must be implemented in order to use interactive alignment tools."
+        )
+
     def _from_messages(self, system_prompt: str, state: AgentState):
         """
         Builds the prompt template value from the agent's state.
@@ -50,6 +58,6 @@ class ConversationalAgent(metaclass=ABCMeta):
             ChatPromptValue object.
         """
         messages = state.message_history.copy()
-        messages.insert(0, ("system", system_prompt))
+        messages.insert(0, SystemMessage(system_prompt))
         messages.append(HumanMessage(state.message))
         return ChatPromptTemplate.from_messages(messages)
