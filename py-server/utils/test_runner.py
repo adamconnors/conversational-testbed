@@ -17,6 +17,7 @@ DEFAULT_RUN_COUNT = 10
 # above until an official fix is available.
 DEFAULT_MAX_THREADS = 5
 DEFAULT_TEST_NAME = "fake_agent_test"
+DEFAULT_RUN_COUNT = 10
 
 
 class TraceLogEntry:
@@ -33,7 +34,7 @@ class TraceLogEntry:
     "--test_name",
     help="Name of the test suite and (optionally) the test case in the format 'suite.TestCase'",
 )
-@click.option("--run_count", help="Number of times to run each test or test suite")
+@click.option("--run_count", default=DEFAULT_RUN_COUNT, help="Number of times to run each test or test suite")
 @click.option(
     "--max_threads",
     default=DEFAULT_MAX_THREADS,
@@ -48,12 +49,7 @@ def run_tests(test_name, run_count, max_threads):
         )
         test_name = DEFAULT_TEST_NAME
 
-    if not run_count:
-        click.secho(
-            f"Warning: No run count provided, using default {DEFAULT_RUN_COUNT}.",
-            fg="yellow",
-        )
-        run_count = DEFAULT_RUN_COUNT
+    click.secho(f"Running tests for '{test_name}, repeating {run_count} times with {max_threads} threads.'", fg="yellow")
 
     test_suite = test_name.split(".")[0] if "." in test_name else test_name
     test_case = test_name.split(".")[1] if "." in test_name else None
@@ -152,7 +148,7 @@ def process_results(trace_log):
         if failed > 0:
             content = ""
             for failure in failed_list:
-                content += f"{failure[0]}\n{failure[1]}\n\n"
+                content += f"{failure}\n\n"
 
             panel = Panel(content, title="Failure details", expand=False)
             print(panel)

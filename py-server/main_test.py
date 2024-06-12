@@ -19,18 +19,18 @@ class TestMain(unittest.TestCase):
     def test_no_world_state(self):
         req = {
             "q": "user message",
-            "mode": "fake",
+            "agent_id": "fake",
         }
         resp = self.client.post("/chat", data=req)
         data = json.loads(resp.get_data())
-        self.assertEqual(data["response"], "This is a canned response.")
-        print(data["world_state"])
-        self.assertEqual(data["world_state"]["user_messages"][0], "user message")
+
+        self.assertEqual(data["response"], "Fake response to message 0: user message")
+        self.assertEqual(data["world_state"]["last_message"], "user message")
 
     def test_world_state_round_trip(self):
         req = {
             "q": "user message 1",
-            "mode": "fake",
+            "agent_id": "fake",
             "worldstate": "[]",
         }
         resp = self.client.post("/chat", data=req)
