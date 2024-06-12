@@ -51,3 +51,11 @@ class AgentRegistry:
             True if the agent is registered, False otherwise.
         """
         return agent_id in _AGENT_BY_ID
+
+    def list_agents(self) -> list[str]:
+        """Returns a list of registered agent ids.
+        
+        Returns:
+            list[str]: List of agent ids.
+        """
+        return list(_AGENT_BY_ID.keys())

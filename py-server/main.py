@@ -57,20 +57,25 @@ def chat():
     message_history_json = flask.request.args.get(
         "message_history"
     ) or flask.request.form.get("message_history")
-    message_history = build_message_history(message_history_json)
 
     # World State
     world_state_json = flask.request.args.get("world_state") or flask.request.form.get(
         "world_state"
     )
     world_state = json.loads(world_state_json) if world_state_json else None
-    print(f"World state in main: {world_state}")
+    message_history = build_message_history(message_history_json)
+
+    return chat_parameterized(world_state, message_history, agent_id, q)
+
+
+def chat_parameterized(world_state, message_history, agent_id, q):
 
     # Get the right model for this use-case
     if not agent_registry.is_agent_registered(agent_id):
+        print(f"WARNING: Agent ID {agent_id} not found in registry. Using default.")
         agent_id = "default"
     agent = agent_registry.get_agent(agent_id)
-    print(f"Responding with {agent}.")
+
     agent_response, agent_world_state = agent.chat(
         AgentState(q, message_history, world_state)
     )
