@@ -37,8 +37,7 @@ def start_chat(agent):
         /undo - undo the last user_input and response
         /transcript - display a transcript of the conversation so far
         /worldstate - Displays the current world state
-        /feedback - Provide feedback on the agent
-        /feedback_history - Get a list of feedback given so far
+        /feedback - Provide feedback on the agent or list feedback given so far
         /principles - Generates principles based on feedback to add to the prompt
         /exit - End conversation and print a summary report.\n\n""",
         fg="yellow",
@@ -117,19 +116,13 @@ class ChatClient:
             click.echo(click.style("Not implemented yet", fg="yellow"))
         elif parts[0] == "feedback":
             if data is None:
-                click.secho(
-                    """Please provide narrative feedback on the conversation so far or use
-                    feedback_history to see a list of feedback given.""",
-                    fg="red",
-                )
+                click.secho("\n\n---Transcript---\n", fg="yellow")
+                for fb in self.feedback:
+                    click.echo(click.style(f"{fb}", fg="green"))
+                click.secho("\n----------\n", fg="yellow")
             else:
                 click.secho(f"Feedback recorded: {data}", fg="green")
                 self.feedback.append(data)
-        elif command == "feedback_history":
-            click.secho("\n\n---Transcript---\n", fg="yellow")
-            for fb in self.feedback:
-                click.echo(click.style(f"{fb}", fg="green"))
-            click.secho("\n----------\n", fg="yellow")
         elif command == "principles":
             self.generate_principles()
         elif parts[0] == "exit":
@@ -151,8 +144,6 @@ class ChatClient:
         agent = agent_registry.get_agent(self.agent_name)
         prompt = single_run.ConstitutionalPrompt()
         prompt.conversations = self.generate_conversation_turns(self.message_history)
-
-        print(f"Prompt conversations: {prompt.conversations}\n\n")
 
         single_run_prompt = single_run.AlignableSingleRun(
             VertexModelHelper(), data=prompt
@@ -217,11 +208,10 @@ if __name__ == "__main__":
     observer = Observer()
     event_handler = FileUpdateHandler()
 
-    # Set the path to the directory you want to monitor
-    # path = "/Users/adamconnors/work/conversational-testbed/py-server"
-
     # Start the observer
-    observer.schedule(event_handler, "./py-server/agents", recursive=True)
+    
+    observer_directory = os.getcwd() + "/agents"
+    observer.schedule(event_handler, observer_directory, recursive=True)
     observer.start()
 
     start_chat()
