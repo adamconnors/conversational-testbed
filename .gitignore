@@ -2,6 +2,7 @@
 conversational-client/node_modules
 conversational-client/.angular
 py-server/dist
+py-server/agents/physics_expert/content
 .venv
 __pycache__
 .env
