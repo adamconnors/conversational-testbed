@@ -1,5 +1,12 @@
 // Identifies the agent used in a conversation.
-export const AGENT_IDS = ['default', 'fake', 'history_tutor'] as const;
+// Add new agents here. The agent ID must match the agent_id defined
+// in server/agents/registry.py
+export const AGENT_IDS = [
+  'default',
+  'fake',
+  'history_tutor',
+  'physics_expert',
+] as const;
 export type AgentId = (typeof AGENT_IDS)[number];
 
 // Represents a stateful conversational agent.
