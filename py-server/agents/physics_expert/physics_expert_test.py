@@ -3,7 +3,7 @@ import unittest
 from langchain.globals import set_debug
 from langchain_google_vertexai import VertexAI
 from agents.physics_expert.physics_expert import PhysicsExpert, load_resources
-import test_utils
+import utils.test_utils
 from agents.agents import AgentState, AgentResponse
 from langchain.evaluation import load_evaluator, EvaluatorType
 from langsmith import unit, traceable
@@ -18,7 +18,7 @@ class PhysicsExpertTest(unittest.TestCase):
     @unit
     def test_chat(self):
         agent = PhysicsExpert()
-        message_history = test_utils.build_message_history_for_test([])
+        message_history = utils.test_utils.build_message_history_for_test([])
         message = "Tell me about the double slit experiment."
         response, world_state = agent.chat(
             AgentState(

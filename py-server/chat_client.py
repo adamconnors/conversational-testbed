@@ -25,7 +25,7 @@ SPEAKER_TAG_CHARACTERS = 6
 @click.option(
     "--agent",
     default="default",
-    help="The name of the agent you want to interact with to.",
+    help="The name of the agent you want to interact with, e.g. default.",
 )
 def start_chat(agent):
 
@@ -211,7 +211,6 @@ if __name__ == "__main__":
     event_handler = FileUpdateHandler()
 
     # Start the observer
-    
     observer_directory = os.getcwd() + "/agents"
     observer.schedule(event_handler, observer_directory, recursive=True)
     observer.start()

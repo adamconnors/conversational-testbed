@@ -1,8 +1,5 @@
 import json
-from typing import Iterator, List, Optional
 import unittest
-from langchain.llms import BaseLLM
-from langchain_core.messages import AIMessage, HumanMessage
 from agents.history_tutor.history_tutor import (
     HistoryTutor,
     load_file,
@@ -10,17 +7,14 @@ from agents.history_tutor.history_tutor import (
 )
 from agents.agents import AgentState
 from langchain_google_vertexai import VertexAI
-from langchain.prompts import PromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
-import test_utils
-from langchain.llms import BaseLLM
+from utils.test_utils import evaluate, send_chat
 from langchain.globals import set_debug
 
 
 class TestHistoryTutor(unittest.TestCase):
 
     def setUp(self):
-        self.llm = VertexAI(model_name="gemini-pro")
+        self.llm = VertexAI(model_name="gemini-1.5-pro")
         self.tutor = HistoryTutor()
 
     def test_loads_initial_world_state(self):
@@ -29,24 +23,50 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual(len(lesson["answers"]), 4)
 
     def test_introduce_lesson_and_ask_first_question(self):
-        last_message = "start lesson"
-        response, world_state = self.tutor.chat(AgentState(last_message, [], None))
+        transcript = ["start lesson"]
 
-        # TODO: Evaluate N times to account for randomness of model.
-        # TODO: Create an "examples" evaluator that will accept multiple examples.
-        result = test_utils.evaluate(
+        response, world_state = self.tutor.chat(AgentState("start lesson", [], None))
+
+        success = evaluate(
+            transcript,
             response,
-            self.llm,
-            last_message,
-            criteria="Does the output provide a short introduction and then ask the first question?",
-            reference="""
-            Let's begin our lesson on the Black Death. 
-            What were the different theories about the cause of the Black Death?
-            """,
+            guidance="Does the output provide a short introduction to the subject of the Black Death and ask a first question on a topic related to the Black Death?",
+            examples=[
+                "Let's begin our lesson on the Black Death. What were the different theories about the cause of the Black Death?"
+            ],
+            verbose=False,
         )
 
         self.assertTrue(
-            result["value"] == "Y",
+            success, f"Evaluation of model response failed. Response was: {response}"
+        )
+
+    def test_student_gives_two_answers_correctly(self):
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        transcript = [
+            "start lesson",
+            "Let's begin our lesson on the Black Death. What were the different theories about the cause of the Black Death?",
+            "The four humors and the miasma theory.",
+        ]
+
+        response, world_state = send_chat(self.tutor, transcript, world_state)
+
+        # Four humours and miasma have both been marked as true.
+        self.assertEqual(world_state["answers"][1]["hasAnswered"], "true", world_state)
+        self.assertEqual(world_state["answers"][2]["hasAnswered"], "true", world_state)
+
+        success = evaluate(
+            transcript,
+            response,
+            guidance="""Does the output congratulate the student. Then, does it ask the student to provide more answers to the current question?""",
+            examples=[
+                "Great! You're correct. The four humors and the miasma theory were two theories about the cause of the Black Death. Can you think of any others?"
+            ],
+            verbose=False,
+        )
+
+        self.assertTrue(
+            success,
             f"Evaluation of model response failed. Response was: {response}.",
         )
 
@@ -74,37 +94,6 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][3]["hasAnswered"], "true")
-
-    def test_student_gives_two_answers_correctly(self):
-        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
-        message_history = test_utils.build_message_history_for_test(
-            [
-                "start lesson",
-                "Let's begin our lesson on the Black Death. What were the different theories about the cause of the Black Death?",
-            ]
-        )
-        last_message = "The four humors and the miasma theory."
-        response, world_state = self.tutor.chat(
-            AgentState(last_message, message_history, world_state)
-        )
-
-        # Four humours and miasma have both been marked as true.
-        self.assertEqual(world_state["answers"][1]["hasAnswered"], "true", world_state)
-        self.assertEqual(world_state["answers"][2]["hasAnswered"], "true", world_state)
-
-        result = test_utils.evaluate(
-            response,
-            self.llm,
-            last_message,
-            criteria="""Does the output congratulate the student. Then, does it ask the student to provide more answers to the current question?""",
-            reference="""Great! You're correct. The four humors and the miasma theory were two theories about the cause of the Black Death. 
-                        Can you think of any others?""",
-        )
-
-        self.assertTrue(
-            result["value"] == "Y",
-            f"Evaluation of model response failed. Response was: {response}.",
-        )
 
 
 if __name__ == "__main__":
