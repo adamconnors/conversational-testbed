@@ -4,6 +4,8 @@ import shutil
 import sys
 import textwrap
 import click
+
+# TODO: Move chat_parameterized out of main and instantiate agent_registry.
 from main import chat_parameterized, agent_registry
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.globals import set_debug
