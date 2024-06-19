@@ -7,6 +7,7 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from agents.agents import AgentResponse, ConversationalAgent
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
 
 # Adapted from Barista Bot: https://aistudio.google.com/app/prompts/barista-bot
@@ -35,28 +36,36 @@ Remember to be patient, encouraging, and to break down the information into mana
 The goal is to guide them to the correct answer while helping them learn the material, not to simply tell them the answer.
 
 Repeat this process until all parts of the answer have been covered. At the end, provide a summary of the key theories discussed.
- 
-Example
-###
-Human: start lesson
-AI: Okay, let's dive into the world of the Black Death, a devastating plague that ravaged Europe in the 14th century. The first question I have for you is: What were the different theories people at the time had about what caused the Black Death.
-Human: Did people think it was caused by strangers? 
-AI: That's right! Many people suspected outsiders or strangers. The fear of the unknown and the difference was unfortunately very common at the time. Okay, do you remember any other theories people had about the cause of the black death?
-Human: No, can you give me a hint?
-AI: Okay, here's a hint: Some people believed that Black Death was caused by “bad smells” or decaying things in the air, can you remember what this theory was called?
-Human: No, can you tell me.
-AI: Sure, the theory that bad smells caused the Black Death was called the “miasma theory”. Are there any other theories of the time you can recall?
-Human: Did people think it was a punishment from God?
-AI: Yes, exactly! Many individuals at the time believed the Black Death to be caused by divine retribution. Now, do you recall the answer I gave you earlier?
-Human: Was it the “misama” theory?
-AI: Correct! There's one more answer, can you remember it?
-Human: Was it the four humours?
-AI: Perfect! You've remembered all the answers to this question. That's the end of the lesson, well done.
-
-###
-Real Conversation
-###
 """
+
+EXAMPLES = [
+    HumanMessage("start lesson"),
+    AIMessage(
+        " Okay, let's dive into the world of the Black Death, a devastating plague that ravaged Europe in the 14th century. The first question I have for you is: What were the different theories people at the time had about what caused the Black Death."
+    ),
+    HumanMessage("Did people think it was caused by strangers?"),
+    AIMessage(
+        "That's right! Many people suspected outsiders or strangers. The fear of the unknown and the difference was unfortunately very common at the time. Okay, do you remember any other theories people had about the cause of the black death?"
+    ),
+    HumanMessage("No, can you give me a hint?"),
+    AIMessage(
+        "Okay, here's a hint: Some people believed that Black Death was caused by “bad smells” or decaying things in the air, can you remember what this theory was called?"
+    ),
+    HumanMessage("No, can you tell me."),
+    AIMessage(
+        "Sure, the theory that bad smells caused the Black Death was called the “miasma theory”. Are there any other theories of the time you can recall?"
+    ),
+    HumanMessage("Did people think it was a punishment from God?"),
+    AIMessage(
+        "Yes, exactly! Many individuals at the time believed the Black Death to be caused by divine retribution. Now, do you recall the answer I gave you earlier?"
+    ),
+    HumanMessage("Was it the “misama” theory?"),
+    AIMessage("Correct! There's one more answer, can you remember it?"),
+    HumanMessage("Was it the four humours?"),
+    AIMessage(
+        "Perfect! You've remembered all the answers to this question. That's the end of the lesson, well done."
+    ),
+]
 
 
 UPDATE_STATE_PROMPT = """
@@ -121,29 +130,37 @@ def load_file(filename):
 
 class HistoryTutor(ConversationalAgent):
     def __init__(self):
-        self.chat_model = ChatVertexAI(
-            model="gemini-pro", convert_system_message_to_human=False
-        )
-        self.model = VertexAI(model_name="gemini-pro", temperature=0)
+        self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES)
+        self.update_state_model = VertexAI(model_name="gemini-1.5-flash", temperature=0)
         self._lesson_context = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
 
     def chat(self, agent_state) -> AgentResponse:
-        prompt = self._from_messages(CONVERSATION_PROMPT, agent_state)
-        chain = prompt | self.model
 
-        # Set world state on first request.
         if agent_state.world_state == None:
             agent_state.world_state = self._lesson_context
         else:
-            # Update the question state based on the last answer.
             agent_state.world_state = self.update_question_state(
                 agent_state.world_state, agent_state.message
             )
 
-        # Get the response.
-        prompt2 = prompt.invoke({"lesson_context": agent_state.world_state})
-        response = self.chat_model.invoke(prompt2)
+        system_message = PromptTemplate.from_template(CONVERSATION_PROMPT).format(
+            lesson_context=agent_state.world_state
+        )
+
+        messages = [
+            SystemMessage(content=system_message),
+            *agent_state.message_history,
+            agent_state.message,
+        ]
+
+        response = self.chat_model.invoke(messages)
+
         return (response.content, agent_state.world_state)
+
+    def get_system_prompt(self) -> str:
+        return PromptTemplate.from_template(CONVERSATION_PROMPT).format(
+            lesson_context=self._lesson_context
+        )
 
     def update_question_state(self, world_state, last_answer):
 
@@ -155,7 +172,7 @@ class HistoryTutor(ConversationalAgent):
             partial_variables={"format_instructions": parser.get_format_instructions()},
         )
 
-        chain = prompt | self.model | parser
+        chain = prompt | self.update_state_model | parser
 
         try:
             response = chain.invoke(

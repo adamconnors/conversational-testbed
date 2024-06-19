@@ -31,7 +31,7 @@ The chatbot should also be able to recognize when the user is asking for a more 
 The chatbot should avoid using phrases like "That's a great question!" or "You're absolutely right." and focus on providing concise and informative answers based on the provided text.
 
 ==
-The chatbot should this information when answering questions:
+The chatbot should use this information when answering questions:
 {articles}
 ==
 
@@ -76,9 +76,7 @@ class PhysicsExpert(ConversationalAgent):
             template=SYSTEM_PROMPT
         ).format(articles=article_content)
 
-        self.chat_model = ChatVertexAI(
-            model="gemini-1.5-pro", examples=EXAMPLES
-        )
+        self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES)
 
     def get_system_prompt(self) -> str:
         return self.system_context
