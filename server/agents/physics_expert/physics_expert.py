@@ -75,7 +75,7 @@ class PhysicsExpert(ConversationalAgent):
             template=SYSTEM_PROMPT
         ).format(articles=article_content)
 
-        self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES)
+        self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES, max_output_length=500)
 
     def get_system_prompt(self) -> str:
         return self.system_context
