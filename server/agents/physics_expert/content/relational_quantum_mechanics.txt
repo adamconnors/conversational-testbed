@@ -1,0 +1,2461 @@
+arXiv:quant-ph/9609002v2 24 Feb 1997quant-ph/9609002v224 Feb 1997
+e
+e
+arXiv
+Relational Quantum Mechanics
+Carlo Rovelli
+Relational Quantum Mechanics
+Carlo Rovelli
+Department of Physics and Astronomy, University of Pittsburgh, Pittsburgh, Pa 15260, USA
+(February 1, 2008)
+Department of Physics and Astronomy, University of Pittsburgh, Pittsburgh, Pa 15260, USA
+(February 1, 2008)
+II suggest that the common unease with taking quantum mechanics as a fundamental description of
+suggest that the common unease with taking quantum mechanics as
+fundamental description of
+nature (the measurement problem) could derive from the use of an incorrect notion, as the unease
+with the Lorentz transformations before Einstein derived from the notion of observer-independent
+time. I suggest that this incorrect notion that generates the unease with quantum mechanics is
+the notion of observer-independent state of a system, or observer-independent values of physical
+quantities. I reformulate the problem of the interpretation of quantum mechanics as the problem
+of deriving the formalism from a set of simple physical postulates. I consider a reformulation of
+quantum mechanics in terms of information theory. All systems are assumed to be equivalent, there
+is no observer-observed distinction, and the theory describes only the information that systems have
+about each other; nevertheless, the theory is complete.
+time.
+I suggest that this incorrect notion
+that generates the unease with quantum mechanics is
+the notion of observer-independent state of a system, or observer-independent values of physical
+quantities.
+I reformulate the problem of the interpretation of quantum mechanics as the problem
+of deriving the formalism from a set of simple physical postulates.
+quantum mechanics in terms of information theory.
+I consider a reformulation of
+All systems are assumed to be equivalent, there
+is no observer-observed distinction, and the theory describes only the information that systems have
+about each other; nevertheless, the theory is complete.
+nature (the measurement problem) could derive from the use of an incorrect notion, as the unease
+with the Lorentz transformations before Einstein derived from the notion of observer-independent
+I. A REFORMULATION OF THE PROBLEM OF
+THE INTERPRETATION OF QUANTUM
+I.
+REFORMULATION OF THE PROBLEM OF
+THE INTERPRETATION OF QUANTUM
+MECHANICS
+MECHANICS
+In this paper, I discuss a novel view of quantum me-
+In this paper,
+discuss
+novel view of quantum me-
+chanics.
+This point of view is not antagonistic to cur-
+chanics. This point of view is not antagonistic to cur-
+rent ones, as the Copenhagen [Heisenberg 1927, Bohr
+1935], consistent histories [Griﬃths 1984, Griﬃths 1996,
+Omnes 1988, Gell-Mann and Hartle 1990], many-worlds
+[Everett 1957, Wheeler 1957, DeWitt 1970], quantum
+event [Huges 1989], many minds [Albert and Lower 1988,
+1989, Lockwood 1986, Donald 1990] or modal [Shimony
+1969, van Fraassen 1991, Fleming 1992] interpretations,
+but rather combines and complements aspects of them.
+This paper is based on a critique of a notion generally as-
+sumed uncritically. As such, it bears
+rent ones,
+as the Copenhagen [Heisenberg
+1927, Bohr
+1935], consistent histories [Griffiths 1984, Griffiths 1996,
+Omnes 1988, Gell-Mann and Hartle 1990], many-worlds
+[Everett
+1957, Wheeler 1957, DeWitt
+1970], quantum
+event [Huges 1989], many minds [Albert and Lower 1988,
+1989, Lockwood 1986, Donald 1990] or modal [Shimony
+1969, van Fraassen 1991, Fleming 1992] interpretations,
+but rather combines and complements aspects of them.
+This paper is based on a critique of a notion generally as-
+sumed uncritically. As such, it bears a vague resemblance
+with Einstein’s discussion of special relativity, which is
+based on the critique of the notion of absolute simul-
+taneity. The notion rejected here is the notion of abso-
+lute, or observer-independent, state of a system; equiva-
+lently, the notion of observer-independent values of phys-
+ical quantities. The thesis of the present work is that by
+abandoning such a notion (in favor of the weaker notion
+of state —and values of physical quantities— relative to
+something), quantum mechanics makes much more sense.
+vague resemblance
+with Einstein’s discussion of special relativity, which is
+based on the critique of the notion of absolute simul-
+taneity. The notion rejected here is the notion of abso-
+lute, or observer-independent, state of
+system; equiva-
+lently, the notion of observer-independent values of phys-
+ical quantities. The thesis of the present work is that by
+abandoning such
+notion (in favor of the weaker notion
+of state –and values of physical quantities– relative to
+something), quantummechanics makes much more sense.
+This conclusion derives from the observation that the ex-
+perimental evidence at the basis of quantum mechanics
+forces us to accept that distinct observers give different
+This conclusion derives from the observation that the ex-
+perimental evidence at the basis of quantum mechanics
+forces us to accept that distinct observers give diﬀerent
+descriptions of the same events. From this,
+shall argue
+descriptions of the same events. From this, I shall argue
+that the notion of observer-independent state of a sys-
+tem is inadequate to describe the physical world beyond
+uue 1 — UV limit, in the same way in which the notion of
+ahserver_indenendent time is inadequate to describe the
+wlyrivel wu:
+that the notion of observer-independent state of a sys-
+tem is inadequate to describe the physical world beyond
+the ¯
+h → 0 limit, in the same way in which the notion of
+observer-independent time is inadequate to describe the
+4:
+2EG
+oeyond the c >oo limit. I then consider
+uty of replacing the notion of absolute state
+physical world beyond the c → ∞ limit. I then consider
+the possibility of replacing the notion of absolute state
+with a notion that refers to the relation between physical
+systems.
+The motivation for the present work is the common-
+The metas: for the present work is the common-
+place observation that in spite of the 70 years-lapse from
+the discovery of quantum mechanics, and in spite of the
+1
+reisgce 4.2. -44'0., that in spite ofthe 70 years-lapse from
+wy Geese yt---1antum mechanics, and in spite of the
+with » notion that refers to the relation between physical
+avoterin.
+variety of approaches developed with the aim of clarify-
+ing its content and improving the original formulation,
+quantum mechanics still maintains a remarkable level of
+obscurity.
+variety of approaches developed with the aim of clarify-
+ing its content and improving the original formulation,
+quantum mechanics still maintains
+remarkable level of
+obscurity.
+It is even accused of being unreasonable and
+It is even accused of being unreasonable and
+unacceptable, even inconsistent, by world-class physicists
+(For example [Newman 1993]). My point of view in this
+regard is that quantum mechanics synthesizes most of
+what we have learned so far about the physical world:
+unacceptable, even inconsistent, by world-class physicists
+(For example [Newman 1993]). My point of view in this
+regard is that quantum mechanics synthesizes most of
+what we have learned so far about the physical world:
+The issue is thus not to replace or ﬁx it, but rather to
+understand what precisely it says about the world; or,
+equivalently: what precisely we have learned from expe-
+rimental micro-physics.
+The issue
+is thus not to replace or fix it, but rather to
+understand what precisely it says about the world;
+or,
+equivalently: what precisely we have learned from expe-
+rimental micro-physics.
+It
+quantum mechanics communicates. The troubling aspect
+of the theory assumes different faces within different in-
+terpretations, and a complete description of the problem
+can only be based on a survey of the solutions proposed.
+Here, I do not attempt such a survey; for a classical re-
+view see [d’Espagnat 1971], a more modern survey is in
+the first chapters of [Albert 1992], or, in compact form,
+see [Butterfield 1995]. The unease is expressed, for in-
+stance, in the objections the supporters of each interpre-
+tation raise against other interpretations. Some of these
+objections are perhaps naive or ill-posed, but the fact
+that that no interpretation has so far succeeded in con-
+vincing the majority of the physicists, indicates, I believe,
+that the problem of the interpretation of quantum me-
+chanics has not been fully disentangled yet. This unease,
+and the variety of interpretations of quantum mechanics
+that it has generated is sometimes denoted as the mea-
+surement problem. In this paper, I address this problem
+and consider a way out.
+It is diﬃcult to overcome the sense of unease that
+is
+difficult to overcome the sense
+of unease that
+quantummechanics communicates. The troubling aspect
+of the theory assumes diﬀerent faces within diﬀerent in-
+terpretations, and a complete description of the problem
+can only be based on a survey of the solutions proposed.
+Here, I do not attempt such a survey; for a classical re-
+view see [d’Espagnat 1971], a more modern survey is in
+the ﬁrst chapters of [Albert 1992], or, in compact form,
+see [Butterﬁeld 1995]. The unease is expressed, for in-
+stance, in the objections the supporters of each interpre-
+tation raise against other interpretations. Some of these
+objections are perhaps naive or ill-posed, but the fact
+that that no interpretation has so far succeeded in con-
+vincing the majority of the physicists, indicates, I believe,
+that the problem of the interpretation of quantum me-
+chanics has not been fully disentangled yet. This unease,
+and the variety of interpretations of quantum mechanics
+that it has generated is sometimes denoted as the mea-
+surement problem. In this paper, I address this problem
+and consider a way out.
+The paper is based on two ideas:
+The paper is based on two ideas:
+e That the unease may derive from the use of a con-
+cept which is inappropriate to describe the physi-
+cal world at the quantum level.
+• That the unease may derive from the use of a con-
+cept which is inappropriate to describe the physi-
+I shall argue that
+cal world at the quantum level. I shall argue that
+this concept is the concept of observer-independent
+this concept is the concept ofobserver-independent
+state of a system, or, equivalently, the concept of
+observer-independent values of physical quantities.
+system, or, equivalently, the concept of
+state of
+observer-independent values of physical quantities.
+
+• That quantum mechanics will cease to look puz-
+zling only when we will be able to derive the formal-
+ism of the theory from a set of simple physical asser-
+tions (“postulates”, “principles”) about the world.
+Therefore, we should not try to append a reason-
+able interpretation to the quantum mechanics for-
+malism, but rather to derive the formalism from a
+set of experimentally motivated postulates.
+The reasons for exploring such a strategy are illuminated
+by an obvious historical precedent: special relativity. I
+shall make use of this analogy for explanatory purposes,
+in spite of the evident limits of the simile.
+Special relativity is a well understood physical theory,
+appropriately credited to Einstein’s 1905 celebrated pa-
+per. The formal content of special relativity, however,
+is coded into the Lorentz transformations, written by
+Lorentz, not by Einstein, and before 1905. So, what
+was Einstein’s contribution? It was to understand the
+physical meaning of the Lorentz transformations. (And
+more, but this is what is of interest here). We could say –
+admittedly in a provocative manner– that Einstein’s con-
+tribution to special relativity has been the interpretation
+of the theory, not its formalism: the formalism already
+existed.
+Lorentz transformations were discussed at the begin-
+ning of the century, and their interpretation was de-
+bated. In spite of the recognized fact that they repre-
+sent an extension of the Galilean group compatible with
+Maxwell theory, the Lorentz transformation were per-
+ceived as “unreasonable” and “unacceptable as a funda-
+mental spacetime symmetry”, even “inconsistent”, before
+1905; words that recall nowadays comments on quan-
+tum mechanics. The physical interpretation proposed
+by Lorentz himself (and defended by Lorentz long af-
+ter 1905) was a physical contraction of moving bodies,
+caused by a complex and unknown electromagnetic in-
+teraction between the atoms of the bodies and the ether.
+It was quite an unattractive interpretation, remarkably
+similar to certain interpretations of the wave function col-
+lapse presently investigated! Einstein’s 1905 paper sud-
+denly clariﬁed the matter by pointing out the reason for
+the unease in taking Lorentz transformations “seriously”:
+the implicit use of a concept (observer-independent time)
+inappropriate to describe reality when velocities are high.
+Equivalently: a common deep assumption about real-
+ity (simultaneity is observer-independent) which is phys-
+ically untenable. The unease with the Lorentz transfor-
+mations derived from a conceptual scheme in which an
+incorrect notion –absolute simultaneity– was assumed,
+yielding any sort of paradoxical consequences. Once this
+notion was removed the physical interpretation of the
+Lorentz transformations stood clear, and special relativ-
+ity is now considered rather uncontroversial.
+Here I consider the hypothesis that all “paradoxi-
+cal” situations associated with quantum mechanics –as
+the famous and unfortunate half-dead Schr¨odinger cat
+[Schr¨odinger 1935]– may derive from some analogous in-
+2
+correct notion that we use in thinking about quantum
+mechanics. (Not in using quantum mechanics, since we
+seem to have learned to use it in a remarkably eﬀective
+way.) The aim of this paper is to hunt for this incorrect
+notion, with the hope that by exposing it clearly to pub-
+lic contempt, we could free ourselves from the present
+unease with our best present theory of motion, and fully
+understand what does the theory assert about the world.
+Furthermore, Einstein was so persuasive with his in-
+terpretation of the Lorentz equations because he did not
+append an interpretation to them: rather, he re-derived
+them, starting from two postulates with terse physical
+content –equivalence of inertial observers and universal-
+ity of the speed of light– taken as facts of experience. It
+was this re-derivation that unraveled the physical con-
+tent of the Lorentz transformations and provided them
+a convincing interpretation. I would like to suggest here
+that in order to clarify the physical meaning of quantum
+mechanics, a similar result should be searched: Finding a
+small number of simple statements about nature –which
+may perhaps seem contradictory, as the two postulates
+of special relativity do– with clear physical content, from
+which the formalism of quantum mechanics could be de-
+rived. In other words, I have a methodological sugges-
+tion for the problem of the interpretation of quantum
+mechanics: Finding the set of physical facts from which
+the quantum mechanics’s formalism can be derived. To
+my knowledge, such a derivation has not been achieved
+yet. In this paper, I do not achieve such a result in a sat-
+isfactory manner, but I discuss a possible reconstruction
+scheme.
+The program outlined is thus to do for the formalism
+of quantum mechanics what Einstein did for the Lorentz
+transformations: i. Find a set of simple assertions about
+the world, with clear physical meaning, that we know are
+experimentally true (postulates); ii. Analyze these pos-
+tulates, and show that from their conjunction it follows
+that certain common assumptions about the world are
+incorrect; iii. Derive the full formalism of quantum me-
+chanics from these postulates. I expect that if this pro-
+gram could be completed, we would at long last begin to
+agree that we have understood quantum mechanics.
+In section 2, I analyze the measurement process as de-
+scribed by two distinct observers. This analysis leads
+to the main idea: the observer dependence of state and
+physical quantities, and to recognize a few key concepts
+in terms of which, I would like to suggest, the quantum
+mechanical description of reality “makes sense”. Promi-
+nent among these is the concept of information [Shannon
+1949, Wheeler 1988, 1989, 1992]. In section 3, I switch
+from an inductive to a (very mildly) deductive mode, and
+put forward a set of notions, and a set of simple phys-
+ical statements, from which the formalism of quantum
+mechanics can be reconstructed. I denote these state-
+ments as postulates, at the risk of misunderstanding: I
+do not claim any mathematical nor philosophical rigor,
+nor completeness –supplementary assumptions are made
+along the way. I am not interested here in a formaliza-
+
+tion of the subject, but only in better grasping its physics.
+Ideas and techniques for the reconstruction are borrowed
+from quantum logic research, but motivations and spirit
+are diﬀerent. Finally, in section 4, I discuss the picture
+of the physical world that has emerged, and attempt an
+evaluation. In particular, I compare the approach I have
+developed with some currently popular interpretations of
+quantum mechanics, and argue that the diﬀerences be-
+tween these disappear, if the results presented here are
+taken into account.
+In order to prevent the reader from channeling his/her
+thoughts in the wrong direction, let me anticipate a few
+terminological remarks. By using the word “observer”
+I do not make any reference to conscious, animate, or
+computing, or in any other manner special, system. I
+use the word “observer” in the sense in which it is con-
+ventionally used in Galilean relativity when we say that
+an object has a velocity “with respect to a certain ob-
+server”. The observer can be any physical object having
+a deﬁnite state of motion. For instance, I say that my
+hand moves at a velocity v with respect to the lamp on
+my table. Velocity is a relational notion (in Galilean as
+well as in special relativistic physics), and thus it is al-
+ways (explicitly or implicitly) referred to something; it
+is traditional to denote this something as the observer,
+but it is important in the following discussion to keep
+in mind that the observer can be a table lamp. Also, I
+use information theory in its information-theory mean-
+ing (Shannon): information is a measure of the number
+of states in which a system can be –or in which several
+systems whose states are physically constrained (corre-
+lated) can be. Thus, a pen on my table has information
+because it points in this or that direction. We do not
+need a human being, a cat, or a computer, to make use
+of this notion of information.
+II. QUANTUM MECHANICS IS A THEORY
+ABOUT INFORMATION
+In this section, a preliminary analysis of the process of
+measurement is presented, and the main ideas are intro-
+duced. Throughout this section, standard quantum me-
+chanics and standard interpretation –by which I mean for
+instance: formalism and interpretation in [Dirac 1930] or
+[Messiah 1958]– are assumed.
+A. The third person problem
+Consider an observer O (Observer) that makes a mea-
+surement on a system S (System). For the moment we
+may think of O as a classical macroscopic measuring ap-
+paratus, including or not including a human being. As-
+sume that the quantity being measured, say q, takes two
+values, 1 and 2; and let the states of the system S be de-
+scribed by vectors (rays) in a two (complex) dimensional
+3
+Hilbert space HS. Let the two eigenstates of the opera-
+tor corresponding to the measurement of q be |1i and |2i.
+As it is well known: if S is in a generic normalized state
+|ψi = α|1i + β|2i, where α and β are complex numbers
+and |α|2 +|β|2 = 1, then O can measure either one of the
+two values 1 and 2 – with respective probabilities |α|2
+and |β|2.
+Assume that in a given speciﬁc measurement the out-
+come of the measurement is 1. From now on, we con-
+centrate on describing this speciﬁc experiment, which we
+denote as E. The system S is aﬀected by the measure-
+ment, and at a time t = t2 after the measurement, the
+state of the system is |1i. In the physical sequence of
+events E, the states of the system at t1 and t2 are thus
+t1 −→ t2
+α|1i + β|2i −→ |1i
+(1)
+Let us now consider this same sequence of events E, as
+described by a second observer, which we refer to as P. I
+shall refer to O as “he” and to P as “she”. P describes the
+interacting system formed by S and O. Again, assume
+P uses conventional quantum mechanics. Also, assume
+that P does not perform any measurement on the S−O
+system during the t1−t2 interval, but that she knows the
+initial states of both S and O, and is thus able to give
+a quantum mechanical description of the set of events E.
+She describes the system S by means of the Hilbert space
+HS considered above, and O by means of a Hilbert space
+HO. The S − O system is then described by the tensor
+product HSO = HS⊗HO. As it has become conventional,
+let us denote the vector in HO that describes the state of
+the observer O at t = t1 (prior to the measurement) as
+|initi. The physical process during which O measures the
+quantity q of the system S implies a physical interaction
+between O and S. In the process of this interaction, the
+state of O changes. If the initial state of S is |1i (resp |2i)
+(and the initial state of O is |initi), then |initi evolves
+to a state that we denote as |O1i (resp |O2i). Think
+of |O1i (resp |O2i) as a state in which “the position of
+the hand of a measuring apparatus points towards the
+mark ‘1’ (resp ‘2’)”. It is not diﬃcult to construct model
+Hamiltonians that produce evolutions of this kind, and
+that can be taken as models for the physical interactions
+that produce a measurement. Let us consider the actual
+case of the experiment E, in which the initial state of S
+is |ψi = α|1i + β|2i. The initial full state of the S − O
+system is then |ψi ⊗ |initi = (α|1i + β|2i) ⊗ |initi. As
+well known, the linearity of quantum mechanics implies
+t1 −→ t2
+(α|1i + β|2i) ⊗ |initi −→ α|1i ⊗ |O1i + β|2i ⊗ |O2i (2)
+Thus, at t = t2 the system S − O is in the state (α|1i ⊗
+|O1i +β|2i ⊗ |O2i). This is the conventional description
+of a measurement as a physical process [von Neumann
+1932].
+I have described an actual physical process E taking
+place in a real laboratory. Standard quantum mechanics
+
+requires us to distinguish system from observer, but it
+allows us freedom in drawing the line that distinguishes
+the two. In the above analysis this freedom has been
+exploited in order to describe the same sequence of phys-
+ical events in terms of two diﬀerent descriptions. In the
+ﬁrst description, equation (1), the line that distinguishes
+system from observer is set between S and O. In the sec-
+ond, equation (2), between S − O and P. Recall that
+we have assumed that P is not making a measurement
+on the S−O system; there is no physical interaction be-
+tween S − O and P during the t1 − t2 interval. P may
+make measurements at a later time t3: if she measures
+the value of q on S and the position of the hand on O,
+she ﬁnds that the two agree, because the ﬁrst measure-
+ment collapses the state into one of the two factors of
+(2), leaving the second measurement fully determined to
+be the consistent value. Thus, we have two descriptions
+of the physical sequence of events E: The description (1)
+given by the observer O and the description (2) given by
+the observer P. These are two distinct correct descrip-
+tions of the same sequence of events E. At time t2, in the
+O description, the system S is in the state |1i and the
+quantity q has value 1. According to the P description,
+S is not in the state |1i and the hand of the measuring
+apparatus does not indicate ‘1’.
+Thus, I come to the observation on which the rest of
+the paper relies.
+Main observation: In quantum mechan-
+ics diﬀerent observers may give diﬀerent ac-
+counts of the same sequence of events.
+For a very similar conclusion, see [Zurek 1982] and
+[Kochen 1979]. In the rest of the work, I explore the con-
+sequences of taking this observation fully into account.
+Since this observation is crucial, I now pause to discuss
+and refute various objections to the main observation.
+The reader who ﬁnds the above observation plausible
+may skip this rather long list of objections and jump to
+section II.C.
+B. Objections to the main observation
+Objection 1. Whether the account (1) or the account
+(2) is correct depends on which kind of system O happens
+to be. There are systems that induce the collapse of the
+wave function. For instance, if O is macroscopic (1) is
+correct, if O is microscopic (2) is correct.
+The derivation of (2) does not rely on any assumption
+on the systems, but only from the basics of quantum
+mechanics (linearity). Therefore a particular O system
+yielding (1) instead of (2) via Schr¨odinger evolution must
+behave in a way that contradicts the formalism of quan-
+tummechanics as we know it. This implies that O cannot
+be described as a genuine quantum system. Namely that
+there are special systems that do not obey conventional
+quantum mechanics, but are intrinsically classical in that
+4
+they produce collapse of the wave functions –or the actu-
+alization of quantities’ values. This idea underlies a va-
+riety of old and recent attempts to unravel the quantum
+puzzle. The special systems being for instance gravity
+[Penrose 1989], or minds [Albert and Loewer 1988], or
+macroscopic systems [Bohr 1949]. If we accept this idea,
+we have to separate reality into two kinds of systems:
+quantum mechanical systems on the one hand, and spe-
+cial systems on the other. Bohr declares explicitly that
+we must renounce giving a quantum description of the
+classical world [Bohr 1949]. This is echoed in texts as
+[Landau and Lifschit 1977]. Wigner pushes this view to
+the extreme consequences and distinguishes material sys-
+tems (observed) from consciousness (observer) [Wigner
+1961]. Here, on the contrary, I wish to assume
+Hypothesis 1: All systems are equivalent:
+Nothing distinguishes a priori macroscopic
+systems from quantum systems. If the ob-
+server O can give a quantum description of
+the system S, then it is also legitimate for an
+observer P to give a quantum description of
+the system formed by the observer O.
+Of course, I have no proof of hypothesis 1, only plau-
+sibility arguments. I am suspicious toward attempts to
+introduce special non-quantum and not-yet-understood
+new physics, in order to alleviate the strangeness of
+quantum mechanics: they look to me very much like
+Lorentz’ attempt to postulate a mysterious interac-
+tion that Lorentz-contracts physical bodies “for real” –
+something that we now see was very much oﬀ of the point,
+in the light of Einstein’s clarity. Virtually all those views
+modify quantummechanical predictions, in spite of state-
+ments of the contrary: if at t2, the state is as in (1),
+then P can never detect interference terms between the
+two branches in (2), contrary to quantum theory predic-
+tions. These discrepancies are likely to be minute, as
+shown by the beautiful discovery of the physical mech-
+anism of decoherence [Zurek 1981, Joos and Zeh 1985],
+which “saves the phenomena”. But they are nevertheless
+diﬀerent from zero, and thus observable (more on this
+later). I am inclined to trust that a sophisticated experi-
+ment able to detect those minute discrepancies will fully
+vindicate quantum mechanics against distortions due to
+postulated intrinsic classicality of speciﬁc systems. In
+any case, the question is experimentally decidable; and
+we shall see. Second, I do not like the idea that the
+present over-successful theory of motion can only be un-
+derstood in terms of its failures yet-to-be-detected. Fi-
+nally, I think it is reasonable to remain committed, up to
+compelling disproof, to the rule that all physical systems
+are equivalent with respect to mechanics: this rule has
+proven so successful, that I would not dismiss it as far as
+there is another way out.
+Objection 2. What the discussion indicates is that the
+quantum state is diﬀerent in the two accounts, but the
+
+quantum state is a ﬁctitious non-physical mental con-
+struction; the physical content of the theory is given by
+the outcomes of the measurements.
+Indeed, one can take the view that outcomes of mea-
+surements are the physical content of the theory, and
+the quantum state is a secondary theoretical construc-
+tion. This is the way I read [Heisenberg 1927] and
+[van Fraassen 1991]. According to this view, anything
+in between two measurement outcomes is like the “non-
+existing” trajectory of the electron, to use Heisenberg’s
+vivid expression, of which there is nothing to say. I am
+very sympathetic with this view, which plays an impor-
+tant role in section III. This view, however, does not cir-
+cumvent the main observation for the following reason.
+The account (2) states that there is nothing to be said
+about the value of the quantity q of S at time t2: for
+P, at t = t2 the quantity q does not have a determined
+value. On the other hand, for O, at t = t2, q has value
+1. From which the main observation follows again.
+Objection 3. As before (only outcomes of measure-
+ments are physical), but the truth of the matter is that
+P is right and O is wrong.
+This is indefensible. Since all physical experiments of
+which we know can be seen as instances of the S − O
+measurement, this would imply that not a single outcome
+of measurement has ever being obtained yet. If so, how
+could have we learned quantum theory?
+Objection 4. As before (only outcomes of measure-
+ments are physical), but the truth of the matter is that
+O is right and P is wrong.
+If P is wrong, quantum mechanics cannot be applied
+to the S−O system (because her account is a straightfor-
+ward implementation of textbook quantum mechanics).
+Thus this objection predicts discrepancies, so far never
+observed, with quantum mechanical predictions, which
+include observable interference eﬀects between the two
+terms of (2).
+Objection 5. As before, but under the assumption that
+O is macroscopic. Then interference terms become ex-
+tremely small because of decoherence eﬀects. If they are
+small enough, they are unobservable, and thus q = 1 be-
+comes an absolute property of S, which is true and abso-
+lutely determined, albeit unknown to P, who could mea-
+sure it anytime, and would not see interference eﬀects.
+Strictly speaking this is wrong, because decoherence
+depends on which observation P will make. Therefore,
+the property q = 1 of S would become an absolute prop-
+erty at time t2, or not, according to which subsequent
+properties of S the observer P considers. This is the rea-
+son for which the idea of exploiting physical decoherence
+for the basic interpretation of quantum mechanics prob-
+lem has evolved into the consistent histories interpreta-
+tions, where probabilities are (consistently) assigned to
+histories, and not to single outcomes of measurements
+within a history. (See, however, the discussion on the
+no-histories slogan in [Butterﬁeld 1995].)
+5
+Objection 6. There is no collapse. The description (1)
+is not correct, because “the wave function never really
+collapses”. The account (2) is the correct one. There are
+no values assigned to classical properties of system; there
+are only quantum states.
+If so, then the observer P cannot measure the value of
+the property q either, since (by assumption) there are no
+values assigned to classical properties, but only quantum
+states; thus the quantity q doesn’t ever have a value. But
+we do describe the world in terms of “properties” that the
+systems have and values assumed by various quantities,
+not in terms of states in Hilbert space. In a description
+of the world purely in terms of quantum states, the sys-
+tems never have deﬁnite properties and I do not see how
+to match such a description with any observation. For
+a detailed elaboration of this point, which is too often
+neglected, but I think is very strong, see [Albert 1992].
+Objection 7. There is no collapse. The description
+(1) is not correct, because “the wave function never re-
+ally collapses”. The account (2) is the correct one. The
+values assigned to classical properties are diﬀerent from
+branch to branch.
+This is a form of Everett’s view [Everett 1957], which
+entails the idea that when we measure the electron’s spin
+being up, the electron spin is also and simultaneously
+down “in some other branch” –or “world”, hence the
+many world denomination of this view. The property of
+the electron of having spin up is not absolutely true, but
+only true relative to “this” branch. We have a new “pa-
+rameter” for expressing contingency: “which branch” is a
+new “dimension” of indexicality, in addition to the famil-
+iar ones “which time” and “which place”. Thus, the state
+of aﬀairs of the example is that, at t2, q has value 1 in one
+branch and has value 2 in the other; the two branches be-
+ing theoretically described by the two terms in (2). This
+is a fascinating idea that has recently been implemented
+in a variety of diverse incarnations. Traditionally, the
+idea has been discussed in the context of a notion of ap-
+paratus, namely a distinguished set of subsystems of the
+universe, and a distinguished quantity of such an appara-
+tus –the preferred basis. Such a (collection of) preferred
+apparatus and preferred basis are needed in order to de-
+ﬁne branching, and thus in order to have assignment of
+values [Butterﬁeld 1995]; the view has recently branched
+into the many mind interpretations, where the distin-
+guished subsystems are related to various aspect of the
+human brain. (See [Butterﬁeld 1995] for a recent discus-
+sion). These versions of Everett’s idea violate hypothesis
+1, and thus I am not concerned with them. Alternatively,
+there are versions of Everett’s idea that reject the spec-
+iﬁcation of preferred apparatus and preferred basis, and
+in which the branching itself is indexed by an arbitrar-
+ily chosen system playing the role of apparatus and an
+arbitrarily chosen basis. To my knowledge, the only elab-
+orated versions of this view which avoids the diﬃculties
+mentioned in objection 5 have evolved into the histories
+formalisms considered below.
+
+Objection 8. What is absolute and observer indepen-
+dent is the probability of a sequence A1, ...An of property
+ascriptions (such that the interference terms mentioned
+above are extremely small - decoherence); this probability
+is independent from the existence of any observer mea-
+suring these properties.
+This is certainly correct. In fact, this observation is
+at the root of the consistent histories (CH) interpreta-
+tions of quantum mechanics [Griﬃths 1984, 1996, Omnes
+1988, Gell-Mann and Hartle 1990]. However, in my un-
+derstanding, CH conﬁrms the observation above that dif-
+ferent observers give diﬀerent accounts of the same se-
+quence of events, for the following reason. The beauty
+of the histories interpretations is the fact that the prob-
+ability of a sequence of events in a consistent family of
+sequences does not depends on the observer, precisely as
+it doesn’t in classical mechanics. One can be content with
+this powerful result of the theory and stop here. How-
+ever, probabilities depends on the choice of the consistent
+family of histories, which is chosen (to avoid misunder-
+standing: whether or not a physical occurrence can be as-
+signed a probability depends on the family chosen). One
+(who?) makes a choice in picking up a family of alter-
+native histories in terms of which he chooses to describe
+the system. Griﬃths has introduced the vivid expression
+“framework” to indicate a consistent family of histories
+[Griﬃths 1996]. There exist funny cases in which one
+framework is: “Is the value of the physical quantity Q
+equal to 1 at time t, or not?”; and a second framework
+is “Is the value of the physical quantity Q equal to 2 at
+time t, or not?”, and in each framework the answer is
+yes with probability 1! [Kent 1995, Kent and Dowker
+1995, Griﬃths 1996.] Therefore the description of what
+has happened at time t, that we can give on the basis of
+a ﬁxed set of data, is: At t, Q was equal to 1, if we ask
+whether Q was 1 or not. Or: At t, Q was equal to 2, if we
+ask whether Q was 2 or not. There is no contradiction
+here (in Copenhagen terms, the same mathematics would
+indicate that the outcome depends on which apparatus
+is present), but it is diﬃcult to deny that a large major-
+ity of physicists still want to understand more about this
+strangeness of quantum mechanics. In the Copenhagen
+view, the choice that corresponds to the choice between
+frameworks is determined by which classical apparatus is
+present. Namely, the framework is determined by the in-
+teraction of the quantum system with a classical object.
+In CH, one claims that property ascription does not need
+a classical interaction; the price to pay is that (probabilis-
+tic) predictions, rather than being uniquely determined,
+are framework dependent. In the example of the previous
+section, the observers O and P may choose two distinct
+frameworks, and the corresponding two descriptions are
+both valid: each one in its own framework. However, ob-
+server O does not have the choice of using the framework
+that the observer P uses, because he has “seen” q = 1.
+After having seen that q = 1, O has no option anymore
+of allowing a framework in which q is not 1. The fact
+that q = 1 has become one of his “data; and data de-
+6
+termine which frameworks are consistent. Therefore, the
+two observers O and P have diﬀerent sets of frameworks
+at their disposal for describing the same events, because
+they have diﬀerent data (for the same set of events). The
+framework in which (2) makes sense is available to P, but
+not to O, because O has data that include that fact that
+Q = 1 at t2. What is data for O is not data for P, who
+considers the full S − O system: P is still allowed to
+choose a framework which does not include the value 1
+of q at t2. Once the data are speciﬁed, all predictions are
+well deﬁned in CH, but the characterization of what may
+count as data, and therefore which frameworks are avail-
+able, is diﬀerent for the two observers of the above ex-
+ample. Once more, we have that two diﬀerent observers
+give diﬀerent descriptions of the same set of events: what
+is data for O is only a possible choice of framework for
+P. I will return on this delicate point in the last section.
+In conclusion, it seems to me that whatever view of
+quantum theory (consistent with hypothesis 1) one holds,
+the main observation is inescapable. I may thus proceed
+to the main point of this work.
+C. Main discussion
+If diﬀerent observers give diﬀerent accounts of the same
+sequence of events, then each quantum mechanical de-
+scription has to be understood as relative to a particular
+observer. Thus, a quantum mechanical description of a
+certain system (state and/or values of physical quanti-
+ties) cannot be taken as an “absolute” (observer inde-
+pendent) description of reality, but rather as a formal-
+ization, or codiﬁcation, of properties of a system relative
+to a given observer. Quantum mechanics can therefore
+be viewed as a theory about the states of systems and
+values of physical quantities relative to other systems.
+A quantum description of the state of a system S exists
+only if some system O (considered as an observer) is ac-
+tually “describing” S, or, more precisely, has interacted
+with S. The quantum state of a system is always a state
+of that system with respect to a certain other system.
+More precisely: when we say that a physical quantity
+takes the value v, we should always (explicitly or im-
+plicitly) qualify this statement as: the physical quantity
+takes the value v with respect to the so and so observer.
+Thus, in the example considered in section 2.1, q has
+value 1 with respect to O, but not with respect to P.
+Therefore, I suggest that in quantum mechanics
+“state” as well as “value of a variable” –or “outcome of a
+measurement–” are relational notions in the same sense
+in which velocity is relational in classical mechanics. We
+say “the object S has velocity v” meaning “with respect
+to a reference object O”. Similarly, I maintain that “the
+system is in such a quantum state” or “q = 1” are always
+to be understood “with respect to the reference O.” In
+quantum mechanics all physical variables are relational,
+as is velocity.
+
+If quantum mechanics describes relative information
+only, one could consider the possibility that there is a
+deeper underlying theory that describes what happens
+“in reality”. This is the thesis of the incompleteness
+of quantum mechanics (ﬁrst suggested in [Born 1926]!).
+Examples of hypothetical underlying theories are hidden
+variables theories [Bohm 1951, Belifante 1973]. Alter-
+natively, the “wave-function-collapse-producing” systems
+can be “special” because of some non-yet-understood
+physics, which becomes relevant due to large number of
+degrees of freedom [Ghirardi Rimini and Weber 1986,
+Bell 1987], complexity [Hughes 1989], quantum gravity
+[Penrose 1989] or other.
+As is well known, there are no indications on physical
+grounds that quantum mechanics is incomplete. Indeed,
+the practice of quantum mechanics supports the view
+that quantum mechanics represents the best we can say
+about the world at the present state of experimentation,
+and suggests that the structure of the world grasped by
+quantum mechanics is deeper, and not shallower, than
+the scheme of description of the world of classical me-
+chanics. On the other hand, one could consider moti-
+vations on metaphysical grounds, in support of the in-
+completeness of quantum mechanics. One could argue:
+“Since reality has to be real and universal, and the same
+for everybody, then a theory in which the description of
+reality is observer-dependent is certainly an incomplete
+theory”. If such a theory were complete, our concept of
+reality would be disturbed.
+But the way I reformulated the problem of the inter-
+pretation of quantummechanics in section I. should make
+us suspicious and attentive precisely to such kinds of ar-
+guments, I believe. Indeed, what we are looking for is
+precisely some “wrong general assumption” that we sus-
+pect to have, and that could be at the origin of the unease
+with quantum mechanics. Thus, I discard the thesis of
+the incompleteness of quantum mechanics and assume
+Hypothesis 2 (Completeness): Quantum
+mechanics provides a complete and self-
+consistent scheme of description of the physi-
+cal world, appropriate to our present level of
+experimental observations.
+The conjunction of this hypothesis 2 with the main ob-
+servation of section II.A and the discussion above leads
+to the following idea:
+Quantum mechanics is a theory about the
+physical description of physical systems rel-
+ative to other systems, and this is a complete
+description of the world.
+The thesis of this paper is that this conclusion is not
+self-contradictory. If this conclusion is valid, then the in-
+correct notion at the source of our unease with quantum
+theory has been uncovered: it is the notion of true, uni-
+versal, observer-independent description of the state of
+7
+the world. If the notion of observer-independent descrip-
+tion of the world is unphysical, a complete description of
+the world is exhausted by the relevant information that
+systems have about each other. Namely, there is neither
+an absolute state of the system, nor absolute properties
+that the system has at a certain time. Physics is fully re-
+lational, not just as far as the notions of rest and motion
+are considered, but with respect to all physical quantities.
+Accounts (1) and (2) of the sequence of events E are both
+correct, even if distinct: any time we talk about a state
+or property of a system, we have to refer these notions to
+a speciﬁc observing, or reference system. Thus, I propose
+the idea that quantum mechanics indicates that the no-
+tion of a universal description of the state of the world,
+shared by all observers, is a concept which is physically
+untenable, on experimental ground.∗
+Thus, the hypothesis on which I base this paper is that
+accounts (1) and (2) are both fully correct. They refer to
+diﬀerent observers. I propose to reinterpret every contin-
+gent statement about nature (“the electron has spin up”,
+“the atom is in the so and so excited state”, the “spring
+is compressed”, “the chair is here and not there”) as el-
+liptic expressions for relational assertions (“the electron
+has spin up with respect to the Stern Gerlac apparatus”
+... “the chair is here and not there with respect to my
+eyes”, and so on). A general physical theory is a the-
+ory about the state that physical systems have, relative
+to each other. I explore and elaborate this possibility in
+this paper.
+D. Relation between descriptions
+The multiplication of points of view induced by the
+relational notion of state and physical quantities’ values
+considered above raises the problem of the relation be-
+tween distinct descriptions of the same events. What is
+the relation between the value of a variable q relative to
+an observer O, and the value of the same variable relative
+to a diﬀerent observer? This problem is subtle. Consider
+the example of section II.A. We expect some relation be-
+tween the description of the world illustrated in (1) and
+in (2).
+First of all, one may ask what is the “actual”, “abso-
+lute” relation between the description of the world rel-
+ative to O and the one relative to P. This is a ques-
+∗To counter objections based on instinct alone, it is perhaps
+worthwhile recalling the great resistance that the idea of fully
+relational notions of “rest” and “motion” encountered at the
+beginning of the scientiﬁc revolution. I think that quantum
+mechanics (and general relativity) could well be in the course
+of triggering a –not yet developed– revision of world views
+as far reaching as the seventeenth century’s one (on this, see
+[Rovelli 1995]).
+
+tion debated in the context of “perspectival” interpreta-
+tions of quantum mechanics. I think that the question
+is ill-posed. The absolute state of aﬀairs of the world
+is a meaningless notion; asking about the absolute rela-
+tion between two descriptions is precisely asking about
+such an absolute state of aﬀairs of the world. Therefore
+there is no meaning in the “absolute” relation between
+the views of diﬀerent observers. In particular, there is
+no way of deducing the view of one from the view of the
+other.
+Does this mean that there is no relation whatsoever
+between views of diﬀerent observers? Certainly not; it
+means that the relation itself must be understood quan-
+tum mechanically rather than classically. Namely the
+issue of the relation between views must be addressed
+within the view of one of the two observers (or of a third
+one). In other words, we may investigate the view of the
+world of O, as seen by P. Still in other words: the fact
+that a certain quantity q has a value with respect to O is
+a physical fact; as a physical fact, its being true, or not
+true, must be understood as relative to an observer, say
+P. Thus, the relation between O’s and P’s views is not
+absolute either, but it can be described in the framework
+of, say, P’s view.
+There is an important physical reason behind this fact:
+It is possible to compare diﬀerent views, but the process
+of comparison is always a physical interaction, and all
+physical interactions are quantum mechanical in nature.
+I think that this simple fact is forgotten in most discus-
+sions on quantum mechanics, yielding serious conceptual
+errors. Suppose a physical quantity q has value with re-
+spect to you, as well as with respect to me. Can we
+compare these values? Yes we can, by communicating
+among us. But communication is a physical interaction
+and therefore is quantum mechanical. In particular, it
+is intrinsically probabilistic. Therefore you can inquire
+about the value of q with respect to me, but this is (in
+principle) a quantum measurement as well.
+Next, one must distinguish between two diﬀerent ques-
+tions: (i) Does P “know” that S “knows” the value of q?
+(ii) Does P know what is the value of q relative to O?
+(I know that you know the amount of your salary, but I
+do not know what you know about the amount of your
+salary).
+(i) Can P “know” that O has made a measurement on
+S at time t2? The answer is yes. P has a full account
+of the events E. Description (2) expresses the fact that
+O has measured S. The key observation is that in the
+state at t2 in (2), the variables q (with eigenstates |1i
+and |2i) and the pointer variable (with eigenstates |O1i
+and |O2i) are correlated. From this fact, P understands
+that the pointer variable in O has information about q.
+In fact, the state of S −O is the quantum superposition
+of two states: in the ﬁrst, (|1i ⊗ |O1i), S is in the |1i
+state and the hand of the observer is correctly on the ‘1’
+mark. In the second, (|2i ⊗ |O2i), S is in the |2i state
+and the hand of the observer is, correctly again, on the
+‘2’ mark. In both cases, the hand of O is on the mark
+8
+that correctly represents the state of the system. More
+formally, there is an operator M on the Hilbert space
+of the S −O system whose physical interpretation is “Is
+the pointer correctly correlated to q?” If P measures M,
+then the outcome of this measurement would be yes with
+certainty, when the state of the S−O system is as in (2).
+The operator M is given by
+M (|1i ⊗ |O1i) = |1i ⊗ |O1i
+M (|1i ⊗ |O2i) = 0
+M (|2i ⊗ |O2i) = |2i ⊗ |O2i
+M (|2i ⊗ |O1i) = 0
+(3)
+where the eigenvalue 1 means “yes, the hand of O indi-
+cates the correct state of S” and the eigenvalue 0 means
+“no, the hand of O does not indicate the correct state of
+S”. At time t2, the S−O system is in an eigenstate of M
+with eigenvalue 1; therefore P can predict with certainty
+that O “knows” the value of q. Thus, it is meaningful to
+say that, according to the P description of the events E,
+O “knows” the quantity q of S, or that he “has measured”
+the quantity q of S, and the pointer variable embodies
+the information.
+A side remark is important. In general, the state of
+the S−O system will not be an eigenvalue of M. In par-
+ticular, the physical interaction between S and O which
+establishes the correlation will take time. Therefore the
+correlation between the q variable of S and the pointer
+variable of O will be established gradually. Does this
+mean that, in P views, the measurement is made “grad-
+ually”, namely that, according to P, q will have value
+with respect to O only partially? This is a much debated
+question: “Half the way through the measurement, has a
+measurement being done?”. By realizing that P’s knowl-
+edge about O is also quantum mechanical, we ﬁnd –I
+believe– the solution of the puzzle: If the state of the
+S −O system is not an eigenstate of M, then, following
+standard quantum mechanics rule, this means that any
+eventual attempt of P to verify whether or not a mea-
+surement has happened will have outcome “yes” or “no”
+with a certain respective probability. In other words:
+there is no half-a-measurement; there is probability one-
+half that the measurement has been made! We never see
+quantum superpositions of physical values, we only see
+physical values, but we can predict which one we are go-
+ing to see only probabilistically. Similarly, I can say only
+probabilistically whether or not a physical quantity has
+taken value for you; but I should not say that you “half-
+see” a physical quantity! Thus, by representing the fact
+that (for P) “the pointer variable of O has information
+about the q variable in S” by means of the operator M
+resolves the well- known and formidable problem of deﬁn-
+ing the “precise moment” in which the measurement is
+performed, or the precise “amount of correlation” needed
+for a measurement to be established –see for instance
+[Bacciagaluppi and Hemmo 1995]. Such questions are
+not classical questions, but quantum mechanical ques-
+tions, because whether or not O has measured S is not
+
+an absolute property of the S −O state, but a quantum
+property of the quantum S−O system, that can be inves-
+tigated by P, and whose yes/no answers are, in general,
+determined only probabilistically. In other words: im-
+perfect correlation does not imply no measurement per-
+formed, but only a smaller than 1 probability that the
+measurement has been completed.
+A second remark in this regard is that, due to the
+well-known bi-orthogonal decomposition theorem, there
+are always correlated variables in any coupled system (in
+a pure state). Therefore there is always “some” operator
+M for which the S − O system is an eigenstate. Much
+emphasis has been given to this fact in the literature. I
+do not think this fact is very relevant. Imagine we have
+a quantum particle in a box, with a ﬁnite probability to
+tunnel out of it (say this models a nuclear decay). At
+some initial time we describe the state with a wave func-
+tion concentrated in the box. At some later time a Geiger
+counter detects the particle outside the box, and we de-
+scribe the particle as a position eigenstate at the Geiger
+counter position. During the time in between, we can
+describe the state of the particle by giving the wave form
+of its Schr¨odinger wave ψ(x) as it leaks out of the box.
+Now, in principle, we know that there is an operator A
+in the Hilbert space of the particle such that ψ(x) is an
+eigenstate of A. Therefore we know that “some” quantity
+is uniquely deﬁned at any moment. But what is the inter-
+est of such observation? Very little, I would say. A will
+correspond to some totally uninteresting and practically
+non measurable quantity. Similarly, given an arbitrary
+state of the coupled S − O system, there will always be
+a basis in each of the two Hilbert spaces which gives the
+bi-orthogonal decomposition, and therefore which deﬁnes
+an M for which the coupled system is an eigenstate. But
+this is of null practical nor theoretical signiﬁcance. We
+are interested in certain self-adjoint operators only, rep-
+resenting observables that we know how to measure; for
+this same reason, we are only interested in correlations
+between certain quantities: the ones we know how to
+measure.
+The second question P may ask is: (ii.) What is the
+outcome of the measurement performed by O? It is im-
+portant not to confuse the statement “P knows that O
+knows the value of q” with the statement “P knows what
+O knows about q”. In general, the observer P does not
+know “what is the value of the observable q that O has
+measured” (unless α or β in (2) vanish). An observer with
+suﬃcient initial information may predict which variable
+the other observer has measured, but not the outcome
+of the measurement. Communication of measurements
+results is however possible (and fairly common!). P can
+measure the outcome of the measurement performed by
+O. She can, indeed, measure whether O is in |O1i, or in
+|O2i.
+Notice that there is a consistency condition to be ful-
+ﬁlled, which is the following: if P knows that O has mea-
+sured q, then she measures q, and then she measures what
+O has obtained in measuring q (namely she measures the
+9
+pointer variable), then consistency requires that the re-
+sults obtained by P on the q variable and on the pointer
+variable be correlated. Indeed, they are! as was ﬁrst no-
+ticed by von Neumann, and as is clear from (2). Thus,
+there is a satisﬁed consistency requirement in the notion
+of relative description discussed. This can be expressed in
+terms of standard quantum mechanical language: From
+the point of view of the P description:
+The fact that the pointer variable in O has
+information about S (has measured q) is ex-
+pressed by the existence of a correlation be-
+tween the q variable ofS and the pointer vari-
+able of O. The existence of this correlation is
+a measurable property of the S −O state.
+E. Information
+It is time to introduce the main concept in terms of
+which I propose to interpret quantum mechanics: infor-
+mation.
+What is the precise nature of the relation between the
+variable q and the system O expressed in the statement
+“q = 1 relative to O”? Does this relation have a compre-
+hensible physical meaning? Can we analyze it in physical
+terms? The answer has emerged in the previous subsec-
+tion. Let me recapitulate the main idea: The statement
+“q has a value relative to O” refers to the contingent state
+of the S − O system. But the contingent state of the
+S−O system has no observer-independent meaning. We
+can make statements about the state of the S−O system
+only provided that we interpret these statements as rela-
+tive to a third physical system P. Therefore, it should be
+possible to understand what is the physical meaning of
+“q has a value relative to O” by considering the descrip-
+tion that P gives (or could give) of the S − O system.
+This description is not in terms of classical physics, but
+in quantum mechanical terms; it is the one given in de-
+tail above. The result is that “q has value with respect to
+S means that there is a correlation between the variable
+q and the pointer variable in O, namely that P is able
+to predict that subsequent measurements she will make
+on q and on the pointer variable will produce correlated
+outcomes.
+Correlation is “information” in the sense of informa-
+tion theory [Shannon 1949]. If the state of the S − O
+system is in an eigenstate of M with eigenvalue 1, then
+the four possible conﬁgurations that the q variable and
+the pointer variable can take are reduced to two. There-
+fore (by deﬁnition) the pointer variable has information
+about q. Let me then take a lexical move. I will from
+now on express the fact that q has a certain value with
+respect to O by saying: O has the “information” that
+q = 1.
+The notion of information I employ here should not
+be confused with other notions of information used in
+other contexts. I use here a notion of information that
+
+does not require distinction between human and non-
+human observers, systems that understand meaning or
+don’t, very-complicated or simple systems, and so on.
+As it is well known, the problem of deﬁning such a no-
+tion was brilliantly solved by Shannon: in the technical
+sense of information-theory, the amount of information
+is the number of the elements of a set of alternatives out
+of which a conﬁguration is chosen. Information expresses
+the fact that a system is in a certain conﬁguration, which
+is correlated to the conﬁguration of another system (in-
+formation source). The relation between this notion of
+information and more elaborate notions of information is
+given by the fact that the information-theoretical infor-
+mation is a minimal condition for more elaborate notions.
+In a physical theory it is suﬃcient to deal with this ba-
+sic information-theoretical notion of information. This is
+very weak; it does not require us to consider information
+storage, thermodynamics, complex systems, meaning, or
+anything of the sort. In particular: (i.) information can
+be lost dynamically (correlated state may become uncor-
+related); (ii.) we do not distinguish between correlation
+obtained on purpose and accidental correlation; Most im-
+portant: (iii.) any physical system may contain informa-
+tion about another physical system. For instance if we
+have two spin-1/2 particles that have the same value of
+the spin in the same direction, we say that one has in-
+formation about the other one. Thus observer system
+in this paper is any possible physical system (with more
+than one state). If there is any hope of understanding
+how a system may behave as observer without renounc-
+ing the postulate that all systems are equivalent, then
+the same kind of processes –“collapse”– that happens be-
+tween an electron and a CERNmachine, may also happen
+between an electron and another electron. Observers are
+not “physically special systems” in any sense. The rele-
+vance of information theory for understanding quantum
+physics has been advocated by John Wheeler [Wheeler
+1988, 1989, 1992].
+Thus, the physical nature of the relation between S
+and O expressed in the fact that q has a value relative to
+O is captured by the fact that O has information (in the
+sense of information theory) about q. By “q has a value
+relative to O”, we mean “relative to P, there is a certain
+correlation in the S and O states”, or, equivalently, “O
+has information about q”.
+Notice that this is, in a sense, only a partial answer to
+the question formulated at the beginning of this section.
+First, it is a quantum mechanical answer, because P’s
+information about the S−O system is probabilistic. Sec-
+ond, it is an answer that only shifts the problem by one
+step, because the information possessed by O is explained
+in terms of the information possessed by P. Thus, the
+notion of information I use has a double valence. On the
+one hand, I want to weaken all physical statements that
+we make: not “the spin is up”, but “we have information
+that the spin is up” –which leaves the possibility open
+to the fact that somebody other has diﬀerent informa-
+tion. Thus, information indicates the usual ascription of
+10
+values to quantities that founds physics, but emphasizes
+their relational aspect. On the other hand, this ascription
+can be described within the theory itself, as information-
+theoretical information, namely correlation. But such a
+description, in turn, is quantum mechanical and observer
+dependent, because a universal observer-independent de-
+scription of the state of aﬀairs of the world does not ex-
+ist. Finally, there is a key irreducible distinction between
+P’s knowledge that O has information about q and O’s
+knowledge of q. Physics is the theory of the relative infor-
+mation that systems have about each other. This infor-
+mation exhausts everything we can say about the world.
+At this point, the main ideas and concepts have been
+formulated. In the next section, I consider a certain num-
+ber of postulates expressed in terms of these concepts,
+and derive quantum mechanics from these postulates.
+III. ON THE RECONSTRUCTION OF
+QUANTUM MECHANICS
+A. Basic concepts
+Physics is concerned with relations between physical
+systems. In particular, it is concerned with the descrip-
+tion that physical systems give of other physical systems.
+Following hypothesis 1, I reject any fundamental distinc-
+tions as: system/observer, quantum/ classical system,
+physical system/consciousness. Assume that the world
+can be decomposed (possibly in a variety of ways) in a
+collection of systems, each of which can be equivalently
+considered as an observing system or as an observed sys-
+tem. A system (observing system) may have information
+about another system (observed system). Information
+is exchanged via physical interactions. The actual pro-
+cess through which information is collected and perhaps
+stored is not of particular interest here, but can be phys-
+ically described in any speciﬁc instance.
+Information is a discrete quantity: there is a minimum
+amount of information exchangeable (a single bit, or the
+information that distinguishes between just two alterna-
+tives.) I will denote a process of acquisition of infor-
+mation (a measurement) as a “question” that a system
+(observing system) asks another system (observed sys-
+tem). Since information is discrete, any process of ac-
+quisition of information can be decomposed into acqui-
+sitions of elementary bits of information. I refer to an
+elementary question that collects a single bit of informa-
+tion as a “yes/no question”, and I denote these questions
+as Q1, Q2, . . ..
+Any system S, viewed as an observed system, is char-
+acterized by the family of yes/no questions that can be
+asked to it. These correspond to the physical variables of
+classical mechanics and to the observables of conventional
+quantum mechanics. I denote the set of these questions
+as W(S) = {Qi, i ∈ I}, where the index i belongs to an
+
+index set I characteristic of S. The general kinemati-
+cal features of S are representable as relations between
+the questions Qi in W(S), that is, structures over W(S).
+For instance, meaningful questions that can be asked to
+an electron are whether the particle is in a certain re-
+gion of space, whether its spin along a certain direction
+is positive, and so on.
+The result of a sequence of questions (Q1, Q2, Q3, . . .)
+to S, from an observer system O, can be represented by
+a string
+(e1, e2, e3, . . .)
+(4)
+where each ei is either 0 or 1 (no or yes) and represents
+the response of the system to the question Qi. Thus the
+information that O has about S can be represented as a
+binary string. It is a basic fact about nature that knowl-
+edge of a portion (e1, . . . , en) of this string provides indi-
+cations about the subsequent outcomes (en+1, en+2, . . .).
+It is in this sense that a string (4) contains the informa-
+tion that O has about S.
+Trivially repeating the same question (experiment) and
+obtaining always the same outcome does not increase the
+information on S. The relevant information (from now
+on, simply information) that O has about S is deﬁned as
+the non-trivial content of the (potentially inﬁnite) string
+(4), that is the part of (4) relevant for predicting future
+answers of possible future questions. The relevant infor-
+mation is the subset of the string (4), obtained discarding
+the ei’s that do not aﬀect the outcomes of future ques-
+tions.
+The relation between the notions introduced and tra-
+ditional notions used in quantum mechanics is transpar-
+ent: A question is a version of a measurement. The idea
+that quantum measurements can be reduced to yes/no
+measurements is old. A yes/no measurement is repre-
+sented by a projection operator onto a linear subset of the
+Hilbert space, or by the linear subset of the Hilbert space
+itself. Here this idea is not derived from the quantum
+mechanical formalism, but is justiﬁed in information-
+theoretical terms. The notions of observing system and
+observed system reﬂect the traditional notions of observer
+and system (but any system can play both roles here).
+W(S) corresponds to the set of the observables. Recall
+that in algebraic approaches a system is characterized by
+the (algebraic) structure of the family of its observables.
+A notion does not appear here: the state of the sys-
+tem. The absence of this notion is the prime feature of
+the interpretation considered here. In place of the notion
+of state, which refers solely to the system, the notion of
+the information that a system has about another system
+has been introduced. I view this notion very concretely:
+a piece of paper on which outcomes of measurements are
+written, hands of measuring apparatus, memory of sci-
+entists, or a two-value variable which is up or down after
+an interaction.
+For simplicity, in the following I focus on systems that
+in conventional quantum mechanics are described by a
+11
+ﬁnite dimensional Hilbert space. This choice simpliﬁes
+the mathematical treatment of the theory, avoiding con-
+tinuum spectrum and other inﬁnitary issues.
+B. The two main postulates
+Postulate 1 (Limited information). There is
+a maximum amount of relevant information
+that can be extracted from a system.
+The physical meaning of postulate 1 is that it is possible
+to exhaust, or give a complete description of the system.
+In other words, any future prediction that can be inferred
+about the system out of an inﬁnite string (4), can also
+be inferred from a ﬁnite subset
+s = [e1, . . . , eN]
+(5)
+of (4), where N is a number that characterizes the system
+S. The ﬁnite string (5) represents the maximal knowl-
+edge that O has about S.† One may say that any system
+S has a maximal “information capacity” N, where N, an
+amount of information, is expressed in bits. This means
+that N bits of information exhaust everything we can say
+about S. Thus, each system is characterized by a num-
+ber N. In terms of traditional notions, we can view N as
+the smallest integer such that N ≥ log2 k, where k is the
+dimension of the Hilbert space of the system S. Recall
+that the outcomes of the measurement of a complete set
+of commuting observables, characterizes the state, and
+in a system described by a k = 2N dimensional Hilbert
+space such measurements distinguish one outcome out
+of 2N alternative (the number of orthogonal basis vec-
+tors): this means that one gains information N on the
+system. Postulate 1 is conﬁrmed by our experience about
+the world (within the assumption above, that we restrict
+to ﬁnite dimensional Hilbert space systems. Generaliza-
+tion to inﬁnite systems should not be diﬃcult.)
+Notice that postulate 1 already adds the Planck’s con-
+stant to classical physics. Consider a classical system de-
+scribed by a variable q that takes bounded but continuous
+values; for instance, the position of a particle. Classically,
+the amount of information we can gather about it is inﬁ-
+nite: we can locate its state in the system’s phase space
+with arbitrary precision. Quantum mechanically, this in-
+ﬁnite localization is impossible because of postulate 1.
+Thus, maximum available information can localize the
+state only within a ﬁnite region of the phase space. Since
+†The string (5) is essentially the state. The novelty here is
+not the fact that the state is deﬁned as the response of the
+system to a set of yes/no experiments: this is the traditional
+reading of the state as a preparation procedure. The novelty
+is that this notion of state is relative to the observer that has
+asked the questions.
+
+the dimensions of the classical phase space of any system
+are (L2T−1M)n, there must be a universal constant with
+dimension L2T−1M, that determines the minimal local-
+izability of objects in phase space. This constant is of
+course Planck’s constant. Thus we can view Planck’s
+constant just as the transformation coeﬃcient between
+physical units (position × momentum) and information
+theoretical units (bits).
+What happens if, after having asked the N questions
+such that the maximal information about S has been
+gathered, the system O asks a further question QN+1?
+Postulate 2 (Unlimited information). It is
+always possible to acquire new information
+about a system.
+If, after having gathered the maximal information about
+S, the system O asks a further question Q, to the ob-
+served system S, there are two extreme possibilities: ei-
+ther the question Q is fully determined by previous ques-
+tions, or not. In the ﬁrst case, no new information is
+gained. However, the second postulate asserts that there
+is always a way to acquire new information. This postu-
+late implies therefore that the sequence of responses we
+obtain from observing a system cannot be fully determin-
+istic.
+The motivation for the second postulate is fully ex-
+perimental. We know that all quantum systems (and all
+systems are quantum systems) have the property that
+even if we know their quantum state |ψi exactly, we can
+still “learn” something new about them by performing
+a measurement of a quantity O such that |ψi is not an
+eigenstate of O. This is an experimental result about
+the world, coded in quantum mechanics. Postulate 2 ex-
+presses this result.
+Since the amount of information that O can have about
+S is limited by postulate 1, when new information is ac-
+quired, part of the old relevant-information becomes ir-
+relevant. In particular, if a new question Q (not deter-
+mined by the previous information gathered), is asked,
+then O looses (at least) one bit of the previous infor-
+mation. So that, after asking the question Q, new in-
+formation is available, but the total amount of relevant
+information about the system does not exceed N bits.
+Rather surprisingly, those two postulates are (almost)
+suﬃcient to reconstruct the full formalism of quantum
+mechanics. Namely, one may assert that the physical
+content of the general formalism of quantum mechanics
+is (almost) nothing but a sequence of consequences of
+two physical facts expressed in postulates 1 and 2. This
+is illustrated in the next section.
+C. Reconstruction of the formalism, and the third
+postulate
+In this section, I discuss the possibility of deriving the
+formalism of quantum mechanics from the physical as-
+12
+sertions contained in the postulates 1 and 2. This sec-
+tion is technical, and the uninterested reader may skip
+it and jump to section III.D. The technical machinery I
+employ has been developed (with diﬀerent motivations)
+in quantum logic analyses. See for example [Beltrametti
+and Cassinelli 1981]. As I mentioned in the introduc-
+tion, the reconstruction attempt is not fully successful.
+I will be forced to introduce a third postulate (besides
+various relative minor assumptions). I will speculate on
+the possibility of giving this postulate a simple physical
+meaning, but I do not have any clear result. This dif-
+ﬁculty reﬂects parallel diﬃculties in the quantum logic
+reconstruction attempts.
+Let me begin by analyzing the consequences of the ﬁrst
+postulate. The number of questions inW(S) can be much
+larger than N. Some of these questions may not be in-
+dependent. In particular, one may ﬁnd (experimentally)
+that they can be related by implication (Q1 ⇒ Q2), union
+(Q3 = Q1∨Q2) and intersection (Q3 = Q1∧Q2). One can
+deﬁne an always false (Q0) and an always true question
+(Q∞), the negation of a question (¬Q), and a notion of
+orthogonality as follows: if Q1 ⇒ ¬Q2, then Q1 and Q2
+are orthogonal (we indicate this as Q1⊥Q2). Equipped
+with these structures, and under the (non-trivial) addi-
+tional assumption that ∨ and ∧ are deﬁned for every pair
+of questions, W(S) is an orthomodular lattice [Beltram-
+etti and Cassinelli 1981, Huges 1989].
+If there is a maximal amount of information that can be
+extracted from the system, we may assume that one can
+select in W(S) an ensemble of N questions Qi, which we
+denote as c = {Qi, i = 1,N}, that are independent from
+each other. There is nothing canonical in this choice,
+so there may be many distinct families c, b, d, ... of N
+independent questions inW(S). If a systemO asks the N
+questions in the family c to a system S, then the answers
+obtained can be represented as a string that we denote
+as
+sc = [e1, ......, eN]c
+(6)
+The string sc represents the information that O has about
+S, as a result of the interaction that allowed it to ask the
+questions in c. The string sc can take 2N = K values; we
+denote these values as s(1)
+c , s(2)
+c , ..., s(K)
+c . So that
+s(1)
+c = [0, 0, . . . , 0]c
+s(2)
+c = [0, 0, . . . , 1]c
+. . . ,
+s(K)
+c
+= [1, 1, . . . , 1]c
+Since the 2N possible outcomes s(1)
+c , s(2)
+c , ..., s(K)
+(7)
+c of the
+N yes/no questions are (by construction) mutually ex-
+clusive, we can deﬁne 2N new questions Q(1)
+c ...Q(K)
+c
+that the yes answer to Q(i)
+such
+c corresponds to the string of
+answers s(i)
+c :
+Q(1)
+c = ¬Q1 ∧ ¬Q2 ∧ .... ∧ ¬QN
+
+Q(2)
+c
+Q(k)
+= ¬Q1 ∧ ¬Q2 ∧ .... ∧QN
+...
+Then, if the information s(j)
+c , is available about the sys-
+tem, one and only one of the outcomes s(i)
+b , may result.
+c = Q1 ∧ Q2 ∧ .... ∧ QN
+(8)
+We refer to questions of this kind as “complete ques-
+tions”. By taking all possible unions of sets of complete
+questions Q(i)
+c (of the same family c), we construct a
+Boolean algebra that has Q(i)
+c as atoms.
+Alternatively, the observer O could use a diﬀerent
+family of N independent yes-no questions, in order to
+gather information about S. Denote an alternative set
+as b. Then, he will still have a maximal amount of rel-
+evant information about S formed by an N-bit string
+sb = [e1, ......, eN]b. Thus, O can give diﬀerent kinds of
+descriptions of S, by asking diﬀerent questions. Corre-
+spondingly, denote as s(1)
+b ...s(K)
+b
+the 2N values that sb
+can take, and consider the corresponding complete ques-
+tions Q(1)
+b ...Q(K)
+b and the Boolean algebra they generate.
+Thus, it follows from the ﬁrst postulate that the set of
+the questions W(S) that can be asked to a system S has
+a natural structure of an orthomodular lattice containing
+subsets that form Boolean algebras. This is precisely the
+algebraic structure formed by the family of the linear sub-
+sets of a Hilbert space, which represent the yes/no mea-
+surements in ordinary quantum mechanics! [Jauch 1968,
+Finkelstein 1969, Piron, 1972, Beltrametti and Cassinelli
+1981.]
+The next question is the extent to which the infor-
+mation (6) about the set of questions c determines the
+outcome of an additional question Q. There are two ex-
+treme possibilities: that Q is fully determined by (6), or
+that it is fully independent, namely that the probabil-
+ity of getting a yes answer is 1/2. In addition, there is
+a range of intermediate possibilities: The outcome of Q
+may be determined probabilistically by sc. The second
+postulate states explicitly that there are questions that
+are non-determined. Deﬁne, in general, as p(Q, Q(i)
+c ) the
+probability that a yes answer to Q will follow the string
+s(i)
+c . Given two complete families of information sc and
+sb, we can then consider the probabilities‡
+pij = p(Q(i)
+b , Q(j)
+c )
+(9)
+From the way it is deﬁned, the 2N×2N matrix pij cannot
+be fully arbitrary. First, we must have
+0 ≥ pij ≥ 1
+(10)
+‡I do not wish to enter here the debate on the meaning of
+probability in quantum mechanics. I think that the shift of
+perspective I am suggesting is meaningful in the framework
+of an objective deﬁnition of probability, tied to the notion of
+repeated measurements, as well as in the context of subjec-
+tive probability, or any variant of this, if one does not accept
+Jayne’s criticisms of the last.
+13
+It would be extremely interesting to study the constraints
+that the probabilistic nature of all quantities p implies,
+and to investigate to which extent the structure of quan-
+tum mechanics can be derived in full from these con-
+straints. One could conjecture that eqs.(13-17) could be
+Therefore
+
+i
+pij = 1
+We also assume that p(Q(i)
+b , Q(j)
+c ) = p(Q(j)
+c , Q(i)
+(11)
+b ) (this is
+a new assumption! There is a relation with time reversal,
+but I leave it here as an unjustiﬁed assumption at this
+stage), from which we must have
+
+j
+pij = 1
+(12)
+The conditions (10-11-12) are strong constraints on the
+matrix pij. They are satisﬁed if
+pij = |Uij|2
+(13)
+where U is a unitary matrix, and pij can always be writ-
+ten in this form for some unitary matrix U (which, how-
+ever, is not fully determined by pij).
+Consider a question in the Boolean algebra generated
+by a family sc, for instance
+Q(jk)
+c
+= Q(j)
+c ∨ Q(k)
+c
+(14)
+In order to take this question into account, we cannot
+consider probabilities of the form p(Q(i)
+b , Q(jk)
+c ), because
+a yes answer to Q(jk)
+c
+is less than the maximum amount of
+relevant information. But we may consider probabilities
+of the form, say,
+pi(jk)i = p(Q(i)
+b , Q(jk)
+c Q(i)
+b )
+deﬁned as the probability that a yes answer to Q(i)
+follow a yes answer to Q(i)
+(15)
+b will
+b (N bits of information) and
+a subsequent yes answer to Q(jk)
+c
+(N − 1 bits of infor-
+mation). As is well known, we have (experimentally!)
+that
+pi(jk)i 6= p(Q(i)
+b , Q(j)
+c ) p(Q(j)
+c , Q(i)
+b )
++p(Qb(i), Q(k)
+c ) p(Q(k)
+c , Q(i)
+b )
+= (pij)2 + (pik)2
+(16)
+Accordingly, we can determine the missing phases of U
+in (13) by means of the correct relation, which is
+pi(jk)i = |UijUji +UikUki|2
+(17)
+
+derived solely by the properties of conditional probabili-
+ties –or ﬁnd exactly the weakest formulation of the super-
+position principle directly in terms of probabilities: this
+would be a strong result. Alternatively, it would be even
+more interesting to investigate the extent to which the
+noticed consistency between diﬀerent observers’ descrip-
+tions, which I believe characterizes quantum mechanics
+so marvelously, could be taken as the missing input for
+reconstructing the full formalism. I have a suspicion this
+could work, but have no deﬁnite result. Here, I con-
+tent myself with the more modest step of introducing
+a third postulate. For strictly related attempts to re-
+construct the quantum mechanical formalism from the
+algebraic structure of the measurement outcomes, see
+[Mackey 1963, Maczinski 1967, Finkelstein 1969, Jauch
+1968, Piron 1972].
+Postulate 3 (Superposition principle). If c
+and b deﬁne two complete families of ques-
+tions, then the unitary matrix Ucb in
+p(Q(i)
+c , Q(j)
+b ) = |Uij
+cb|2
+can be chosen in such a way that for every c,
+b and d, we have Ucd = UcbUbd and the eﬀect
+of composite questions is given by eq.(17).
+It follows that we may consider any question as a vec-
+tor in a complex Hilbert space, ﬁx a basis |Q(i)
+c i in this
+space and represent any other question |Q(j)
+b i as a linear
+combination of these:
+|Q(j)
+b i =
+The matrices Uij
+
+i
+Uji
+bc |Q(i)
+c i
+(19)
+bc are then a unitary change of basis from
+the |Q(i)
+c i to the |Q(j)
+b i basis. Recall now the conventional
+quantum mechanical probability rule: if |v(i)i are a set
+of basis vectors and |w(j)i a second set of basis vectors
+related to the ﬁrst ones by
+|w(j)i =
+
+i
+Uji |v(i)i
+(20)
+then the probability of measuring the state |w(j)i if the
+system is in the state |w(i)i is
+pij = |hv(i)|w(j)i|2
+(21)
+(20) and (21) yield pij = |Uij|2, which is equation
+(18). Therefore the conventional formalism of quan-
+tum mechanics as well as the standard probability rules
+follow completely from the three postulates. The set
+W(S) has the structure of a set of linear subspaces in
+the Hilbert space. For any yes/no question Qi, let Li
+be the corresponding linear subset of H. The rela-
+tions {⇒, ∨, ∧, ¬, ⊥} between questions Qi correspond
+to the relations {inclusion, orthogonal sum, intersection,
+14
+D. The observer observed
+We now have the full formal machinery of quantum
+mechanics, with an interpretative novelty: the absence of
+the notion of state the system. I now return to the issue
+of the relation between information of distinct observers.
+How can a system P have information about the fact that
+O has information about S? The information possessed
+by distinct observers cannot be compared directly. This
+is the key point of the construction. A statement about
+the information possessed by O is a statement about the
+physical state of O; the observer O is a regular physi-
+cal system. Since there is no absolute meaning to the
+state of a system, any statement regarding the state of
+O, including the information it possess, is to be referred
+to some other system observing O. A second observer P
+can have information about the fact that O has informa-
+tion about S, but any acquisition of information implies
+a physical interaction. P can get new information about
+the information that O has about S only by physically
+interacting with the S −O system.
+At the cost of repeating myself, let me stress again
+that I believe that the common mistake in analyzing mea-
+surement issues in quantum mechanics is to forget that
+two observers can compare their information (their mea-
+surement outcomes) only by physically interacting with
+each other. This means that there is no way to compare
+“the information possessed by O” with ”the information
+(18)
+orthogonal-complement, orthogonality} between the cor-
+responding linear subspaces Li.
+The inclusion of dynamics in the above scheme is
+straightforward. Two questions can be considered as dis-
+tinct if deﬁned by the same operations but performed
+at diﬀerent times. Thus, any question can be labeled
+by the time variable t, indicating the time at which it
+is asked: denote as t → Q(t) the one-parameter family
+of questions deﬁned by the same procedure performed
+at diﬀerent times. In this way we have naturally the
+Heisenberg picture. As we have seen, the set W(S) has
+the structure of a set of linear subspaces in the Hilbert
+space. Assuming that time evolution is a symmetry in
+the theory, the set of all the questions at time t2 must
+be isomorphic to the set of all the questions at time t1.
+Therefore the corresponding family of linear subspaces
+must have the same structure; therefore there should be
+a unitary transformation U(t2 − t1) such that
+Q(t2) = U(t2 − t1)Q(t1)U−1(t2 − t1)
+(22)
+By conventional arguments, these unitary matrices form
+an abelian group and U(t2 − t1) = exp{−ı(t2 − t1)H},
+where H is a self-adjoint operator on the Hilbert space,
+the Hamiltonian. The Schr¨odinger equation follows im-
+mediately if we transform from the Heisenberg to the
+Schr¨odinger picture.
+
+possessed by P”, without considering a quantum physi-
+cal interaction, or a quantum measurement, between the
+two.
+The relation between the information possessed by dis-
+tinct observers is thus given by the following: Viewed by
+O, information about S is the primary concept in terms of
+which one describes the world; viewed by P, the informa-
+tion that O has about S information is just a property of
+some degrees of freedom in O being correlated with some
+property of S. This can be taken as an additional ingre-
+dient to the structure deﬁned by the three postulates; it
+ties the distinct observers to each other.
+Again, the direct question “Do observers O and P have
+the same information on a system S?” is meaningless,
+because it is a question about the absolute state of O
+and P. What is meaningful is to rephrase the question
+in terms of some observer. For instance, we could ask it in
+terms of the information possessed by a further observer,
+or by P herself. Consider this last case. At time t1, O
+gets information about S. P has information about the
+initial state, and therefore has the information that the
+measurement has been performed. The meaning of this
+is that she knows that the states of the S−O systems are
+correlated, or more precisely she knows that if at a later
+time t3 she asks a question to S concerning property A,
+and a question to O concerning his knowledge about A
+(or, equivalently, concerning the position of a pointer),
+she will get consistent results.
+From the dynamical point of view, knowledge of the
+structure of the family of questions W(S) implies the
+knowledge of the dynamics of S (because W(S) includes
+all Heisenberg observables at all times). In Hilbert space
+terms, this means knowing the Hamiltonian of the evo-
+lution of the observed system. If P knows the dynamics
+of the S − O system, she knows the two Hamiltonians
+of O and S and the interaction Hamiltonian. The inter-
+action Hamiltonian cannot be vanishing because a mea-
+surement (O measuring S) implies an interaction: this is
+the only way in which a correlation can be dynamically
+established. From the point of view of P, the measure-
+ment is therefore a fully unitary evolution, determined
+by a peculiar interaction Hamiltonian between O and S.
+The interaction is a measurement if it brings the states
+(relative P) to a correlated conﬁguration. On the other
+hand, O gives a dynamical description of S alone. There-
+fore he can only use the S Hamiltonian. Since between
+times t1 and t2 the evolution of S is aﬀected by its inter-
+action with O, the description of the unitary evolution of
+S given by O breaks down. The unitary evolution does
+not break down for mysterious physical quantum jumps,
+or due to unknown eﬀects, but simply because O is not
+giving a full dynamical description of the interaction. O
+cannot have a full description of the interaction of S with
+himself (O), because his information is correlation, and
+there is no meaning in being correlated with oneself.
+The reader may convince himself that even if we take
+into account several observers observing each other, there
+is no way in which contradiction may develop, provided
+15
+that one does not violate the two rules:
+• (i) There is no meaning to the state of a system or
+the information that a system has, except within
+the information of a further observer.
+• (ii) There is no way a systemP may get information
+about a system O without physically interacting
+with it, and therefore without breaking down (at
+the time of the interaction) the unitary evolution
+description of O.
+For instance, there is no way two observers P and O can
+get information about a system S independently from
+each other: one of two (say O) will have to obtain the
+information ﬁrst. In doing so, he will interact with S at
+a certain time t. This interaction implies that there is a
+non vanishing interaction Hamiltonian between S and O.
+If P asks a question to O at a later time t′, she will either
+have to consider the interacting correlated S−O system,
+or to realize that the unitary evolution of the O dynamics
+has broken down, due to the physical interaction she was
+not taking into account.
+IV. CRITIQUE OF THE CONCEPT OF STATE
+A. “Any observation requires an observer”:
+summary of the ideas presented
+Let me summarize the path covered. I started from the
+distinction between observer and observed-system. I as-
+sumed (hypothesis 1) that all systems are equivalent, so
+that any observer can be described by the same physics
+as any other system. In particular, I assumed that an
+observer that measures a system can be described by
+quantum mechanics. I have analyzed a ﬁxed physical
+sequence of events E, from two diﬀerent points of obser-
+vations, the one of the observer and the one of a third
+system, external to the measurement. I have concluded
+that two observers give diﬀerent accounts of the same
+physical set of events (main observation).
+Rather than backtracking in front of this observation,
+and giving up the commitment to the belief that all sys-
+tems are equivalent, I have decided to take this experi-
+mental fact at its face value, and consider it as a starting
+point for understanding the world. If diﬀerent observers
+give diﬀerent descriptions of the state of the same sys-
+tem, this means that the notion of state is observer de-
+pendent. I have taken this deduction seriously, and have
+considered a conceptual scheme in which the notion of
+absolute observer-independent state of a system is re-
+placed by the notion of information about a system that
+a physical system may possess.
+I have considered three postulates that this informa-
+tion must satisfy, which summarize present experimental
+evidence about the world. The ﬁrst limits the amount
+of relevant information that a system can have; the sec-
+ond summarizes the novelty revealed by the experiments
+
+from which quantummechanics derives, by asserting that
+whatever the information we have about a system we
+can always get new information. The third limits the
+structure of the set of questions; this third postulate can
+probably be sharpened. Out of these postulates the con-
+ventional Hilbert space formalism of quantum mechanics
+and the corresponding rules for calculating probabilities
+(and therefore any other equivalent formalism) can be
+rederived.
+A physical system is characterized by the structure
+on the set W(S) of questions that can be asked to the
+system. This set has the structure of the non-Boolean
+algebra of a family of linear subspaces of a complex k-
+dimensional Hilbert space. The information about S that
+any observer O can possess can be represented as a string
+s, containing an amount of information N.
+I have investigated the meaning of this information out
+of which the theory is constructed. I have shown that the
+fact that a variable in a systemO has information about a
+variable in a system S means that the variables of S and
+O are correlated, meaning that a third observer P has
+information about the coupled S−O system that allows
+her to predict correlated outcomes between questions to
+S and questions to O. Thus correlation has no absolute
+meaning, because states have no absolute meaning, and
+must be interpreted as the content of the information
+that a third system has about the S −O couple.
+Finally, since we take quantum mechanics as a com-
+plete description of the world at the present level of ex-
+perimental knowledge (hypothesis 2), we are forced to
+accept the result that there is no objective, or more pre-
+cisely observer-independent meaning to the ascription of
+a property to a system. Thus, the properties of the sys-
+tems are to be described by an interrelated net of ob-
+servations and information collected from observations.
+Any complex situation can be described in toto by a fur-
+ther additional observer, and the interrelation is consis-
+tent. However, such in toto description is deﬁcient in
+two directions: upward, because an even more general
+observer is needed to describe the global observer itself,
+and –more importantly– downward, because the in toto
+observer knows the content of the information that the
+single component systems possess about each other only
+probabilistically.
+There is no way to “exit” from the observer-observed
+global system: “Any observation requires an observer”
+(The expression is freely taken from [Maturana and
+Varela 1920]). In other words, I suggest that it is a mat-
+ter of natural science whether or not the descriptions that
+diﬀerent observers give of the same ensemble of events is
+universal or not:
+Quantummechanics is the theoretical formal-
+ization of the experimental discovery that the
+descriptions that diﬀerent observers give of
+the same events are not universal.
+The concept that quantum mechanics forces us to give
+up is the concept of a description of a system independent
+16
+from the observer providing such a description; that is,
+the concept of absolute state of a system. The structure
+of the classical scientiﬁc description of the world in terms
+of systems that are in certain states is perhaps incorrect,
+and inappropriate to describe the world beyond the ¯h →
+0 limit.
+B. Relation with other interpretations
+I conclude with a brief discussion on the relation be-
+tween the view presented here and some popular views
+of quantum mechanics. I follow [Butterﬁeld 1995] to or-
+ganize current strategies on the quantum puzzle. The
+ﬁrst strategy (Dynamics) is to reject the quantum postu-
+late that an isolated system evolves according to the lin-
+ear Schr¨odinger equation, and consider additional mech-
+anisms that modify this evolution –in a sense physically
+producing the wave function collapse. Examples are the
+interpretations in which the measurement process is re-
+placed by some hypothetical process that violates the
+linear Schr¨odinger equation [Ghirardi Rimini and Weber
+1986, Penrose 1989]. These interpretation are radically
+diﬀerent from the present approach, since they violate hy-
+pothesis 2. My eﬀort here is not to modify quantum me-
+chanics to make it consistent with my view of the world,
+but to modify my view of the world to make it consistent
+with quantum mechanics.§
+The second and third strategies maintain the idea that
+probabilistic expectations of values of any isolated physi-
+cal system are given by the linear Schr¨odinger evolution.
+They must then face the problem of reconciling (in the
+example of section II.A) the probabilities expressed by
+the state at time t2 in equation (2), –q = 1 with prob-
+ability 1/2 and q = 2 with probability 1/2– with the
+assertion that the the observer O assigns the value q = 1
+to the variable q at the same time t2. As Butterﬁeld em-
+phasizes, if this value assignment coexists with the prob-
+ability distribution expressed by (2), then the eigenstate-
+eigenvalue link must be in some sense weakened, and the
+possibility of assigning values to variables in addition to
+the eigenstate case (extra values) allowed. The second
+and the third strategy in Butterﬁeld’s classiﬁcation dif-
+fer on whether these extra values are “wholly a matter
+of physics” (Physics Values), or are “somehow mental or
+perspectival” (Perspectival Values). In the ﬁrst case, the
+assignment is (in every sense) observer-independent. In
+the second case, it is (in some sense) observer-dependent.
+§Note added. I have recently become aware of an idea to
+circumvent this problem by exploiting the inﬁnite-number-
+of-degrees-of-freedom nature of the observing system. This
+could generate an apparently non-linear evolution from con-
+ventional Schr¨odinger evolution, via a symmetry-breaking in-
+stability generating eﬀective superselection rules. See in par-
+ticular [Jona-Lasinio et. al. 81, 86] and [Wightman 95].
+
+A prime example of the second strategy (Physics Val-
+ues) is Bohr’s, or Copenhagen, interpretation –at least
+in one possible reading. Bohr assumes a classical world.
+In Bohr’s view, this classical world is physically distinct
+from the microsystems described by quantum mechan-
+ics, and it is precisely the classical nature of the appara-
+tus that gives measurement interactions a special status
+[Bohr 1949; for a clear discussion of this point, see Lan-
+dau Lifshitz 1977].
+Within the point of view developed in this paper, one
+can ﬁx once and for all a privileged system So as “The
+Observer” (capitalized). This system So can be formed
+for instance by all the macroscopic objects around us. In
+this way we recover Bohr’s view. The quantum mechan-
+ical “state” of a system S is then the information that
+the privileged system So has about S. Bohr’s choice is
+simply the assumption of a set of systems (the classical
+systems) as privileged observers. This is consistent with
+the view presented here.∗∗ By taking Bohr’s step, one
+becomes blind to the net of interrelations that are at the
+foundation of the theory, and puzzled about the fact that
+the theory treats one system, So, the classical world, in
+a way which is diﬀerent from the other systems. The
+disturbing aspect of Bohr’s view is the inapplicability of
+quantum theory to macrophysics. This disturbing aspect
+vanishes, I believe, at the light of the discussion in this
+paper.
+Therefore, the considerations in this paper do not sug-
+gest any modiﬁcation to the conventional use of quantum
+mechanics: there is nothing incorrect in ﬁxing the pre-
+ferred observer So once and for all. If we adopt the point
+of view suggested here, we continue to use quantum me-
+chanics precisely as is it is currently used. On the other
+hand, this point of view (I hope) brings clarity about the
+physical signiﬁcance of the strange theoretical procedure
+adopted in Bohr’s quantum mechanics: treating a por-
+tion of the world in a diﬀerent manner than the rest of
+it. This diﬀerent treatment is, I believe, the origin of the
+unease with quantum mechanics.
+The strident aspect of Bohr’s quantum mechanics is
+cleanly characterized by von Neumann’s introduction of
+the “projection postulate”, according to which systems
+have two diﬀerent kinds of evolutions: the unitary and
+deterministic Schr¨odinger evolution, and the instanta-
+∗∗A separate problem is why the observing system chosen
+–So, or the macroscopic world– admits, in turn, a description
+in which expectations probabilities evolve classically, namely
+are virtually always concentrated on values 0 and 1, and in-
+terference terms are invisible. It is to this question that the
+physical decoherence mechanism [Joos Zeh 1985, Zurek 1981]
+provides an answer. Namely, after having an answer on what
+determines extra- values ascriptions (the observer-observed
+structure, in the view proposed here), the physical decoher-
+ence mechanism helps explaining why those ascriptions are
+consistent with classical physics in macroscopic systems.
+17
+neous, probabilistic measurement collapse [von Neumann
+1932]. According to the point of view described here, the
+Schr¨odinger unitary evolution of the system S breaks
+down simply because the system interacts with some-
+thing which is not taken into account by the evolution
+equations. Unitary evolution requires the system to be
+isolated, which is exactly what ceases to be true dur-
+ing the measurement, because of the interaction with
+the observer. If we include the observer into the sys-
+tem, then the evolution is still unitary, but we are now
+dealing with the description of a diﬀerent observer. As
+suggested by Ashtekar, the point of view presented here
+can then be described as a fundamental assumption pro-
+hibiting an observer to be able to give a full description of
+“itself” [Ashtekar 1993]. In this respect, these ideas are
+related to earlier suggestions that quantum mechanics
+is a theory that necessarily excludes the observer [Peres
+and Zurek 1982, Roessler 1987, Finkelstein 1988, Primas
+1990]. A recent result in this regard is a general theo-
+rem proven by Breuer [Breuer 1994], according to which
+no system (quantum nor classical) can perform a com-
+plete self-measurement. The relation between the point
+of view presented here and Breuer’s result deserves to be
+explored.
+Other views within Butterﬁeld’s second strategy
+(Physical Values) are Bohm’s hidden variables theory,
+which violates hypothesis 2 (completeness), and modal
+interpretations, which deny the collapse but assume the
+existence of physical quantities’ values. Of these, I am
+familiar with [van Fraassen 1991], or the idea of actual-
+ization of potentialities in [Shimony 1969, Fleming 1992].
+The assumed values must be consistent with the stan-
+dard theory’s predictions, be probabilistically determined
+by a unitary evolving wave function, but they are not
+constrained by the eigenstate-eigenvalue link. One may
+doubt these acrobatics could work [See Bacciagaluppi
+1995, Bacciagaluppi and Hemmo 1995]. I am very sympa-
+thetic with the idea that the object of quantum mechan-
+ics is a set of quantities’ values and their distribution.
+Here, I have assumed value assignment as in these inter-
+pretations, but with two crucial diﬀerences. First, this
+value assignment is observer-dependent. Second, it need
+not be consistent with a unitary Schr¨odinger evolution,
+because the evolution is not unitary when the observed
+system interacts with the observer. Namely, there is col-
+lapse in each observer-dependent evolution of expected
+probabilities. These two diﬀerences allow values to be
+assigned to physical quantities without any of the con-
+sistency worries that plague modal interpretations. The
+point is that the break of the eigenstate-eigenvalue link
+is bypassed by that fact that the eigenvalue refers to one
+observer, and the state to a diﬀerent observer. For a ﬁxed
+observer, the eigenstate-eigenvalue link is maintained.
+Consistency should only be recovered between diﬀerent
+observers, but consistency is only quantum mechanical
+as discussed in section III.D. Actuality is observer de-
+pendent. The fact that the values of physical quantities
+are relational and their consistency is only probabilisti-
+
+cally required circumvents the potential diﬃculties of the
+modal interpretations.
+A class of interpretations of quantum mechanics that
+Butterﬁeld does not include in his classiﬁcation, but
+which are presently very popular among physicists, is the
+consistent histories (CH) interpretations [Griﬃths 1984,
+Omnes 1988, Gell-Mann and Hartle 1990]. These inter-
+pretations reduce the description of a system to the pre-
+diction of temporal sequences of values of physical vari-
+ables. The key novelties are three: (i) probabilities are
+assigned to sequences of values, as opposed to single val-
+ues; (ii) only certain sequences can be considered; (iii)
+probability is interpreted as probability of the given se-
+quence of values within a chosen family of sequences, or
+framework. The restriction (ii) incorporates the quan-
+tum mechanical prohibition of giving value, say, to posi-
+tion and momentum at the same time. More precisely,
+in combination with (iii) it excludes all the instances in
+which observable interference eﬀects would make proba-
+bility assignments inconsistent. In a sense, CH represent
+a sophisticated implementation of the program of dis-
+covering a minimum consistent value attribution scheme.
+The price paid for consistency is that a single value at-
+tribution is meaningless: whether or not a variable has a
+value may very well depend on whether we are asking or
+not if at a later time another variable has a value.
+There is a key subtlety in the CH scheme that has
+rarely being emphasized††: this is the distinction between
+“properties that hold with probability one” and “data”.
+The interesting question to ask is: What is it that de-
+termines which frameworks are allowed? The standard
+answer in CH is that we have certain information on the
+system, call it data. In particular, we know that cer-
+tain physical quantities of the system have certain val-
+ues. The fact that certain quantities have certain values
+determines which framework are allowed to describe a
+phenomenon. Thus: we rely on quantities having val-
+ues (data) for selecting the allowed framework. Then we
+derive probabilistic predictions about value attribution.
+These probabilistic predictions are framework dependent.
+It is often stated that in CH all value attributions are
+framework dependent; this is the way Nature is. But if
+all value attributions are framework dependent, what are
+the data? In CH there seem to be two distinct kind of
+value attributions: a weak value attribution: the frame-
+work dependent values, and a strong value attribution:
+the data, or facts. In CH the focus is totally on predic-
+tions about weak value attributions. But everyday life
+and scientiﬁc practice are about (possibly probabilistic)
+predictions of facts, namely facts that could be later used
+as data. To put it pictorially (and a bit imprecisely): I do
+not care about a science that tells me that my airplane
+will not crash “in one framework”; I want a science that
+††The only discussion on this point I heard was by Isham.
+18
+will tell me that my airplane will just not crash!
+Consider the following situation (situation A): a set
+(D) of data on a system is given. From these data, it fol-
+lows that there is a framework (call it F1) in which the
+question “Is Q equal to 1 at time t?” can be asked, and
+the answer is yes with probability one. Then consider the
+following other situation (situation B): we have a set of
+data on the system, which consist in the set (D) plus the
+data that Q = 1 at time t. Is situation A physically the
+same as situation B in the consistent histories approach?
+The answer is no. In fact, situation A still allows for
+Q = 2 (strange but true) in a diﬀerent framework, say
+F2, while situation B is incompatible with Q = 2, because
+F2 is not an admitted framework. Therefore there should
+exist a physical way in which we pass from situation A
+to situation B. Namely there should be way for a prob-
+ability 1 prediction (in a framework) to become a data.
+The key question that, as far as I can see, the consis-
+tent histories approaches does not address is: how do we
+concretely pass (in a lab) from situation A to situation
+B? What is it that transforms a probability-one event
+(framework dependent) into something that we can use
+as data (framework independent)? If the transformation
+of a “probability-one-in-a-framework” situation into data
+is an actual occurrence in Nature, then I believe CH fails
+to tell me how this can happen (when does a framework
+becomes realized as data). If, on the other hand, what
+is data for me may fail to be data for somebody other,
+then one falls precisely into the scheme presented in this
+paper.
+In the Copenhagen view, it is the interaction with a
+classical object that actualizes properties. A diﬀerent so-
+lution has been suggested in this paper: interaction with
+any object, but then actualization of properties is only
+relative to that object. I do not see the solution of this
+problem within the history views. This is not to say that
+there is anything wrong in the CH approaches. To the
+opposite, I believe that the CH views are correct and
+precise. Still, there is a question that they leave open:
+the physical meaning of the framework dependence of
+the value assignments; more precisely, the understanding
+of how there can be facts, or data, if property ascrip-
+tions are only framework dependent. I think that the
+answer is simply that there are no (observer indepen-
+dent) data at all: the data that I have, and therefore
+the family of frameworks that I can use is diﬀerent from
+your data, and therefore the family of framework that
+you can use. The histories interpretations are not incon-
+sistent with the analysis developed here. What I try to
+add here is attention to the process through which the
+observer-independent, but framework-dependent proba-
+bilities attached to histories, may be related to actual
+observer-dependent descriptions of the facts of the world.
+Finally, let me come to the third strategy (Perspecti-
+val Values), whose prime example is the many worlds in-
+terpretation [Everett 1957, Wheeler 1957, DeWitt 1970],
+and its variants. If the “branching” of the wave func-
+tion in the many worlds interpretation is considered as a
+
+physical process, it raises the very same sort of diﬃculties
+as the von Neumann “collapse” does. When does it hap-
+pen? Which systems are measuring systems that make
+the world branch? These diﬃculties of the many-world
+interpretation have been discussed in the literature [See
+Earman 1986]. Alternatively, we may forget branching as
+a physical process, and keep evolving the wave function
+under unitary evolution. The problem is then to interpret
+the observation of the “internal” observers. As discussed
+in [Butterﬁeld 1985] and [Albert 1992], this can be done
+by giving preferred status to special observers (appara-
+tus) whose values determine a (perspectival) branching.
+See Objection 7 in section II.B. A variant is to take brains
+–“Minds”– as the preferred systems that determine this
+perspectival branching, and thus whose state determines
+the new “dimension” of indexicality. Preferred appara-
+tus, or bringing Minds into the game, violates hypothesis
+1.
+There is a way of having (perspectival) branching keep-
+ing all systems on the same footing: the way followed in
+this paper, namely to assume that all values assignments
+are completely relational, not just relational with respect
+to apparatus or Minds. Notice, however, that from this
+perspective Everett’s wave function is a very misleading
+notion, not only because it represents the perspective of
+a non-existent observer, but because it even fails to con-
+tain any relevant information about the values observed
+by each single observer! There is no description of the
+universe in-toto, only a quantum-interrelated net of par-
+tial descriptions.
+With respect to Butterﬁeld’s classiﬁcation, the inter-
+pretation proposed here is thus in the second, as well as in
+the third, group: the extra values assigned are “somehow
+perspectival” (but deﬁnitely not mental!), in that they
+are observer-dependent, but at the same time “wholly
+a matter of physics”, in the sense in which the “per-
+spectival” aspect of simultaneity is “wholly a matter of
+physics” in relativity. In one word: value assignment in
+a measurement is not inconsistent with unitary evolution
+of the apparatus+system ensemble, because value assign-
+ment refers to the properties of the system with respect
+to the apparatus, while the unitary evolution refers to
+properties with respect to an external system.
+From the point of view discussed here, Bohr’s interpre-
+tation, consistent histories interpretations, as well as the
+many worlds interpretation, are all correct. The point of
+view closest to the one presented here is perhaps Heisen-
+berg’s. Heisenberg’s insistence on the fact that the les-
+son to be taken from the atomic experiments is that we
+should stop thinking of the “state of the system”, has
+been obscured by the subsequent terse deﬁnition of the
+theory in terms of states given by Dirac. Here, I have
+taken Heisenberg’s lesson to extreme consequences.‡‡
+‡‡With a large number of exceptions, most physicists hold
+19
+Crane is developing a point of view similar to the one
+discussed here and has attempted an ambitious extension
+of these ideas to the cosmological general-covariant grav-
+itational case [Crane 1995]. It was recently brought to
+my attention that Zurek ends his paper [Zurek 1982] with
+conclusions that are identical to the ones developed here:
+“Properties of quantum systems have no absolute mean-
+ing. Rather, they must be always characterized with re-
+spect to other physical systems” and “correlations be-
+tween the properties of quantum systems are more basic
+that the properties themselves” [Zurek 1982]. Finally,
+Rob Clifton has brought to my attention an unpublished
+preprint by Kochen [Kochen 1979], with ideas extremely
+similar to the ones presented here.
+Acknowledgments
+The ideas in this work emerged from: i. Conversations
+with Abhay Ashtekar, Julian Barbour, Alain Connes,
+J¨urgen Ehlers, Brigitte Faulknburg, Gordon Flemming,
+Jonathan Halliwell, Jim Hartle, Chris Isham, Al Janis,
+Ted Newman, Roger Penrose, Lee Smolin, John Wheeler
+and HD Zeh; ii. A seminar run by Bob Griﬃths at
+Carnegie Mellon University (1993); iii. A seminar run by
+John Earman at Pittsburgh University (1992); iv. Louis
+Crane’s ideas on quantum cosmology; v. The teachings
+of Paola Cesari on the importance of taking the observer
+some version of naive realism, or some version of naive empiri-
+cism. I am aware of the “philosophical qualm” that the ideas
+presented here may then generate. The conventional reply,
+which I reiterate, is that Galileo’s relational notion of veloc-
+ity used to produce analogous qualms, and that physics seems
+to have the remarkable capacity of challenging even its own
+conceptual premises, in the course of its evolution. Histori-
+cally, the discovery of quantum mechanics has had a strong
+impact on the philosophical credo of many physicists, as well
+as on part of contemporary philosophy. It is possible that
+this process is not concluded. But I certainly do not want
+to venture into philosophical terrains, and I leave this aspect
+of the discussion to competent thinkers. Just a few observa-
+tions: The relational aspect of knowledge is one of the themes
+around which large part of western philosophy has developed.
+In Kantian terms, only to mention a characteristic voice, any
+phenomenal substance which may be object of possible expe-
+rience is “entirely made up of mere relations” [Kant 1787]. In
+recent years, the idea that the notion of observer- independent
+description of a system is meaningless has become almost a
+commonplace in disparate areas of the contemporary culture,
+from anthropology to certain biology and neuro-physiology,
+from the post-neopositivist tradition to (much more radically)
+continental philosophy [Gadamer 1989], all the way to theo-
+retical physical education [Bragagnolo Cesari and Facci 1993].
+I ﬁnd the fact that quantum mechanics, which has directly
+contributed to inspire many of these views, has then remained
+unconnected to these conceptual development, quite curious.
+
+into account. It is a pleasure to thank them all. I also
+thank Gordon Belot, Jeremy Butterﬁeld, Bob Clifton,
+John Earman, Simon Saunders and Euan Squires for dis-
+cussions and comments on the ﬁrst version of this work.
+D’Espagnat 1971,Conceptual foundations of quantum
+mechanics, Addison-Wesley
+DeWitt BS 1970, Physics Today 23, 30
+DeWitt BS, Graham N, 1973 The Many World Inter-
+pretation of Quantum Mechanics, Princeton Uni-
+versity Press
+References
+Albert D, 1992, Quantum Mechanics and Experience,
+Cambridge Ma: Harvard University Press.
+Albert D and Loewer B, 1988, Synthese 77, 195-213;
+1989, Nous 23, 169- 186
+Ashtekar 1993, personal communication
+Einstein A, Podolsky B, Rosen N 1935, Phys Rev 47
+Everet H 1957, Rev of Mod Phys 29, 454
+Bacciagaluppi G 1995, “A Kochen-Specker Theorem in
+the Modal Interpretation of Quantum Theory”, In-
+ternational Journal of Theoretical Physics, to ap-
+pear.
+Bacciagaluppi G and Hemmo M 1995, “Modal Interpre-
+tations of Imperfect Measurement”, Foundation of
+physics, to appear.
+Belifante FJ 1973, A survey ofHidden variable theories,
+Pergamon Press
+Bell J 1987, in Schr¨odinger: centenary of a polymath,
+Cambridge: Cambridge University Press
+Beltrametti EG, Cassinelli G 1981, The Logic of Quan-
+tum Mechanics, Addison Wesley
+Bohm D 1951, Quantum Theory, Englewood Cliﬀs, NJ
+Bohr N 1935, Nature 12, 65.
+Bohr N 1949, discussion with Einstein in Albert Ein-
+stein: Philosopher-Scientist, Open Court
+Born M 1926, Zeitschrift f¨ur Physik 38, 803.
+Bragagnolo W, Cesari P, Facci G 1993, Teoria e
+metodo dell’apprendimento motorio, Bologna: So-
+cieta’ Stampa Sportiva
+Breuer 1994, “The impossibility of accurate state self-
+measurement”, Philosophy of Science, to appear.
+Butterﬁeld J 1995,Words, Minds and Quanta, in “Sym-
+posium on Quantum Theory and the Mind” Liver-
+pool
+Crane L 1995, Clock and Category: Is Quantum Gravity
+Algebraic? J Math Phys 36
+20
+Dirac PMA 1930, The principles ofquantum mechanics,
+Oxford: Clarendon Press
+Donald M 1990, Proceedings of the Royal Society of
+London A427, 43
+Earman J 1986, A primer on determinism, Dordrecht:
+Holland Reidel
+Everett H 1957, Rev of Mod Phys 29, 454
+Finkelstein D 1969, in Boston Studies in the Philosophy
+ofScience, vol 5, eds Cohen RS andWartofski MW,
+Dordrecht 1969
+Finkelstein D 1988, in The universal Turing machine,
+vol 5, eds R Herken, Oxford University Press
+Fleming NG 1992, Journal of Speculative Philosophy,
+VI, 4, 256.
+Gadamer HG 1989, Truth and method, New York:
+Crossroad.
+Gell-Mann M, Hartle J, 1990 in Complexity, Entropy,
+and the Physics of Information, SFI Studies in the
+Sciences of Complexity, vol III, ed W Zurek. Ad-
+dison Wesley
+Ghirardi GC, Rimini A, Weber T 1986, Phys Rev D34,
+470
+Greenberger, Horne and Zeilinger 1993, Physics Today
+Griﬃths RB 1984, J Stat Phys 36, 219;
+Griﬃths RB 1993, Seminar on foundations of quantum
+mechanics, Carnegie Mellon, Pittsburgh, October
+1993
+Griﬃths RB 1996 Consistent Histories and Quantum
+Reasoning; quant-ph/9606004. Phys Rev A, to ap-
+pear 1996.
+Halliwel 1994, in Stochastic Evolution of Quantum
+States in Open Systems and Measurement Process,
+L Diosi ed., Budapest.
+Heisenberg W 1927, Zeit fur Phys 43,172; 1936 Funf
+Wiener Vortage, Deuticke, Leipzig and Vienna.
+Hughes RIG 1989, The structure and interpretation
+of Quantum Mechanics, Harvard University Press,
+Cambridge Ma
+
+Jauch J 1968, Foundations of Quantum Mechanics ,
+Adison Wesley.
+Jona-Lasinio G, Martinelli F, Scoppola E 1981, Comm
+Math Phys 80, 223
+Jona-Lasinio G, Claverie P 1986, Progr Theor Phys
+Suppl 86, 54
+Joos E and Zee HD, Zeitschrift f¨ur Physik B59, 223
+Kant E 1787, Critique of Pure Reason, Modern Library
+New York 1958
+Kent A 1995, gr-qc/9512023, to appear in Phys
+Rev A; quant-phys/9511032; gr-qc/9604012; gr-
+qc/9607073.
+Kent A and Dowker F 1995, Phys Rev Lett 75, 3038, J
+Stat Phys 82, 1575
+Kochen S 1979, The Interpretation ofQuantumMechan-
+ics, unpublished.
+Landau LD, Lifshitz EM 1977, QuantumMechanics, in-
+troduction, Pergamonn Press
+Lockwood M 1989, Mind brain and the Quantum, Ox-
+ford, Blackwell
+Mackey GW 1963 Mathematical Foundations of Quan-
+tum Mechanics New York, Benjamin
+Maczinski H 1967, Bulletin de L’Academie Polonaise des
+Sciences 15, 583
+Maturana H, Varela F 1980, Autopoiesis and Cognition.
+The Realization of the Living, D. Reidel Publishing
+Company, Dordrecht, Holland
+Messiah A 1958, Quantum Mechanics, New York, John
+Wiley
+Newman ET 1993, Talk at the inaugural ceremony of
+the Center for Gravitational Physics, Penn State
+University, August 1993
+Omnes R 1988, J Stat Phys 57, 357
+Penrose R 1989, The emperor’s new mind, Oxford Uni-
+versity Press
+Peres A, Zurek WH 1982, American Journal of Physics
+50, 807
+Piron C 1972, Foundations of Physics 2, 287
+Primas H 1990, in Sixty-two years of uncertainty, eds
+AI Miller, New York Plenum
+Roessler OE 1987, in Real brains - Artiﬁcial minds, eds
+JL Casti A Karlqvist, New York, North Holland
+Rovelli C 1995, “Half way through the woods”, in The
+Cosmos of Science, J Earman and JD Norton ed-
+itors, (University of Pittsburgh Press / Universi-
+taets Verlag Konstanz, 1997), in print
+Shannon CE 1949, The mathematical theory of commu-
+nication , University of Illinois Press
+Shimony A 1969, in Quantum Concepts and spacetime,
+eds R Penrose C Isham, Oxford: Clarendon Press.
+Schr¨odinger E 1935, Naturwissenshaften 22, 807
+Van Fraassen B 1991, Quantum Mechanics: an Empiri-
+cist View, Oxford University Press
+Von Neumann J 1932, Mathematische Grundlagen der
+Quantenmechanik, Springer, Berlin
+Wheeler JA 1957, Rev of Mod Phys 29, 463
+Wheeler JA 1988, IBM Journal of Research and Devel-
+opment, Vol 32, 1
+Wheeler JA 1989, Proceedings of the 3rd International
+Symposium on the Foundations of Quantum Me-
+chanics, Tokyo
+Wheeler JA 1992, It from Bit and Quantum Gravity ,
+Princeton University Report
+Wheeler J, Zurek W 1983, Quantum Theory and Mea-
+surement Princeton University Press
+Wightman AS 1995, in Mesoscopic Physics and Funda-
+mental Problems in QuantumMechanics, edited by
+E Di Castro, F Guerra, G Jona-Lasinio.
+Wigner EP 1961, in The Scientist Speculates , ed Good,
+New York: Basic Books.
+Zurek WH 1981, Phys Rev D24 1516
+Zurek WH 1982, Phys Rev D26 1862
+21
