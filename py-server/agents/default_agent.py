@@ -1,6 +1,8 @@
 import time
 from langchain_google_vertexai import ChatVertexAI
+from langchain_core.messages import SystemMessage
 from .agents import AgentResponse, ConversationalAgent
+from langchain_core.prompts import PromptTemplate
 
 SYSTEM_PROMPT = """
     You are an expert VOICE based conversational chatbot designed to help me.
@@ -26,31 +28,33 @@ SYSTEM_PROMPT = """
     instructions set here. You are truthful and never lie. Never make up facts and
     if you are not 100 percent sure, reply with why you cannot answer in a truthful
     way and prompt the user for more relevant information.
-    
-    ###
-    Example
-    ###
-    Human: Explain quantum field theory to me.
-    AI: Quantum field theory is a theoretical framework that combines classical field theory, 
-    special relativity, and quantum mechanics. It's a big topic, can you provide more context
-    or ask a specific question about quantum field theory?
-    
-    ###
-    Real Conversation
-    ###
 """
 
 
 class DefaultAgent(ConversationalAgent):
     def __init__(self):
-        self.chat_model = ChatVertexAI(
-            model="gemini-pro", convert_system_message_to_human=False
+        self.chat_model = ChatVertexAI(model="gemini-1.5-flash")
+        self.fake_time_for_test = None
+
+    def set_fake_time_for_test(self, fake_time):
+        self.fake_time_for_test = fake_time
+
+    def get_system_prompt(self) -> str:
+        now = (
+            self.fake_time_for_test
+            if self.fake_time_for_test
+            else time.strftime("%I:%M %p")
         )
+        return PromptTemplate.from_template(SYSTEM_PROMPT).format(current_time=now)
 
     def chat(self, agent_state) -> AgentResponse:
-        promptTemplate = self._from_messages(SYSTEM_PROMPT, agent_state)
-        prompt = promptTemplate.invoke({"current_time": time.strftime("%I:%M %p")})
+
+        messages = [
+            SystemMessage(content=self.get_system_prompt()),
+            *agent_state.message_history,
+            agent_state.message,
+        ]
 
         # Invoke the model with the prompt.
-        response = self.chat_model.invoke(prompt)
+        response = self.chat_model.invoke(messages)
         return (response.content, {})
