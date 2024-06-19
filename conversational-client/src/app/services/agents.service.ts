@@ -4,6 +4,7 @@ import {Agent, AgentId} from '@data/agent';
 import {HistoryTutorComponent} from '@components/agents/history-tutor/history-tutor.component';
 import {FakeAgentComponent} from '@components/agents/fake-agent/fake-agent.component';
 import {DefaultAgentComponent} from '@components/agents/default-agent/default-agent.component';
+import {PhysicsExpertComponent} from '@components/agents/physics-expert/physics-expert.component';
 
 export interface AgentComponentConstructor {
   new (): Agent & Component;
@@ -61,6 +62,16 @@ export class AgentsService {
           preferences: {
             displayName: 'History Tutor',
             shouldTruncateChatHistory: true,
+          },
+        },
+      ],
+      [
+        'physics_expert',
+        {
+          component: PhysicsExpertComponent,
+          inputs: {},
+          preferences: {
+            displayName: 'Physics Expert',
           },
         },
       ],

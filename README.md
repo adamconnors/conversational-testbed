@@ -62,7 +62,18 @@ To create a new agent you will need to add server and client implementations as 
 ```sh
 npm run ng g component components/agents/your-agent-name
 ```
-- Implement the `Agent` interface (`app/data/agent.ts`) in your component's class.
+- Implement the `Agent` interface (`app/data/agent.ts`) in your component's class (`components/agents/your-agent-name.ts`).
+
+A minimal implementation would just return the `state` object unchanged. Use the `fake_agent` component for reference. For example:
+
+```sh
+export class YourAgentComponent implements Agent {
+  processExchange(state: AgentState): AgentState {
+    return state; 
+  }
+}
+```
+
 - Add a unique identifier for your agent to `AGENT_IDS` in `app/data/agent.ts`.
 - Register your agent component and its preferences in `app/services/agents.service.ts`.
 
