@@ -35,7 +35,6 @@ The chatbot should use this information when answering questions:
 {articles}
 ==
 
-
 """
 
 EXAMPLES = [

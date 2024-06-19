@@ -172,7 +172,7 @@ def process_results(trace_log):
 
 def find_test_file(test_module):
     loader = unittest.TestLoader()
-    suite = loader.discover(start_dir="./py-server", pattern=f"{test_module}.py")
+    suite = loader.discover(start_dir=".", pattern=f"{test_module}.py")
     return suite
 
 
