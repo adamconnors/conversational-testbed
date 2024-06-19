@@ -28,7 +28,6 @@ class PhysicsExpertTest(unittest.TestCase):
             )
         )
 
-        print(response)
         word_count = len(response.split())
         self.assertLess(word_count, 100, f"Response was too long: {response}")
 

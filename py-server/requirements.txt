@@ -2,10 +2,11 @@ black==24.4.2
 Flask==3.0.3
 click==8.1.7
 google.cloud.texttospeech==2.16.3
-langchain==0.1.17
-langchain_core==0.1.50
-langchain_google_vertexai==1.0.3
+langchain==0.2.3
+langchain-core==0.2.5
+langchain-google-vertexai==1.0.5
+langchain-text-splitters==0.2.1
+model-alignment==0.1
 python-dotenv==1.0.1
-pypdf==4.2.0
 rich==13.7.1
 watchdog==4.0.1
