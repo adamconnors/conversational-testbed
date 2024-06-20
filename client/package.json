@@ -1,5 +1,5 @@
 {
-  "name": "conversational-client",
+  "name": "client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint && prettier . --write",
-    "prepare": "pushd ..; husky conversational-client/.husky; popd"
+    "prepare": "pushd ..; husky client/.husky; popd"
   },
   "private": true,
   "dependencies": {

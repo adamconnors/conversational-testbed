@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "conversational-client": {
+    "client": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "conversational-client:build:production"
+              "buildTarget": "client:build:production"
             },
             "development": {
-              "buildTarget": "conversational-client:build:development"
+              "buildTarget": "client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "conversational-client:build"
+            "buildTarget": "client:build"
           }
         },
         "test": {

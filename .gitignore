@@ -1,6 +1,6 @@
 .DS_Store
-conversational-client/node_modules
-conversational-client/.angular
+client/node_modules
+client/.angular
 py-server/dist
 py-server/agents/physics_expert/content
 .venv
