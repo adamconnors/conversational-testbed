@@ -36,7 +36,7 @@ Install npm at: https://nodejs.org/en/download/.
 
 Then:
 ```sh
-cd conversational-client
+cd client
 npm install
 npm run start
 ```
@@ -66,7 +66,7 @@ npm run ng g component components/agents/your-agent-name
 
 A minimal implementation would just return the `state` object unchanged. Use the `fake_agent` component for reference. For example:
 
-```sh
+```ts
 export class YourAgentComponent implements Agent {
   processExchange(state: AgentState): AgentState {
     return state; 
@@ -83,7 +83,7 @@ After these steps, you should see your agent's name in the app's side bar and se
 Set your cloud project and authenticate as above. To deploy to AppEngine, run:
 
 ```sh
-cd conversational-client
+cd client
 npm run prod
 
 cd ../py-server
