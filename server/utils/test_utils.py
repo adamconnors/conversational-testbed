@@ -1,11 +1,11 @@
-from typing import List
-
-from langchain_google_vertexai import VertexAI
-from agents.agents import AgentState
-from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
 import concurrent.futures
+
+from ..agents.agents import AgentState
+from langchain_google_vertexai import VertexAI
+from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
 from langchain.evaluation import load_evaluator, EvaluatorType
 from langchain_core.prompts import PromptTemplate
+from typing import List
 
 
 def build_message_history_for_test(message_history: List[str]) -> list[BaseMessage]:
@@ -27,8 +27,6 @@ def build_message_history_for_test(message_history: List[str]) -> list[BaseMessa
     rtn = []
     if not message_history:
         return rtn
-    if not len(message_history) % 2 == 0:
-        raise ValueError("Message history must have an even number of messages.")
 
     for i, message in enumerate(message_history):
         if i % 2 == 0:

@@ -4,8 +4,8 @@ import time
 import click
 import unittest
 import concurrent.futures
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 from rich import print
 from rich.panel import Panel
 
@@ -45,7 +45,15 @@ class TraceLogEntry:
     help="Maximum number of parallel threads to use when running the tests",
 )
 def run_tests(test_name, run_count, max_threads):
+    """Executes specified tests in parallel.
 
+    Args:
+        test_name (str): Name of the test (either a test suite or a specific test case within a suite).
+        run_count (int): Number of times to repeat each test.
+        max_threads (int): Maximum number of threads to use for parallel execution.
+    Returns:
+        None.
+    """
     if not test_name:
         click.secho(
             f"Warning: No test name provided, using default {DEFAULT_TEST_NAME}. There will be no LLM apis calls for this test.",

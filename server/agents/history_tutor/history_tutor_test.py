@@ -1,13 +1,14 @@
 import json
 import unittest
-from agents.history_tutor.history_tutor import (
+
+from ..agents import AgentState
+from .history_tutor import (
     HistoryTutor,
     load_file,
     BLACK_DEATH_TUTOR_CONTEXT,
 )
-from agents.agents import AgentState
+from ...utils.test_utils import evaluate, send_chat
 from langchain_google_vertexai import VertexAI
-from utils.test_utils import evaluate, send_chat
 from langchain.globals import set_debug
 
 

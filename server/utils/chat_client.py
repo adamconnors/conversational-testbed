@@ -1,24 +1,24 @@
-# TODO: Move this into utils when I figure out relative imports !!
+import click
 import importlib
+import os
 import shutil
 import sys
 import textwrap
-import click
 
-# TODO: Move chat_parameterized out of main and instantiate agent_registry.
-from main import chat_parameterized, agent_registry
+from ..agents.agents import AgentState
+from ..agents.registry import AgentRegistry
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.globals import set_debug
-import os
-import time
+from model_alignment import single_run
+from .model_aligner_helper import VertexModelHelper
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from model_alignment import single_run
-from model_aligner_helper import VertexModelHelper
+
 
 # Compensates for the speaker tag when setting the
 # with of the text to match the width of the terminal.
 SPEAKER_TAG_CHARACTERS = 6
+agent_registry = AgentRegistry()
 
 
 @click.command()
@@ -28,7 +28,11 @@ SPEAKER_TAG_CHARACTERS = 6
     help="The name of the agent you want to interact with, e.g. default.",
 )
 def start_chat(agent):
+    """Starts a chat session with the specified agent.
 
+    Initiates a command-line chat interface, providing instructions for
+    interacting with the agent and handling user input.
+    """
     click.echo(
         click.style("Test conversation started with ", fg="yellow")
         + click.style(agent, fg="red")
@@ -49,8 +53,30 @@ def start_chat(agent):
     client.start()
 
 
-class ChatClient:
+def chat_http(world_state, message_history, agent_id, q):
+    if not agent_registry.is_agent_registered(agent_id):
+        raise ValueError("invalid agent id")
 
+    agent = agent_registry.get_agent(agent_id)
+    agent_response, agent_world_state = agent.chat(
+        AgentState(q, message_history, world_state)
+    )
+    return (
+        {
+            "response": agent_response,
+            "world_state": agent_world_state,
+        },
+        200,
+        {"Access-Control-Allow-Origin": "*"},
+    )
+
+
+class ChatClient:
+    """Represents a client for interactive chat sessions.
+
+    This class manages the chat interaction loop, handling user input,
+    processing commands, and interacting with the specified agent.
+    """
     world_state = None
     message_history = []
     feedback = []
@@ -69,7 +95,7 @@ class ChatClient:
                 self.process_input(user_input)
 
     def process_input(self, user_input):
-        http_response = chat_parameterized(
+        http_response = chat_http(
             self.world_state, self.message_history, self.agent_name, user_input
         )
         response = http_response[0]
@@ -205,7 +231,6 @@ class FileUpdateHandler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-
     # Create an observer and attach the event handler
     observer = Observer()
     event_handler = FileUpdateHandler()

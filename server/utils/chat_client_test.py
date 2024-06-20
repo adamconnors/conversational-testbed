@@ -1,5 +1,6 @@
 import unittest
-from chat_client import ChatClient
+from .chat_client import ChatClient
+
 
 # TODO: Add real tests here.
 class ChatClientTest(unittest.TestCase):

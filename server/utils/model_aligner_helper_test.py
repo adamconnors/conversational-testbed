@@ -1,17 +1,17 @@
 import unittest
-import model_aligner_helper as helper
-from model_alignment import model_helper, single_run
+from model_alignment import single_run
+from .model_aligner_helper import VertexModelHelper
 
 
 # TODO: Add real tests here.
 class TestModelAlignerHelper(unittest.TestCase):
     def testVertexHelper(self):
-        vertex = helper.VertexModelHelper()
+        vertex = VertexModelHelper()
         result = vertex.predict("Tell me a joke", 0.5, candidate_count=1)
         print(result)
 
     def testGeneratesPrinciple(self):
-        single_run_prompt = single_run.AlignableSingleRun(helper.VertexModelHelper())
+        single_run_prompt = single_run.AlignableSingleRun(VertexModelHelper())
         initial_prompt = "Tell me a joke about {topic}."
         single_run_prompt.set_model_description(initial_prompt)
         output = single_run_prompt.send_input({"topic": "fish"})

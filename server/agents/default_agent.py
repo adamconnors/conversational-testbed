@@ -1,7 +1,7 @@
 import time
+from .agents import AgentResponse, ConversationalAgent
 from langchain_google_vertexai import ChatVertexAI
 from langchain_core.messages import SystemMessage
-from .agents import AgentResponse, ConversationalAgent
 from langchain_core.prompts import PromptTemplate
 
 SYSTEM_PROMPT = """

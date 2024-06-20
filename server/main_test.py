@@ -1,8 +1,8 @@
 import json
 import unittest
-from main import build_message_history
+
 from langchain_core.messages import HumanMessage, AIMessage
-from main import app
+from .main import app, build_message_history
 
 
 # Create a test class for the build_message_history function
@@ -39,15 +39,14 @@ class TestMain(unittest.TestCase):
 
         next_req = {
             "q": "user message 2",
-            "mode": "fake",
+            "agent_id": "fake",
             "world_state": json.dumps(world_state),
         }
 
         resp2 = self.client.post("/chat", data=next_req)
         data2 = json.loads(resp2.get_data())
         world_state2 = data2["world_state"]
-        self.assertEqual(world_state2["user_messages"][0], "user message 1")
-        self.assertEqual(world_state2["user_messages"][1], "user message 2")
+        self.assertEqual(world_state2["last_message"], "user message 2")
 
     @unittest.skip("Not implemented")
     def test_build_message_history(self):

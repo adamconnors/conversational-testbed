@@ -1,18 +1,18 @@
 import unittest
+from .agents import AgentState
 from .fake_agent import FakeAgent
-import utils.test_utils
-from .agents import AgentResponse, AgentState
+from ..utils.test_utils import build_message_history_for_test
 
 
 class TestFakeAgent(unittest.TestCase):
     def test_chat(self):
         agent = FakeAgent()
-        message_history = utils.test_utils.build_message_history_for_test([])
+        message_history = build_message_history_for_test([])
         response, world_state = agent.chat(AgentState("Hello", message_history, None))
         self.assertEqual(response, "Fake response to message 0: Hello")
         self.assertEqual(world_state, {"last_message": "Hello", "message_count": 0})
 
-        message_history = utils.test_utils.build_message_history_for_test(
+        message_history = build_message_history_for_test(
             ["Hello", response, "How are you?"]
         )
         response, world_state = agent.chat(
