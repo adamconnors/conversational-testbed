@@ -1,9 +1,10 @@
 import json
 import flask
 import google.cloud.texttospeech_v1 as texttospeech
+
+from .agents.agents import AgentState
+from .agents.registry import AgentRegistry
 from langchain_core.messages import HumanMessage, AIMessage
-from agents.agents import AgentState
-from agents.registry import AgentRegistry
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -47,6 +48,9 @@ def warmup():
 
 @app.route("/chat", methods=["POST", "GET"])
 def chat():
+    """Handles incoming chat requests, processes them using the specified agent,
+    and returns the agent's response along with the updated world state.
+    """
     q = flask.request.args.get("q") or flask.request.form.get("q")
     agent_id = flask.request.args.get("agent_id") or flask.request.form.get("agent_id")
     if q is None:
@@ -64,11 +68,6 @@ def chat():
     )
     world_state = json.loads(world_state_json) if world_state_json else None
     message_history = build_message_history(message_history_json)
-
-    return chat_parameterized(world_state, message_history, agent_id, q)
-
-
-def chat_parameterized(world_state, message_history, agent_id, q):
 
     # Get the right model for this use-case
     if not agent_registry.is_agent_registered(agent_id):

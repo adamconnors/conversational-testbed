@@ -1,5 +1,6 @@
-from model_alignment import model_helper
 import vertexai
+
+from model_alignment import model_helper
 from vertexai.generative_models import GenerationConfig, GenerativeModel
 
 

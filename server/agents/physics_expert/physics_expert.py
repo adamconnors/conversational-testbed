@@ -1,7 +1,6 @@
-import time
-from langchain_google_vertexai import ChatVertexAI
-from agents.agents import AgentResponse, ConversationalAgent
 import os
+from ..agents import AgentResponse, ConversationalAgent
+from langchain_google_vertexai import ChatVertexAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.prompts import PromptTemplate
 
@@ -75,7 +74,9 @@ class PhysicsExpert(ConversationalAgent):
             template=SYSTEM_PROMPT
         ).format(articles=article_content)
 
-        self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES, max_output_length=500)
+        self.chat_model = ChatVertexAI(
+            model="gemini-1.5-flash", examples=EXAMPLES, max_output_length=500
+        )
 
     def get_system_prompt(self) -> str:
         return self.system_context
