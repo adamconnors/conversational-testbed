@@ -1,10 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 //https://developer.chrome.com/blog/voice-driven-web-apps-introduction-to-the-web-speech-api
-declare const webkitSpeechRecognition: any;
-declare const SpeechRecognition: any;
-declare const SpeechRecognitionEvent: any;
-declare const SpeechRecognitionErrorEvent: any;
 
 import {Component} from '@angular/core';
 import {NgZone, Output, EventEmitter} from '@angular/core';
@@ -25,7 +19,7 @@ enum ListenState {
 })
 export class SpeechRecognizerComponent {
   private apiUrl = `${environment.apiUrl}/tts?text=`;
-  private recognition: typeof SpeechRecognition | null = null;
+  private recognition: SpeechRecognition | null = null;
   private audio = new Audio();
   private start_timestamp = 0;
 
@@ -60,7 +54,7 @@ export class SpeechRecognizerComponent {
       });
     };
 
-    this.recognition.onerror = (event: typeof SpeechRecognitionErrorEvent) => {
+    this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       if (event.error === 'no-speech') {
         console.log('info_no_speech');
       }
@@ -86,14 +80,14 @@ export class SpeechRecognizerComponent {
     };
 
     // called by speech recognition engine
-    this.recognition.onresult = (event: typeof SpeechRecognitionEvent) => {
+    this.recognition.onresult = (event: SpeechRecognitionEvent) => {
       this.zone.run(() => {
         this.handleSpeechResult(event);
       });
     };
   }
 
-  handleSpeechResult(event: typeof SpeechRecognitionEvent) {
+  handleSpeechResult(event: SpeechRecognitionEvent) {
     let interimTranscript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       // confidence > 0 is required for Android Chrome
