@@ -23,8 +23,6 @@ from dotenv import load_dotenv
 from rich import print
 from rich.panel import Panel
 
-DEFAULT_RUN_COUNT = 10
-
 # Nb: See https://github.com/langchain-ai/langchain/issues/20929
 # Due to a bug in google.cloud.aiplatform this will fail for
 # vertex ai if THREADS > 1. Use the patch described in the thread
@@ -74,6 +72,10 @@ def run_tests(test_name, run_count, max_threads):
             fg="yellow",
         )
         test_name = DEFAULT_TEST_NAME
+    elif test_name == "all":
+        click.secho("Running all unit tests...", fg="green")
+        run_all_tests(max_threads=max_threads)
+        return
 
     click.secho(
         f"Running tests for '{test_name}, repeating {run_count} times with {max_threads} threads.'",
@@ -126,6 +128,27 @@ def run_in_parallel(tests, run_count, max_threads):
 
 def run_test(test, runner, trace_log):
     trace_log.append(TraceLogEntry(test, runner.run(test)))
+
+
+def run_all_tests(
+    start_dir="server",
+    pattern="*_test.py",
+    top_level_dir=".",
+    max_threads=DEFAULT_MAX_THREADS,
+):
+    """Discovers and runs all test files matching the pattern in the directory tree.
+    Equivalent to: `python3 -m unittest discover -t .. -s . -p "*_test.py"`
+
+    Args:
+        start_dir: The directory to start the discovery from (defaults to current dir).
+        pattern: The filename pattern to match test files (defaults to "*_test.py").
+        top_level_dir: The top-level directory of the project (used for module loading).
+    """
+    loader = unittest.TestLoader()
+    top_level_dir = os.path.abspath(os.path.join(start_dir, ".."))
+    suite = loader.discover(start_dir, pattern=pattern, top_level_dir=top_level_dir)
+    all_tests = get_all_tests_from_suite(suite)
+    run_in_parallel(all_tests, 1, max_threads)
 
 
 def get_all_tests_from_suite(suite):

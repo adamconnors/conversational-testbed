@@ -24,7 +24,7 @@ from ..agents.registry import AgentRegistry
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.globals import set_debug
 from model_alignment import single_run
-from .model_aligner_helper import VertexModelHelper
+from ..utils.model_aligner_helper import VertexModelHelper
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -91,6 +91,7 @@ class ChatClient:
     This class manages the chat interaction loop, handling user input,
     processing commands, and interacting with the specified agent.
     """
+
     world_state = None
     message_history = []
     feedback = []
