@@ -1,8 +1,8 @@
 .DS_Store
 client/node_modules
 client/.angular
-py-server/dist
-py-server/agents/physics_expert/content
+server/dist
+server/agents/physics_expert/content
 .venv
 __pycache__
 .env
