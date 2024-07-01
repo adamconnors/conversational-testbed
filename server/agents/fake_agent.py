@@ -1,3 +1,4 @@
+"""Fake agent with canned responses and no LLM calls."""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +23,7 @@ class FakeAgent(ConversationalAgent):
         message_count = len(agent_state.message_history)
         message = agent_state.message
         world_state = agent_state.world_state
-        if world_state == None:
+        if world_state is None:
             world_state = self._create_initial_world_state(message, message_count)
         else:
             world_state["last_message"] = message

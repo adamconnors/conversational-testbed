@@ -1,3 +1,14 @@
+# pylint: disable=line-too-long, consider-using-dict-items, too-few-public-methods, consider-iterating-dictionary, no-value-for-parameter
+"""
+Helper for running unit tests in parallel or for running all tests
+*WARNING*: This script is designed to make multiple API calls to the LLM model
+and can incur significant costs.
+
+Usage: 
+    python -m server.scripts.run_tests --test_name=physics_expert_test.PhysicsExpertTest.test_chat --run_count=1 --max_threads=5
+    python -m server.scripts.run_tests --test_name=physics_expert.PhysicsExpertTest --run_count=1 --max_threads=5
+    python -m server.scripts.run_tests --test_name=all --run_count=1 --max_threads=5
+"""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +23,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 import os
 import threading
 import time
-import click
-import unittest
 import concurrent.futures
 
+import unittest
+import click
+
 from dotenv import load_dotenv
-from rich import print
+import rich
 from rich.panel import Panel
 
 # Nb: See https://github.com/langchain-ai/langchain/issues/20929
@@ -32,7 +45,7 @@ DEFAULT_TEST_NAME = "fake_agent_test"
 DEFAULT_RUN_COUNT = 10
 
 
-class TraceLogEntry:
+class _TraceLogEntry:
     def __init__(self, test, result):
         self.test = test
         self.result = result
@@ -44,7 +57,8 @@ class TraceLogEntry:
 @click.command()
 @click.option(
     "--test_name",
-    help="Name of the test suite and (optionally) the test case in the format 'suite.TestCase'",
+    help="Name of the test suite and (optionally) the test case in the \
+        format 'suite.TestCase'",
 )
 @click.option(
     "--run_count",
@@ -54,9 +68,10 @@ class TraceLogEntry:
 @click.option(
     "--max_threads",
     default=DEFAULT_MAX_THREADS,
-    help="Maximum number of parallel threads to use when running the tests",
+    help="Maximum number of parallel threads to use when running the \
+        tests",
 )
-def run_tests(test_name, run_count, max_threads):
+def _run_tests(test_name, run_count, max_threads):
     """Executes specified tests in parallel.
 
     Args:
@@ -68,13 +83,15 @@ def run_tests(test_name, run_count, max_threads):
     """
     if not test_name:
         click.secho(
-            f"Warning: No test name provided, using default {DEFAULT_TEST_NAME}. There will be no LLM apis calls for this test.",
+            f"Warning: No test name provided, using default \
+                {DEFAULT_TEST_NAME}. There will be no LLM apis \
+                calls for this test.",
             fg="yellow",
         )
         test_name = DEFAULT_TEST_NAME
     elif test_name == "all":
         click.secho("Running all unit tests...", fg="green")
-        run_all_tests(max_threads=max_threads)
+        _run_all_tests(max_threads=max_threads)
         return
 
     click.secho(
@@ -85,7 +102,7 @@ def run_tests(test_name, run_count, max_threads):
     test_suite = test_name.split(".")[0] if "." in test_name else test_name
     test_case = test_name.split(".")[1] if "." in test_name else None
 
-    suite = find_test_file(test_suite)
+    suite = _find_test_file(test_suite)
     if suite.countTestCases() == 0:
         click.secho(f"No test file found for '{test_name}'", fg="red")
         return None
@@ -95,42 +112,42 @@ def run_tests(test_name, run_count, max_threads):
     else:
         click.secho(f"Running test case '{test_case}' in '{test_suite}'", fg="green")
 
-    all_tests = get_all_tests_from_suite(suite)
+    all_tests = _get_all_tests_from_suite(suite)
     filtered_tests = []
     for test in all_tests:
         if test_case is None or test.id().endswith(test_case):
             for _ in range(run_count):
                 filtered_tests.append(test)
 
-    run_in_parallel(filtered_tests, run_count, max_threads)
+    _run_in_parallel(filtered_tests, max_threads)
 
 
-def run_in_parallel(tests, run_count, max_threads):
-    runner = unittest.TextTestRunner(stream=open(os.devnull, "w"))
+def _run_in_parallel(tests, max_threads):
+    runner = unittest.TextTestRunner(stream=open(os.devnull, "w", encoding="utf-8"))
     trace_log = []
 
     progress = 0
     progress_lock = threading.Lock()
 
-    with click.progressbar(length=len(tests), label="Running tests") as bar:
+    with click.progressbar(length=len(tests), label="Running tests") as progress_bar:
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
-            executor.map(lambda test: run_test(test, runner, trace_log), tests)
+            executor.map(lambda test: _run_test(test, runner, trace_log), tests)
 
             while progress < len(tests):
                 with progress_lock:
-                    bar.update(len(trace_log) - progress)
+                    progress_bar.update(len(trace_log) - progress)
                     progress = len(trace_log)
                     time.sleep(0.1)
 
             executor.shutdown()
-            process_results(trace_log)
+            _process_results(trace_log)
 
 
-def run_test(test, runner, trace_log):
-    trace_log.append(TraceLogEntry(test, runner.run(test)))
+def _run_test(test, runner, trace_log):
+    trace_log.append(_TraceLogEntry(test, runner.run(test)))
 
 
-def run_all_tests(
+def _run_all_tests(
     start_dir="server",
     pattern="*_test.py",
     top_level_dir=".",
@@ -147,11 +164,11 @@ def run_all_tests(
     loader = unittest.TestLoader()
     top_level_dir = os.path.abspath(os.path.join(start_dir, ".."))
     suite = loader.discover(start_dir, pattern=pattern, top_level_dir=top_level_dir)
-    all_tests = get_all_tests_from_suite(suite)
-    run_in_parallel(all_tests, 1, max_threads)
+    all_tests = _get_all_tests_from_suite(suite)
+    _run_in_parallel(all_tests, max_threads)
 
 
-def get_all_tests_from_suite(suite):
+def _get_all_tests_from_suite(suite):
     """Recursively extracts all TestCase objects from a TestSuite."""
     tests = []
     for test in suite:
@@ -159,20 +176,20 @@ def get_all_tests_from_suite(suite):
             tests.append(test)
         else:
             tests.extend(
-                get_all_tests_from_suite(test)
+                _get_all_tests_from_suite(test)
             )  # Recurse if it's another TestSuite
     return tests
 
 
-def process_results(trace_log):
+def _process_results(trace_log):
     result_map = {}
-    for resultEntry in trace_log:
-        test_id = resultEntry.test.id()
+    for result_entry in trace_log:
+        test_id = result_entry.test.id()
 
         if test_id in result_map:
-            result_map[test_id].append(resultEntry.result)
+            result_map[test_id].append(result_entry.result)
         else:
-            result_map[test_id] = [resultEntry.result]
+            result_map[test_id] = [result_entry.result]
 
     for test_id in result_map.keys():
         click.secho(f"\n\n----------------- {test_id} -----------------", fg="blue")
@@ -203,7 +220,7 @@ def process_results(trace_log):
                 content += f"{failure}\n\n"
 
             panel = Panel(content, title="Failure details", expand=False)
-            print(panel)
+            rich.print(panel)
 
         click.secho(f"Tests with errors: {errors}", fg="red")
         if errors > 0:
@@ -212,10 +229,10 @@ def process_results(trace_log):
                 content += f"{error[0]}\n{error[1]}\n\n"
 
             panel = Panel(content, title="Failure details", expand=False)
-            print(panel)
+            rich.print(panel)
 
 
-def find_test_file(test_module):
+def _find_test_file(test_module):
     loader = unittest.TestLoader()
     suite = loader.discover(start_dir=".", pattern=f"{test_module}.py")
     return suite
@@ -223,4 +240,4 @@ def find_test_file(test_module):
 
 if __name__ == "__main__":
     load_dotenv()
-    run_tests()
+    _run_tests()

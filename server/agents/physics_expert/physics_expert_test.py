@@ -11,13 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring, line-too-long
 
 import unittest
-from ..agents import AgentState, AgentResponse
-from .physics_expert import PhysicsExpert, load_resources
-from ...utils.test_utils import build_message_history_for_test
 from langchain_google_vertexai import VertexAI
 from langsmith import unit, traceable
+
+from ..agents import AgentState
+from .physics_expert import PhysicsExpert, load_resources
+from ...utils.test_utils import build_message_history_for_test
 
 
 class PhysicsExpertTest(unittest.TestCase):
@@ -31,7 +33,7 @@ class PhysicsExpertTest(unittest.TestCase):
         agent = PhysicsExpert()
         message_history = build_message_history_for_test([])
         message = "Tell me about the double slit experiment."
-        response, world_state = agent.chat(
+        response, _ = agent.chat(
             AgentState(
                 message,
                 message_history,
@@ -44,5 +46,5 @@ class PhysicsExpertTest(unittest.TestCase):
 
     @unittest.skip("Test skipped")
     def test_load_document(self):
-        overview, rqm = load_resources()
+        overview, _ = load_resources()
         print(overview)

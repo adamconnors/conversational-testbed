@@ -23,7 +23,7 @@ gcloud auth application-default set-quota-project [PROJECT_ID]
 ```
 
 ```sh
- cd py-server
+ cd server
  pip install -r requirements.txt
  python main.py
 ```
@@ -42,6 +42,32 @@ npm run start
 ```
 
 Navigate to http://localhost:4200 and click the microphone icon to begin speaking.
+
+## Run tests
+
+
+### To run server tests from the **project root**:
+
+**WARNING**: Server scripts make calls to the language-model and will incur charges.
+
+```sh
+python -m unittest discover -t . -s server -p "*_test.py"
+```
+
+or use the convenience script:
+```sh
+# All tests
+python -m server.scripts.run_tests --test_name all
+
+# Named test
+python -m server.scripts.run_tests --test_name fake_agent_test
+```
+
+### To run client tests:
+```sh
+cd client
+npm run ng test
+```
 
 ## Agent development
 

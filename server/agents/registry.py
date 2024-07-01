@@ -1,3 +1,7 @@
+"""
+Registry for all agents supported by the server. New agents should be added to
+_AGENT_BY_ID to allow the server to call them.
+"""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
