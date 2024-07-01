@@ -1,3 +1,4 @@
+"""Base class for all agents."""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +16,7 @@
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from typing import Any, List, Tuple
-from langchain_core.messages import BaseMessage, SystemMessage, HumanMessage
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import BaseMessage
 
 
 MessageHistory = List[BaseMessage]
@@ -50,7 +50,6 @@ class ConversationalAgent(metaclass=ABCMeta):
         Returns:
             The agent's response message.
         """
-        pass
 
     def get_system_prompt(self) -> str:
         """Returns the main (conversational) system prompt for the agent.

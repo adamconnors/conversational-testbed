@@ -1,3 +1,5 @@
+""" Simple command line utility for text conversations and feedback generation."""
+
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,21 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import click
 import importlib
 import os
 import shutil
 import sys
 import textwrap
+import click
 
-from ..agents.agents import AgentState
-from ..agents.registry import AgentRegistry
 from langchain_core.messages import HumanMessage, AIMessage
-from langchain.globals import set_debug
 from model_alignment import single_run
-from ..utils.model_aligner_helper import VertexModelHelper
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from ..agents.agents import AgentState
+from ..agents.registry import AgentRegistry
+from ..utils.model_aligner_helper import VertexModelHelper
 
 
 # Compensates for the speaker tag when setting the
@@ -41,7 +42,7 @@ agent_registry = AgentRegistry()
     default="default",
     help="The name of the agent you want to interact with, e.g. default.",
 )
-def start_chat(agent):
+def start_chat(agent="default"):
     """Starts a chat session with the specified agent.
 
     Initiates a command-line chat interface, providing instructions for
@@ -52,7 +53,7 @@ def start_chat(agent):
         + click.style(agent, fg="red")
     )
     click.secho(
-        f"""Use / to issue commands:
+        """Use / to issue commands:
         /clear - clear the conversation and world state
         /undo - undo the last user_input and response
         /transcript - display a transcript of the conversation so far
@@ -67,7 +68,8 @@ def start_chat(agent):
     client.start()
 
 
-def chat_http(world_state, message_history, agent_id, q):
+def _chat_http(world_state, message_history, agent_id, q):
+    """Handles the HTTP request for the chat endpoint."""
     if not agent_registry.is_agent_registered(agent_id):
         raise ValueError("invalid agent id")
 
@@ -98,8 +100,10 @@ class ChatClient:
 
     def __init__(self, agent_name):
         self.agent_name = agent_name
+        self.principles = []
 
     def start(self):
+        """Starts the chat interaction loop."""
         while True:
             user_input = click.prompt(click.style("You", fg="green"), type=str)
 
@@ -110,7 +114,8 @@ class ChatClient:
                 self.process_input(user_input)
 
     def process_input(self, user_input):
-        http_response = chat_http(
+        """Processes the user input and interacts with the agent."""
+        http_response = _chat_http(
             self.world_state, self.message_history, self.agent_name, user_input
         )
         response = http_response[0]
@@ -122,71 +127,101 @@ class ChatClient:
         terminal_width = shutil.get_terminal_size()[0] - SPEAKER_TAG_CHARACTERS
         wrapped_response = textwrap.fill(response["response"], width=terminal_width)
 
-        click.echo(click.style(f"AI: ", fg="yellow") + click.style(wrapped_response))
+        click.echo(click.style("AI: ", fg="yellow") + click.style(wrapped_response))
 
     def handle_command(self, command):
+        """Handles CLI commands issued by the user."""
         parts = command.split(" ")
         command = parts[0]
         data = " ".join(parts[1:]) if len(parts) > 1 else None
 
         if command == "undo":
-            if len(self.message_history) == 0:
-                click.echo(click.style("No messages to undo", fg="red"))
-            else:
-                last_ai_message = self.message_history.pop()
-                last_user_message = self.message_history.pop()
-                click.echo(
-                    click.style(
-                        f"Removed conversation: \n\tHuman: {last_user_message.content} \n\tAI: {last_ai_message.content}",
-                        fg="green",
-                    )
-                )
+            self._handle_undo_command()
         elif command == "transcript":
-            click.secho("\n\n---Transcript---\n", fg="yellow")
-            for message in self.message_history:
-                if isinstance(message, HumanMessage):
-                    click.echo(click.style(f"Human: {message.content}", fg="green"))
-                else:
-                    click.echo(click.style(f"AI: {message.content}", fg="yellow"))
-            click.secho("\n\n----------\n", fg="yellow")
+            self._handle_transcript_command()
         elif command == "clear":
-            self.message_history = []
-            self.world_state = None
-            click.echo(
-                click.style("Conversation history and world state cleared", fg="yellow")
-            )
+            self._handle_clear_command()
         elif command == "worldstate":
-            click.echo(click.style("Not implemented yet", fg="yellow"))
-        elif parts[0] == "feedback":
-            if data is None:
-                click.secho("\n\n---Transcript---\n", fg="yellow")
-                for fb in self.feedback:
-                    click.echo(click.style(f"{fb}", fg="green"))
-                click.secho("\n----------\n", fg="yellow")
-            else:
-                click.secho(f"Feedback recorded: {data}", fg="green")
-                self.feedback.append(data)
+            self._handle_worldstate_command()
+        elif command == "feedback":
+            self._handle_feedback_command(data)
         elif command == "principles":
-            self.generate_principles()
-        elif parts[0] == "exit":
-            click.secho("Conversation ended, report not implemented yet", fg="red")
-            exit()
+            self._handle_principles_command()
+        elif command == "exit":
+            self._handle_exit_command()
         else:
-            click.echo(click.style("Invalid command", fg="red"))
+            self._handle_invalid_command()
 
-    def generate_principles(self):
+    def _handle_undo_command(self):
+        if len(self.message_history) == 0:
+            click.echo(click.style("No messages to undo", fg="red"))
+        else:
+            last_ai_message = self.message_history.pop()
+            last_user_message = self.message_history.pop()
+            click.echo(
+                click.style(
+                    f"""Removed conversation: \n\tHuman: {last_user_message.content} 
+                    \n\tAI: {last_ai_message.content}""",
+                    fg="green",
+                )
+            )
+
+    def _handle_transcript_command(self):
+        click.secho("\n\n---Transcript---\n", fg="yellow")
+        for message in self.message_history:
+            if isinstance(message, HumanMessage):
+                click.echo(click.style(f"Human: {message.content}", fg="green"))
+            else:
+                click.echo(click.style(f"AI: {message.content}", fg="yellow"))
+        click.secho("\n\n----------\n", fg="yellow")
+
+    def _handle_clear_command(self):
+        self.message_history = []
+        self.world_state = None
+        click.echo(
+            click.style("Conversation history and world state cleared", fg="yellow")
+        )
+
+    def _handle_worldstate_command(self):
+        click.echo(click.style("Not implemented yet", fg="yellow"))
+
+    def _handle_feedback_command(self, data):
+        if data is None:
+            click.secho("\n\n---Feedback---\n", fg="yellow")
+            for fb in self.feedback:
+                click.echo(click.style(f"{fb}", fg="green"))
+            click.secho("\n----------\n", fg="yellow")
+        else:
+            click.secho(f"Feedback recorded: {data}", fg="green")
+            self.feedback.append(data)
+
+    def _handle_principles_command(self):
+        self._generate_principles()
+
+    def _handle_exit_command(self):
+        click.secho("Conversation ended, report not implemented yet", fg="red")
+        exit()
+
+    def _handle_invalid_command(self):
+        click.echo(click.style("Invalid command", fg="red"))
+
+    def _generate_principles(self):
         """
         Generate principles based on the feedback given so far. See:
         https://github.com/PAIR-code/model-alignment/tree/e9ced83f910bca926ca42830567a70fe3cb67821
         for more details. Generated principles can be added to be prompt to guide the model.
         """
         if len(self.feedback) == 0:
-            click.secho("No feedback given so far", fg="red")
+            click.secho("Can't generate principles without feedback.", fg="red")
+            return
+
+        if len(self.message_history) == 0:
+            click.secho("Can't generate principles without a conversation.", fg="red")
             return
 
         agent = agent_registry.get_agent(self.agent_name)
         prompt = single_run.ConstitutionalPrompt()
-        prompt.conversations = self.generate_conversation_turns(self.message_history)
+        prompt.conversations = self._generate_conversation_turns(self.message_history)
 
         single_run_prompt = single_run.AlignableSingleRun(
             VertexModelHelper(), data=prompt
@@ -207,7 +242,7 @@ class ChatClient:
             fg="green",
         )
 
-    def generate_conversation_turns(self, message_history):
+    def _generate_conversation_turns(self, message_history):
         """
         Generate conversation turns based on the message history. This is used to
         generate principles based on the feedback given so far.
@@ -228,7 +263,7 @@ class ChatClient:
 
 
 # Define the event handler class
-class FileUpdateHandler(FileSystemEventHandler):
+class _FileUpdateHandler(FileSystemEventHandler):
     def on_modified(self, event):
         if not event.is_directory and not "__pycache__" in event.src_path:
 
@@ -248,7 +283,7 @@ class FileUpdateHandler(FileSystemEventHandler):
 if __name__ == "__main__":
     # Create an observer and attach the event handler
     observer = Observer()
-    event_handler = FileUpdateHandler()
+    event_handler = _FileUpdateHandler()
 
     # Start the observer
     observer_directory = os.getcwd() + "/agents"

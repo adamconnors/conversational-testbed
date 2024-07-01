@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring, line-too-long
 import time
 import unittest
-
-from .agents import AgentState
-from .default_agent import DefaultAgent
-from ..utils.test_utils import evaluate, send_chat
 from langchain_google_vertexai import VertexAI
 from langsmith import test, traceable
+
+from .default_agent import DefaultAgent
+from ..utils.test_utils import evaluate, send_chat
 
 
 class DefaultAgentTest(unittest.TestCase):
@@ -42,7 +42,8 @@ class DefaultAgentTest(unittest.TestCase):
         success = evaluate(
             transcript,
             response,
-            guidance=f"Convey correct time {now} in any human readable format. Accept a response that is within 5 minutes of the correct time.",
+            guidance=f"Convey correct time {now} in any human readable format.\
+            Accept a response that is within 5 minutes of the correct time.",
             examples=[
                 f"It's {now}",
                 f"It's almost {now}. What can I help you with?",
@@ -63,14 +64,16 @@ class DefaultAgentTest(unittest.TestCase):
         transcript = [
             "Hello",
             "Hello yourself",
-            "Tell me what time it is in the style of a pirate, but make sure you're accurate to the minute.",
+            "Tell me what time it is in the style of a pirate, but make sure\
+             you're accurate to the minute.",
         ]
 
         response, _ = send_chat(agent, transcript, None)
         success = evaluate(
             transcript,
             response,
-            guidance="Should convey the correct time (12:05 PM) in the style of a pirate in any human readable format.",
+            guidance="Should convey the correct time (12:05 PM) in the style\
+                of a pirate in any human readable format.",
             examples=[
                 "Aye, it be five minutes past the midday hour, matey!",
                 "Ahoy matey! It be 12:05 PM!",

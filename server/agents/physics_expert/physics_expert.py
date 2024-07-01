@@ -85,6 +85,11 @@ RESOURCES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "content")
 
 def load_resources():
     all_text = ""
+    
+    if not os.path.exists(RESOURCES):
+        print("Warning: No resources found for Physics Expert, quality of responses will be affected.")
+        return ""
+    
     for file_name in os.listdir(RESOURCES):
         if file_name.endswith(".txt"):
             file_path = os.path.join(RESOURCES, file_name)
