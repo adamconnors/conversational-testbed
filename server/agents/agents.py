@@ -1,4 +1,3 @@
-"""Base class for all agents."""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Base class for all agents."""
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from typing import Any, List, Tuple

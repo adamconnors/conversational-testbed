@@ -1,6 +1,6 @@
 # Conversational Toolkit
 
-Conversational Toolkit is a web application that provides a prototyping and evaluation framework for multimodal voice-driven interactions with conversational AI agents.
+The Conversational Toolkit is a web application that provides a simple prototyping environment for voice-driven conversational AI agents.
 
 The toolkit fronts a language model with automatic speech recognition (ASR) using the WebSpeech API, and text-to-speech (TTS) using the Vertex speech API. It is designed to be modular so that new use cases can be quickly added with well-encapsulated code changes.
 

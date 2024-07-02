@@ -13,7 +13,6 @@
 # limitations under the License.
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 
-
 import unittest
 from .agents import AgentState
 from .fake_agent import FakeAgent

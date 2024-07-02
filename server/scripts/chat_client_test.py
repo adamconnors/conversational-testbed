@@ -1,4 +1,3 @@
-"""Test the ChatClient class."""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 
 import unittest
 from .chat_client import ChatClient
 
+
 class ChatClientTest(unittest.TestCase):
-    """Test the ChatClient class."""
     def test_chat_client(self):
-        """Simple smoke test"""
         client = ChatClient("physics_expert")
         client.process_input("Tell me about the double-slit experiment.")
         client.handle_command("feedback Talk like a prirate")
         client.handle_command("principles")
+
 
 if __name__ == "__main__":
     unittest.main()

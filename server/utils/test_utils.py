@@ -11,15 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Utility functions used by unit tests."""
 
-import concurrent.futures
-
-from ..agents.agents import AgentState
+from typing import List
 from langchain_google_vertexai import VertexAI
 from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
-from langchain.evaluation import load_evaluator, EvaluatorType
 from langchain_core.prompts import PromptTemplate
-from typing import List
+
+from ..agents.agents import AgentState
 
 
 def build_message_history_for_test(message_history: List[str]) -> list[BaseMessage]:
@@ -56,7 +55,10 @@ def send_chat(agent, transcript, world_state):
 
     Args:
         agent: Agent object to chat with.
-        transcript: List of strings representing the conversation history. Assumes alternating Human/AI messages starting with a human message. Must be an odd number of messages in order to finish with a human message.
+        transcript: List of strings representing the conversation history.
+            Assumes alternating Human/AI messages starting with a human
+            message. Must be an odd number of messages in order to finish
+            with a human message.
         world_state: Dictionary representing the world state.
 
     Returns:
@@ -101,7 +103,8 @@ Don't return any text other than for Y or N.
 MAX_RETRIES = 3
 
 
-def evaluate(transcript, response, guidance, examples=[], verbose=False):
+def evaluate(transcript, response, guidance, examples=None, verbose=False):
+    """Helper function to evaluate a model response based on a examples and evaluation criteria."""
     prompt = PromptTemplate.from_template(EVALUATION_PROMPT)
 
     transcript_text = "\n".join(
@@ -139,6 +142,6 @@ def evaluate(transcript, response, guidance, examples=[], verbose=False):
             break
 
     if final_evaluation is None:
-        raise Exception("Failed to get a valid response after 3 retries.")
-    else:
-        return final_evaluation == "Y"
+        raise ValueError("Failed to parse the model response after 3 retries.")
+
+    return final_evaluation == "Y"

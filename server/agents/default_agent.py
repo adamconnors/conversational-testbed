@@ -1,4 +1,3 @@
-"""Default agent implementation for general conversation."""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Default agent implementation for general conversation."""
 import time
 
 from langchain_google_vertexai import ChatVertexAI
@@ -51,6 +51,7 @@ SYSTEM_PROMPT = """
 
 class DefaultAgent(ConversationalAgent):
     """Default agent for general chat functionality based on Vertex AI."""
+
     def __init__(self):
         super().__init__()
         self.chat_model = ChatVertexAI(model="gemini-1.5-flash")

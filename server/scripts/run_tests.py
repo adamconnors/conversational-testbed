@@ -1,14 +1,3 @@
-# pylint: disable=line-too-long, consider-using-dict-items, too-few-public-methods, consider-iterating-dictionary, no-value-for-parameter
-"""
-Helper for running unit tests in parallel or for running all tests
-*WARNING*: This script is designed to make multiple API calls to the LLM model
-and can incur significant costs.
-
-Usage: 
-    python -m server.scripts.run_tests --test_name=physics_expert_test.PhysicsExpertTest.test_chat --run_count=1 --max_threads=5
-    python -m server.scripts.run_tests --test_name=physics_expert.PhysicsExpertTest --run_count=1 --max_threads=5
-    python -m server.scripts.run_tests --test_name=all --run_count=1 --max_threads=5
-"""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +11,19 @@ Usage:
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=line-too-long, consider-using-dict-items
+# pylint: disable=too-few-public-methods, consider-iterating-dictionary, no-value-for-parameter
 
+"""
+Helper for running unit tests in parallel or for running all tests
+*WARNING*: This script is designed to make multiple API calls to the LLM model
+and can incur significant costs.
 
+Usage: 
+    python -m server.scripts.run_tests --test_name=physics_expert_test.PhysicsExpertTest.test_chat --run_count=1 --max_threads=5
+    python -m server.scripts.run_tests --test_name=physics_expert.PhysicsExpertTest --run_count=1 --max_threads=5
+    python -m server.scripts.run_tests --test_name=all --run_count=1 --max_threads=5
+"""
 import os
 import threading
 import time
@@ -105,7 +105,7 @@ def _run_tests(test_name, run_count, max_threads):
     suite = _find_test_file(test_suite)
     if suite.countTestCases() == 0:
         click.secho(f"No test file found for '{test_name}'", fg="red")
-        return None
+        return
 
     if test_case is None:
         click.secho(f"Running all tests in '{test_suite}'", fg="green")
@@ -123,7 +123,8 @@ def _run_tests(test_name, run_count, max_threads):
 
 
 def _run_in_parallel(tests, max_threads):
-    runner = unittest.TextTestRunner(stream=open(os.devnull, "w", encoding="utf-8"))
+    with open(os.devnull, "w", encoding="utf-8") as null_stream:
+        runner = unittest.TextTestRunner(stream=null_stream)
     trace_log = []
 
     progress = 0
@@ -215,10 +216,7 @@ def _process_results(trace_log):
         click.secho(f"Tests failed: {failed}", fg="red")
 
         if failed > 0:
-            content = ""
-            for failure in failed_list:
-                content += f"{failure}\n\n"
-
+            content = "\n\n".join(failed_list)
             panel = Panel(content, title="Failure details", expand=False)
             rich.print(panel)
 

@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 
 import json
 import unittest
@@ -85,9 +86,9 @@ class TestMain(unittest.TestCase):
     def test_invalid_history(self):
         incoming_messages = "xxx"
         try:
-            output = build_message_history(incoming_messages)
+            build_message_history(incoming_messages)
             self.fail("Should have thrown an exception")
-        except Exception as e:
+        except ValueError:
             pass
 
 

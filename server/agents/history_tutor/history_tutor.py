@@ -1,4 +1,3 @@
-"""Agent for the History Tutor example (see AI-Augmented Life blogs for details)."""
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Agent for the History Tutor example (see AI-Augmented Life blogs for details)."""
 import json
 import os
 from typing import List
@@ -120,7 +120,7 @@ EXAMPLES = [
     AIMessage("Correct! There's one more answer, can you remember it?"),
     HumanMessage("Was it the four humours?"),
     AIMessage(
-       """Perfect! You've remembered all the answers to this question. 
+        """Perfect! You've remembered all the answers to this question. 
        That's the end of the lesson, well done."""
     ),
 ]
@@ -193,6 +193,7 @@ def _load_file(filename):
 
 class HistoryTutor(ConversationalAgent):
     """Simple agent implementation to provide a history lesson on the Black Death."""
+
     def __init__(self):
         super().__init__()
         self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES)
@@ -262,6 +263,7 @@ class HistoryTutor(ConversationalAgent):
 
 class QuestionAnswerList(BaseModel):
     """Data structure for the output of the update_question_state function."""
+
     correct_responses: List[str] = Field(
         description="""Keys for the correct answers in the student's
         response or the key \"none\"

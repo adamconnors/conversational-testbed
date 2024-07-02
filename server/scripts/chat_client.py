@@ -1,5 +1,3 @@
-""" Simple command line utility for text conversations and feedback generation."""
-
 # Copyright 2024 Google LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+""" Simple command line utility for text conversations and feedback generation."""
 import importlib
 import os
 import shutil
@@ -200,7 +199,7 @@ class ChatClient:
 
     def _handle_exit_command(self):
         click.secho("Conversation ended, report not implemented yet", fg="red")
-        exit()
+        sys.exit()
 
     def _handle_invalid_command(self):
         click.echo(click.style("Invalid command", fg="red"))
