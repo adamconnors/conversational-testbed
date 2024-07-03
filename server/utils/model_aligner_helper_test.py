@@ -21,7 +21,7 @@ class TestModelAlignerHelper(unittest.TestCase):
     def test_vertex_helper(self):
         vertex = VertexModelHelper()
         result = vertex.predict("Tell me a joke", 0.5, candidate_count=1)
-        print(result)
+        self.assertIsNotNone(result)
 
     def test_generates_principles(self):
         single_run_prompt = single_run.AlignableSingleRun(VertexModelHelper())

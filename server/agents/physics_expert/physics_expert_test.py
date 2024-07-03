@@ -15,10 +15,9 @@
 
 import unittest
 from langchain_google_vertexai import VertexAI
-from langsmith import unit, traceable
 
 from ..agents import AgentState
-from .physics_expert import PhysicsExpert, _load_resources
+from .physics_expert import PhysicsExpert
 from ...utils.test_utils import build_message_history_for_test
 
 
@@ -27,8 +26,6 @@ class PhysicsExpertTest(unittest.TestCase):
     def setUp(self):
         self.llm = VertexAI(model_name="gemini-pro")
 
-    @traceable
-    @unit
     def test_chat(self):
         agent = PhysicsExpert()
         message_history = build_message_history_for_test([])
@@ -43,8 +40,3 @@ class PhysicsExpertTest(unittest.TestCase):
 
         word_count = len(response.split())
         self.assertLess(word_count, 100, f"Response was too long: {response}")
-
-    @unittest.skip("Test skipped")
-    def test_load_document(self):
-        overview, _ = _load_resources()
-        print(overview)

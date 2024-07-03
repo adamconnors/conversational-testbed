@@ -44,14 +44,16 @@ npm run start
 Navigate to http://localhost:4200 and click the microphone icon to begin speaking.
 
 ## Run tests
-
+**WARNING**: Server scripts make calls to the language-model and will incur charges.
 
 ### To run server tests from the **project root**:
 
-**WARNING**: Server scripts make calls to the language-model and will incur charges.
-
 ```sh
+# All tests
 python -m unittest discover -t . -s server -p "*_test.py"
+
+# A specific test
+python -m unittest server.agents.fake_agent_test
 ```
 
 or use the convenience script:
@@ -70,7 +72,6 @@ npm run ng test
 ```
 
 ## Agent development
-
 Conversational agents are the abstraction used to mediate user/AI interactions.
 An agent is implemented as:
 - A python class on the server that communicates with an LLM (e.g. prompt-chain + supplementary RAG, integrations, world state).

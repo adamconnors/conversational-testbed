@@ -53,6 +53,7 @@ class ConversationalAgent(metaclass=ABCMeta):
 
     def get_system_prompt(self) -> str:
         """Returns the main (conversational) system prompt for the agent.
-        This is only needed in order to use interactive alignment tools.
+        This is only needed in order to use interactive alignment tools
+        in the chat_client script.
         """
         return None

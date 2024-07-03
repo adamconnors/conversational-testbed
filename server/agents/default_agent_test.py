@@ -16,7 +16,6 @@
 import time
 import unittest
 from langchain_google_vertexai import VertexAI
-from langsmith import test, traceable
 
 from .default_agent import DefaultAgent
 from ..utils.test_utils import evaluate, send_chat
@@ -56,8 +55,6 @@ class DefaultAgentTest(unittest.TestCase):
             success, f"Evaluation of model response failed. Response was: {response}"
         )
 
-    @traceable
-    @test
     def test_chat_like_a_prirate(self):
         agent = DefaultAgent()
         agent.set_fake_time_for_test("12:05 PM")
@@ -85,8 +82,6 @@ class DefaultAgentTest(unittest.TestCase):
             success, f"Evaluation of model response failed. Response was: {response}"
         )
 
-    @traceable
-    @test
     def test_short_responses_to_big_questions(self):
         agent = DefaultAgent()
         transcript = ["Explain the double-slit experiment to me."]
