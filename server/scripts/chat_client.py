@@ -67,7 +67,7 @@ def start_chat(agent="default"):
     client.start()
 
 
-def _chat_http(world_state, message_history, agent_id, q):
+def _send_to_agent(world_state, message_history, agent_id, q):
     """Handles the HTTP request for the chat endpoint."""
     if not agent_registry.is_agent_registered(agent_id):
         raise ValueError("invalid agent id")
@@ -76,14 +76,7 @@ def _chat_http(world_state, message_history, agent_id, q):
     agent_response, agent_world_state = agent.chat(
         AgentState(q, message_history, world_state)
     )
-    return (
-        {
-            "response": agent_response,
-            "world_state": agent_world_state,
-        },
-        200,
-        {"Access-Control-Allow-Origin": "*"},
-    )
+    return {"response": agent_response, "world_state": agent_world_state}
 
 
 class ChatClient:
@@ -114,10 +107,9 @@ class ChatClient:
 
     def process_input(self, user_input):
         """Processes the user input and interacts with the agent."""
-        http_response = _chat_http(
+        response = _send_to_agent(
             self.world_state, self.message_history, self.agent_name, user_input
         )
-        response = http_response[0]
 
         self.world_state = response["world_state"]
         self.message_history.append(HumanMessage(user_input))
