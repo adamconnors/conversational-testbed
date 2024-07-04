@@ -25,7 +25,7 @@ gcloud auth application-default set-quota-project [PROJECT_ID]
 ```sh
  cd server
  pip install -r requirements.txt
- python main.py
+ python3 main.py
 ```
 
 You can test the server by pointing your browser at:
@@ -50,19 +50,19 @@ Navigate to http://localhost:4200 and click the microphone icon to begin speakin
 
 ```sh
 # All tests
-python -m unittest discover -t . -s server -p "*_test.py"
+python3 -m unittest discover -t . -s server -p "*_test.py"
 
 # A specific test
-python -m unittest server.agents.fake_agent_test
+python3 -m unittest server.agents.fake_agent_test
 ```
 
 or use the convenience script:
 ```sh
 # All tests
-python -m server.scripts.run_tests --test_name all
+python3 -m server.scripts.run_tests --test_name all
 
 # Named test
-python -m server.scripts.run_tests --test_name fake_agent_test
+python3 -m server.scripts.run_tests --test_name fake_agent_test
 ```
 
 ### To run client tests:

@@ -21,7 +21,7 @@ from langchain_google_vertexai import VertexAI
 from ..agents import AgentState
 from .history_tutor import (
     HistoryTutor,
-    _load_file,
+    load_file,
     BLACK_DEATH_TUTOR_CONTEXT,
 )
 from ...utils.test_utils import evaluate, send_chat
@@ -58,7 +58,7 @@ class TestHistoryTutor(unittest.TestCase):
         )
 
     def test_student_gives_two_answers_correctly(self):
-        world_state = json.loads(_load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         transcript = [
             "start lesson",
             "Let's begin our lesson on the Black Death. What were the different theories about the cause of the Black Death?",
@@ -87,7 +87,7 @@ class TestHistoryTutor(unittest.TestCase):
         )
 
     def test_update_world_state_no_answers(self):
-        world_state = json.loads(_load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "start lesson."
         world_state = self.tutor._update_question_state(world_state, last_answer)
         self.assertEqual("false", world_state["answers"][0]["hasAnswered"])
@@ -96,14 +96,14 @@ class TestHistoryTutor(unittest.TestCase):
         self.assertEqual("false", world_state["answers"][3]["hasAnswered"])
 
     def test_update_world_state_two_answers(self):
-        world_state = json.loads(_load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "The four humors and the miasma theory."
         world_state = self.tutor._update_question_state(world_state, last_answer)
         self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
 
     def test_update_world_state_all_answers(self):
-        world_state = json.loads(_load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "Punishment from God, the four humors theory, miasma theory, and strangers or outsiders."
         world_state = self.tutor._update_question_state(world_state, last_answer)
         self.assertEqual(world_state["answers"][0]["hasAnswered"], "true")

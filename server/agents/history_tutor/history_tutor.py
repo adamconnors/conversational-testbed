@@ -186,7 +186,7 @@ BLACK_DEATH_TUTOR_CONTEXT = os.path.join(
 )
 
 
-def _load_file(filename):
+def load_file(filename):
     with open(filename, "r", encoding="utf-8") as file:
         return file.read()
 
@@ -198,7 +198,7 @@ class HistoryTutor(ConversationalAgent):
         super().__init__()
         self.chat_model = ChatVertexAI(model="gemini-1.5-flash", examples=EXAMPLES)
         self.update_state_model = VertexAI(model_name="gemini-1.5-flash", temperature=0)
-        self._lesson_context = json.loads(_load_file(BLACK_DEATH_TUTOR_CONTEXT))
+        self._lesson_context = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
 
     def chat(self, agent_state) -> AgentResponse:
 
