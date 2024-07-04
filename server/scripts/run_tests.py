@@ -15,16 +15,18 @@
 # pylint: disable=too-few-public-methods, consider-iterating-dictionary, no-value-for-parameter
 
 """
-Helper for running unit tests in parallel or for running all tests
+Helper for running unit tests multiple times in order to assess overall
+success rate.
+
 *WARNING*: This script is designed to make multiple API calls to the LLM model
 and can incur significant costs.
 
 Usage: 
-    python -m server.scripts.run_tests --test_name=physics_expert_test.PhysicsExpertTest.test_chat --run_count=1 --max_threads=5
-    python -m server.scripts.run_tests --test_name=physics_expert.PhysicsExpertTest --run_count=1 --max_threads=5
-    python -m server.scripts.run_tests --test_name=all --run_count=1 --max_threads=5
+    python3 -m server.scripts.run_tests --test_name=fake_agent_test --run_count=1 --max_threads=5
 """
+from io import StringIO
 import os
+from contextlib import redirect_stdout
 import threading
 import time
 import concurrent.futures
@@ -42,7 +44,7 @@ from rich.panel import Panel
 # above until an official fix is available.
 DEFAULT_MAX_THREADS = 5
 DEFAULT_TEST_NAME = "fake_agent_test"
-DEFAULT_RUN_COUNT = 10
+DEFAULT_RUN_COUNT = 1
 
 
 class _TraceLogEntry:
@@ -72,7 +74,7 @@ class _TraceLogEntry:
         tests",
 )
 def _run_tests(test_name, run_count, max_threads):
-    """Executes specified tests in parallel.
+    """Executes specified tests in parallel, running each test run_count times.
 
     Args:
         test_name (str): Name of the test (either a test suite or a specific test case within a suite).
@@ -121,10 +123,9 @@ def _run_tests(test_name, run_count, max_threads):
 
     _run_in_parallel(filtered_tests, max_threads)
 
-
 def _run_in_parallel(tests, max_threads):
-    with open(os.devnull, "w", encoding="utf-8") as null_stream:
-        runner = unittest.TextTestRunner(stream=null_stream)
+    
+    runner = unittest.TextTestRunner(stream=open(os.devnull, 'w', encoding='utf-8'))
     trace_log = []
 
     progress = 0
@@ -142,7 +143,6 @@ def _run_in_parallel(tests, max_threads):
 
             executor.shutdown()
             _process_results(trace_log)
-
 
 def _run_test(test, runner, trace_log):
     trace_log.append(_TraceLogEntry(test, runner.run(test)))
@@ -216,7 +216,7 @@ def _process_results(trace_log):
         click.secho(f"Tests failed: {failed}", fg="red")
 
         if failed > 0:
-            content = "\n\n".join(failed_list)
+            content = "\n\n".join([failure[1] for failure in failed_list])
             panel = Panel(content, title="Failure details", expand=False)
             rich.print(panel)
 

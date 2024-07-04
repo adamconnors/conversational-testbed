@@ -27,11 +27,10 @@ class TestModelAlignerHelper(unittest.TestCase):
         single_run_prompt = single_run.AlignableSingleRun(VertexModelHelper())
         initial_prompt = "Tell me a joke about {topic}."
         single_run_prompt.set_model_description(initial_prompt)
-        output = single_run_prompt.send_input({"topic": "fish"})
-        single_run_prompt.set_input_output_pair(output)
+        _ = single_run_prompt.send_input({"topic": "fish"})
         principles = single_run_prompt.critique_response("Not funny enough.")
-        print(f"Principles {principles}")
+        self.assertIsNotNone(principles)
         single_run_prompt.update_model_description_from_principles()
 
         model_description = single_run_prompt.get_model_description_with_principles()
-        print(f"Updated model description {model_description}")
+        self.assertTrue(principles[0] in model_description)

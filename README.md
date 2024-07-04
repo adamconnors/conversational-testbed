@@ -44,7 +44,7 @@ npm run start
 Navigate to http://localhost:4200 and click the microphone icon to begin speaking.
 
 ## Run tests
-**WARNING**: Server scripts make calls to the language-model and will incur charges.
+**WARNING**: Some tests make calls to the language-model and will incur charges.
 
 ### To run server tests from the **project root**:
 
@@ -56,13 +56,15 @@ python3 -m unittest discover -t . -s server -p "*_test.py"
 python3 -m unittest server.agents.fake_agent_test
 ```
 
-or use the convenience script:
-```sh
-# All tests
-python3 -m server.scripts.run_tests --test_name all
+Note: Some tests use use an evaluator LLM to validate the output of responses. Due to the
+non-determinacy of LLMs, these tests are inherently flaky. If you see an AssertionError of
+the form ```Evaluation of model response failed.``` you can ignore the error for the purposes
+of getting started.
 
-# Named test
-python3 -m server.scripts.run_tests --test_name fake_agent_test
+If you're building an agent and want to assess the overall success rate for flaky tests
+you can use the ```run_tests.py``` convenience script to run each test multiple times.
+```sh
+python3 -m server.scripts.run_tests --test_name fake_agent_test --run_count=10
 ```
 
 ### To run client tests:
