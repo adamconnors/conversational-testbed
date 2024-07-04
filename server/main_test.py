@@ -14,9 +14,9 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 
 import json
+import logging
 import unittest
 
-from langchain_core.messages import HumanMessage, AIMessage
 from .main import app, build_message_history
 
 
@@ -27,9 +27,12 @@ class TestMain(unittest.TestCase):
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()
+        logging.getLogger().setLevel(logging.CRITICAL)
+
 
     def tearDown(self):
         self.ctx.pop()
+        logging.getLogger().setLevel(logging.INFO)
 
     def test_no_world_state(self):
         req = {
@@ -62,26 +65,6 @@ class TestMain(unittest.TestCase):
         data2 = json.loads(resp2.get_data())
         world_state2 = data2["world_state"]
         self.assertEqual(world_state2["last_message"], "user message 2")
-
-    @unittest.skip("Not implemented")
-    def test_build_message_history(self):
-        incoming_messages = json.dumps(
-            [
-                {"content": "Message 1", "author": "user"},
-                {"content": "Message 2", "author": "llm"},
-                {"content": "Message 3", "author": "user"},
-                {"content": "Message 4", "author": "llm"},
-            ]
-        )
-
-        expected_messages = [
-            HumanMessage("Message 1"),
-            AIMessage("Message 2"),
-            HumanMessage("Message 3"),
-            AIMessage("Message 4"),
-        ]
-        output = build_message_history(incoming_messages)
-        self.assertEqual(output, expected_messages)
 
     def test_invalid_history(self):
         incoming_messages = "xxx"

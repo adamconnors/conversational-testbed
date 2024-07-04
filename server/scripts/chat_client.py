@@ -14,6 +14,7 @@
 
 """ Simple command line utility for text conversations and feedback generation."""
 import importlib
+import logging
 import os
 import shutil
 import sys
@@ -221,7 +222,7 @@ class ChatClient:
         single_run_prompt.current_convo_idx = len(prompt.conversations) - 1
 
         for feedback in self.feedback:
-            print(f"Creating principles for feedback: {feedback}")
+            logging.info("Creating principles for feedback: %s", feedback)
             self.principles = single_run_prompt.critique_response(feedback)
 
         click.secho("--- Principles generated: ---\n", fg="green")

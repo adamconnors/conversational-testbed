@@ -16,6 +16,7 @@
 
 (See AI-Augmented Life blogs for details).
 """
+import logging
 import os
 from langchain_google_vertexai import ChatVertexAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
@@ -134,9 +135,9 @@ def _load_resources():
     all_text = ""
 
     if not os.path.exists(RESOURCES):
-        print(
-            "Warning: No resources found for Physics Expert, quality of \
-            responses will be affected."
+        logging.warning(
+            ("Warning: No resources found for Physics Expert, quality of"
+            "responses will be affected.")
         )
         return ""
 

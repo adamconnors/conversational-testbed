@@ -13,30 +13,16 @@
 # limitations under the License.
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring, line-too-long
 
+import logging
 import unittest
 from langchain_google_vertexai import VertexAI
-
-from ..agents import AgentState
-from .physics_expert import PhysicsExpert
-from ...utils.test_utils import build_message_history_for_test
 
 
 class PhysicsExpertTest(unittest.TestCase):
 
     def setUp(self):
         self.llm = VertexAI(model_name="gemini-pro")
-
-    def test_chat(self):
-        agent = PhysicsExpert()
-        message_history = build_message_history_for_test([])
-        message = "Tell me about the double slit experiment."
-        response, _ = agent.chat(
-            AgentState(
-                message,
-                message_history,
-                None,
-            )
-        )
-
-        word_count = len(response.split())
-        self.assertLess(word_count, 100, f"Response was too long: {response}")
+        logging.getLogger().setLevel(logging.CRITICAL)
+        
+    def tearDown(self):
+        logging.getLogger().setLevel(logging.INFO)

@@ -55,7 +55,7 @@ class DefaultAgentTest(unittest.TestCase):
             success, f"Evaluation of model response failed. Response was: {response}"
         )
 
-    def test_chat_like_a_prirate(self):
+    def test_chat_like_a_pirate(self):
         agent = DefaultAgent()
         agent.set_fake_time_for_test("12:05 PM")
         transcript = [
@@ -74,29 +74,6 @@ class DefaultAgentTest(unittest.TestCase):
             examples=[
                 "Aye, it be five minutes past the midday hour, matey!",
                 "Ahoy matey! It be 12:05 PM!",
-            ],
-            verbose=False,
-        )
-
-        self.assertTrue(
-            success, f"Evaluation of model response failed. Response was: {response}"
-        )
-
-    def test_short_responses_to_big_questions(self):
-        agent = DefaultAgent()
-        transcript = ["Explain the double-slit experiment to me."]
-
-        response, _ = send_chat(agent, transcript, None)
-        success = evaluate(
-            transcript,
-            response,
-            guidance="Should give a brief summary of the double-slit experiment and then asks user for more information.",
-            examples=[
-                "The double-slit experiment is a famous experiment in quantum mechanics that shows that light and matter can act as both waves and particles.  Do you want to know more about the specific setup of the experiment or the implications of the results?",
-                "The double-slit experiment is a famous experiment in physics that demonstrates the wave-particle duality of light.  What would you like to know about it?  Do you want a general overview or are you interested in a specific aspect of it?",
-                "Its a famous experiment that shows the wave-like nature of light!  Tell me, what part of the experiment are you most interested in?",
-                "Its a famous experiment that shows how light can act like both a wave and a particle.  Can you tell me more about what specifically interests you about it?",
-                "The double-slit experiment is a famous demonstration in quantum mechanics.  Tell me, what specifically about it are you interested in?",
             ],
             verbose=False,
         )

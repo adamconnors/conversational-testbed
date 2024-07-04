@@ -11,14 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring, unused-argument
 
 import unittest
+import logging
+from unittest import mock
 from .chat_client import ChatClient
 
 
 class ChatClientTest(unittest.TestCase):
-    def test_chat_client(self):
+    
+    def setUp(self):
+        logging.getLogger().setLevel(logging.CRITICAL)
+        
+    def tearDown(self):
+        logging.getLogger().setLevel(logging.INFO)
+    
+    @mock.patch("click.echo")
+    @mock.patch("click.secho")
+    def test_chat_client(self, mock_secho, mock_echo):
         client = ChatClient("physics_expert")
         client.process_input("Tell me about the double-slit experiment.")
         client.handle_command("feedback Talk like a prirate")

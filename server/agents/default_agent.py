@@ -14,7 +14,6 @@
 
 """Default agent implementation for general conversation."""
 import time
-
 from langchain_google_vertexai import ChatVertexAI
 from langchain_core.messages import SystemMessage
 from langchain_core.prompts import PromptTemplate
@@ -79,4 +78,6 @@ class DefaultAgent(ConversationalAgent):
 
         # Invoke the model with the prompt.
         response = self.chat_model.invoke(messages)
+        if (len(response.content) == 0):
+            raise ValueError("No content from model", response)
         return (response.content, {})

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Main entry point for flask server."""
+import logging
 import json
 import flask
 import google.cloud.texttospeech_v1 as texttospeech
@@ -59,7 +60,7 @@ def tts():
 @app.route("/_ah/warmup")
 def warmup():
     """Warmup request as used by GCloud App Engine environment."""
-    print("Warm up called.")
+    logging.debug("Warm up called.")
     return "", 200, {}
 
 
@@ -72,7 +73,6 @@ def chat():
     agent_id = flask.request.args.get("agent_id") or flask.request.form.get("agent_id")
     if q is None:
         return "No request sent, use ?q=", 200
-    print("q", q)
 
     # Message History
     message_history_json = flask.request.args.get(
@@ -88,10 +88,11 @@ def chat():
 
     # Get the right model for this use-case
     if not agent_registry.is_agent_registered(agent_id):
-        print(f"WARNING: Agent ID {agent_id} not found in registry. Using default.")
+        logging.warning(("WARNING: Agent ID %s not found in registry."
+                        "Using default."), agent_id)
         agent_id = "default"
     agent = agent_registry.get_agent(agent_id)
-
+    logging.info("Using agent %s", agent_id)
     agent_response, agent_world_state = agent.chat(
         AgentState(q, message_history, world_state)
     )
