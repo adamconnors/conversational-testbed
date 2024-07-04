@@ -88,8 +88,9 @@ def chat():
 
     # Get the right model for this use-case
     if not agent_registry.is_agent_registered(agent_id):
-        logging.warning(("WARNING: Agent ID %s not found in registry."
-                        "Using default."), agent_id)
+        logging.warning(
+            ("WARNING: Agent ID %s not found in registry. Using default."), agent_id
+        )
         agent_id = "default"
     agent = agent_registry.get_agent(agent_id)
     logging.info("Using agent %s", agent_id)

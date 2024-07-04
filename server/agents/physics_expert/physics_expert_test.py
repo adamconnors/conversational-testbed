@@ -23,6 +23,6 @@ class PhysicsExpertTest(unittest.TestCase):
     def setUp(self):
         self.llm = VertexAI(model_name="gemini-pro")
         logging.getLogger().setLevel(logging.CRITICAL)
-        
+
     def tearDown(self):
         logging.getLogger().setLevel(logging.INFO)

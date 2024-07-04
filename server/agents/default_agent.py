@@ -78,6 +78,6 @@ class DefaultAgent(ConversationalAgent):
 
         # Invoke the model with the prompt.
         response = self.chat_model.invoke(messages)
-        if (len(response.content) == 0):
+        if len(response.content) == 0:
             raise ValueError("No content from model", response)
         return (response.content, {})

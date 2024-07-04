@@ -136,8 +136,10 @@ def _load_resources():
 
     if not os.path.exists(RESOURCES):
         logging.warning(
-            ("Warning: No resources found for Physics Expert, quality of"
-            "responses will be affected.")
+            (
+                "Warning: No resources found for Physics Expert, quality of"
+                "responses will be affected."
+            )
         )
         return ""
 

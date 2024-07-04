@@ -29,7 +29,6 @@ class TestMain(unittest.TestCase):
         self.client = app.test_client()
         logging.getLogger().setLevel(logging.CRITICAL)
 
-
     def tearDown(self):
         self.ctx.pop()
         logging.getLogger().setLevel(logging.INFO)
