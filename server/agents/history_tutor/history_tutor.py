@@ -187,6 +187,7 @@ BLACK_DEATH_TUTOR_CONTEXT = os.path.join(
 
 
 def load_file(filename):
+    """Loads file for additional lesson context."""
     with open(filename, "r", encoding="utf-8") as file:
         return file.read()
 

@@ -20,13 +20,13 @@ from .chat_client import ChatClient
 
 
 class ChatClientTest(unittest.TestCase):
-    
+
     def setUp(self):
         logging.getLogger().setLevel(logging.CRITICAL)
-        
+
     def tearDown(self):
         logging.getLogger().setLevel(logging.INFO)
-    
+
     @mock.patch("click.echo")
     @mock.patch("click.secho")
     def test_chat_client(self, mock_secho, mock_echo):

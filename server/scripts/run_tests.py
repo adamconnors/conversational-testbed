@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# pylint: disable=line-too-long, consider-using-dict-items
+# pylint: disable=line-too-long, consider-using-dict-items, consider-using-with
 # pylint: disable=too-few-public-methods, consider-iterating-dictionary, no-value-for-parameter
 
 """
@@ -24,9 +24,7 @@ and can incur significant costs.
 Usage: 
     python3 -m server.scripts.run_tests --test_name=fake_agent_test --run_count=1 --max_threads=5
 """
-from io import StringIO
 import os
-from contextlib import redirect_stdout
 import threading
 import time
 import concurrent.futures
@@ -123,9 +121,10 @@ def _run_tests(test_name, run_count, max_threads):
 
     _run_in_parallel(filtered_tests, max_threads)
 
+
 def _run_in_parallel(tests, max_threads):
-    
-    runner = unittest.TextTestRunner(stream=open(os.devnull, 'w', encoding='utf-8'))
+
+    runner = unittest.TextTestRunner(stream=open(os.devnull, "w", encoding="utf-8"))
     trace_log = []
 
     progress = 0
@@ -143,6 +142,7 @@ def _run_in_parallel(tests, max_threads):
 
             executor.shutdown()
             _process_results(trace_log)
+
 
 def _run_test(test, runner, trace_log):
     trace_log.append(_TraceLogEntry(test, runner.run(test)))
