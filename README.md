@@ -1,6 +1,6 @@
 # Conversational Toolkit
 
-Conversational Toolkit is a web application that provides a prototyping and evaluation framework for multimodal voice-driven interactions with conversational AI agents.
+The Conversational Toolkit is a web application that provides a simple prototyping environment for voice-driven conversational AI agents.
 
 The toolkit fronts a language model with automatic speech recognition (ASR) using the WebSpeech API, and text-to-speech (TTS) using the Vertex speech API. It is designed to be modular so that new use cases can be quickly added with well-encapsulated code changes.
 
@@ -23,9 +23,9 @@ gcloud auth application-default set-quota-project [PROJECT_ID]
 ```
 
 ```sh
- cd py-server
+ cd server
  pip install -r requirements.txt
- python main.py
+ python3 main.py
 ```
 
 You can test the server by pointing your browser at:
@@ -43,8 +43,35 @@ npm run start
 
 Navigate to http://localhost:4200 and click the microphone icon to begin speaking.
 
-## Agent development
+## Run tests
+**WARNING**: Server scripts make calls to the language-model and will incur charges.
 
+### To run server tests from the **project root**:
+
+```sh
+# All tests
+python3 -m unittest discover -t . -s server -p "*_test.py"
+
+# A specific test
+python3 -m unittest server.agents.fake_agent_test
+```
+
+or use the convenience script:
+```sh
+# All tests
+python3 -m server.scripts.run_tests --test_name all
+
+# Named test
+python3 -m server.scripts.run_tests --test_name fake_agent_test
+```
+
+### To run client tests:
+```sh
+cd client
+npm run ng test
+```
+
+## Agent development
 Conversational agents are the abstraction used to mediate user/AI interactions.
 An agent is implemented as:
 - A python class on the server that communicates with an LLM (e.g. prompt-chain + supplementary RAG, integrations, world state).

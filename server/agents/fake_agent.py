@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Fake agent with canned responses and no LLM calls."""
 from .agents import AgentResponse, ConversationalAgent
 
 
@@ -22,7 +23,7 @@ class FakeAgent(ConversationalAgent):
         message_count = len(agent_state.message_history)
         message = agent_state.message
         world_state = agent_state.world_state
-        if world_state == None:
+        if world_state is None:
             world_state = self._create_initial_world_state(message, message_count)
         else:
             world_state["last_message"] = message

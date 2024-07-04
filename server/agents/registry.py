@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Registry for all agents supported by the server. New agents should be added to
+_AGENT_BY_ID to allow the server to call them.
+"""
 from typing import Dict, Final, Type
 from .agents import ConversationalAgent
 from .default_agent import DefaultAgent

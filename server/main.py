@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Main entry point for flask server."""
 import json
 import flask
 import google.cloud.texttospeech_v1 as texttospeech
+from langchain_core.messages import HumanMessage, AIMessage
 
 from .agents.agents import AgentState
 from .agents.registry import AgentRegistry
-from langchain_core.messages import HumanMessage, AIMessage
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -31,6 +32,7 @@ agent_registry = AgentRegistry()
 # Combine these to save ourselves a server roundtrip.
 @app.route("/tts", methods=["POST", "GET"])
 def tts():
+    """Takes text query parameter and returns audio file bytes."""
     text = flask.request.args.get("text") or flask.request.form.get("text")
     text = text.replace("*", "").replace("#", "")
 
@@ -56,6 +58,7 @@ def tts():
 
 @app.route("/_ah/warmup")
 def warmup():
+    """Warmup request as used by GCloud App Engine environment."""
     print("Warm up called.")
     return "", 200, {}
 
@@ -129,7 +132,9 @@ def build_message_history(message_history_json):
             else:
                 raise ValueError(f"Unknown message type: {message}")
     except Exception as e:
-        raise ValueError(f"Couldn't parse message history: {message_history_json}: {e}")
+        raise ValueError(
+            f"Couldn't parse message history: {message_history_json}: {e}"
+        ) from e
     return messages
 
 

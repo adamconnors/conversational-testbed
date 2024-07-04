@@ -11,9 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring, line-too-long, protected-access
 
 import json
 import unittest
+
+from langchain_google_vertexai import VertexAI
 
 from ..agents import AgentState
 from .history_tutor import (
@@ -22,8 +25,6 @@ from .history_tutor import (
     BLACK_DEATH_TUTOR_CONTEXT,
 )
 from ...utils.test_utils import evaluate, send_chat
-from langchain_google_vertexai import VertexAI
-from langchain.globals import set_debug
 
 
 class TestHistoryTutor(unittest.TestCase):
@@ -40,7 +41,7 @@ class TestHistoryTutor(unittest.TestCase):
     def test_introduce_lesson_and_ask_first_question(self):
         transcript = ["start lesson"]
 
-        response, world_state = self.tutor.chat(AgentState("start lesson", [], None))
+        response, _ = self.tutor.chat(AgentState("start lesson", [], None))
 
         success = evaluate(
             transcript,
@@ -88,7 +89,7 @@ class TestHistoryTutor(unittest.TestCase):
     def test_update_world_state_no_answers(self):
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "start lesson."
-        world_state = self.tutor.update_question_state(world_state, last_answer)
+        world_state = self.tutor._update_question_state(world_state, last_answer)
         self.assertEqual("false", world_state["answers"][0]["hasAnswered"])
         self.assertEqual("false", world_state["answers"][1]["hasAnswered"])
         self.assertEqual("false", world_state["answers"][2]["hasAnswered"])
@@ -97,14 +98,14 @@ class TestHistoryTutor(unittest.TestCase):
     def test_update_world_state_two_answers(self):
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "The four humors and the miasma theory."
-        world_state = self.tutor.update_question_state(world_state, last_answer)
+        world_state = self.tutor._update_question_state(world_state, last_answer)
         self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")
 
     def test_update_world_state_all_answers(self):
         world_state = json.loads(load_file(BLACK_DEATH_TUTOR_CONTEXT))
         last_answer = "Punishment from God, the four humors theory, miasma theory, and strangers or outsiders."
-        world_state = self.tutor.update_question_state(world_state, last_answer)
+        world_state = self.tutor._update_question_state(world_state, last_answer)
         self.assertEqual(world_state["answers"][0]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][1]["hasAnswered"], "true")
         self.assertEqual(world_state["answers"][2]["hasAnswered"], "true")

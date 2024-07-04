@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=too-many-arguments, too-few-public-methods
 
-import vertexai
+"""Used by the model_alignment library to interact with the VertexAI model."""
 
 from model_alignment import model_helper
 from vertexai.generative_models import GenerationConfig, GenerativeModel
 
 
 class VertexModelHelper(model_helper.ModelHelper):
-    def __init__(self):
-        super().__init__()
+    """Used by the model_alignment library"""
 
     def predict(
         self,

@@ -11,20 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+# pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 import unittest
 from model_alignment import single_run
 from .model_aligner_helper import VertexModelHelper
 
 
-# TODO: Add real tests here.
 class TestModelAlignerHelper(unittest.TestCase):
-    def testVertexHelper(self):
+    def test_vertex_helper(self):
         vertex = VertexModelHelper()
         result = vertex.predict("Tell me a joke", 0.5, candidate_count=1)
-        print(result)
+        self.assertIsNotNone(result)
 
-    def testGeneratesPrinciple(self):
+    def test_generates_principles(self):
         single_run_prompt = single_run.AlignableSingleRun(VertexModelHelper())
         initial_prompt = "Tell me a joke about {topic}."
         single_run_prompt.set_model_description(initial_prompt)
