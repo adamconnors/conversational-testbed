@@ -1,120 +1,31 @@
 # Conversational Toolkit
 
-The Conversational Toolkit is a web application that provides a simple prototyping environment for voice-driven conversational AI agents.
+The Conversational Toolkit is a Web application that provides a simple prototyping environment for voice-driven conversational AI agents.
 
 The toolkit fronts a language model with automatic speech recognition (ASR) using the WebSpeech API, and text-to-speech (TTS) using the Vertex speech API. It is designed to be modular so that new use cases can be quickly added with well-encapsulated code changes.
 
-## Local Development
+## Instructions
 
-### Start backend server:
-To run the server locally, you must first install the Google Cloud CLI and set up your default project and application default credentials.
+| Documentation                                           | Description                                     |
+| --------------------------------------------------------| ----------------------------------------------- |
+| [Getting Started](./docs/getting-started.md)            | How to get started, run locally and on cloud    |
+| [Adding a new Agent](./docs/adding-a-new-agent.md) |    | How to build and test a new agent               |
+| [Testing and Developing Agents](./docs/testing-and-developing.md) | Test and develop your agent           |
+| [Contributing](./docs/contributing.md)                  | How to contribute to this project               |
+| [Code of Conduct](./docs/code-of-conduct.md)            | Code of conduct for contributors                |
 
-Follow [Google Cloud Installation Instructions](https://cloud.google.com/sdk/docs/install) to install the Google Cloud CLI.
 
-Follow [Set up Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) to set up application default credentials.
 
-```sh
-gcloud auth login
-
-# Ensure your project has the Vertex APIs enabled
-gcloud config set project [PROJECT_ID]
-gcloud auth application-default login
-gcloud auth application-default set-quota-project [PROJECT_ID]
-```
-
-```sh
- cd server
- pip install -r requirements.txt
- python3 main.py
-```
-
-You can test the server by pointing your browser at:
-http://localhost:8080/chat?q=hello
-
-### Start the client development server:
-Install npm at: https://nodejs.org/en/download/.
-
-Then:
-```sh
-cd client
-npm install
-npm run start
-```
-
-Navigate to http://localhost:4200 and click the microphone icon to begin speaking.
-
-## Run tests
-**WARNING**: Some tests make calls to the language-model and will incur charges.
-
-### To run server tests from the **project root**:
-
-```sh
-# All tests
-python3 -m unittest discover -t . -s server -p "*_test.py"
-
-# A specific test
-python3 -m unittest server.agents.fake_agent_test
-```
-
-Note: Some tests use use an evaluator LLM to validate the output of responses. Due to the
-non-determinacy of LLMs, these tests are inherently flaky. If you see an AssertionError of
-the form ```Evaluation of model response failed.``` you can ignore the error for the purposes
-of getting started.
-
-If you're building an agent and want to assess the overall success rate for flaky tests
-you can use the ```run_tests.py``` convenience script to run each test multiple times.
-```sh
-python3 -m server.scripts.run_tests --test_name fake_agent_test --run_count=10
-```
-
-### To run client tests:
-```sh
-cd client
-npm run ng test
-```
-
-## Agent development
-Conversational agents are the abstraction used to mediate user/AI interactions.
-An agent is implemented as:
-- A python class on the server that communicates with an LLM (e.g. prompt-chain + supplementary RAG, integrations, world state).
-- An Angular component on the client to drive user interactions through customizable UI.
-
-To create a new agent you will need to add server and client implementations as follows.
-
-#### Server
-- Define a new python file or module that subclasses the `ConversationalAgent` base class and implements the `chat` method.
-  - See agents.py for the class definition, and default_agent.py for an example implementation.
-- Add the new agent with a unique id to `_AGENT_BY_ID` in `agents/registry.py`.
-
-#### Client
-- Create an Angular component for your agent:
-```sh
-npm run ng g component components/agents/your-agent-name
-```
-- Implement the `Agent` interface (`app/data/agent.ts`) in your component's class (`components/agents/your-agent-name.ts`).
-
-A minimal implementation would just return the `state` object unchanged. Use the `fake_agent` component for reference. For example:
-
-```ts
-export class YourAgentComponent implements Agent {
-  processExchange(state: AgentState): AgentState {
-    return state; 
-  }
-}
-```
-
-- Add a unique identifier for your agent to `AGENT_IDS` in `app/data/agent.ts`.
-- Register your agent component and its preferences in `app/services/agents.service.ts`.
-
-After these steps, you should see your agent's name in the app's side bar and selecting it should display its component UI.
 
 ## Cloud deployment
-Set your cloud project and authenticate as above. To deploy to AppEngine, run:
+To deploy this project to an App Engine instance, set up your cloud project and authenticate as per [Getting Started](./docs/getting-started.md). Then run:
 
 ```sh
+# Builds the client and puts generated bundles in the server/dist directory.
 cd client
 npm run prod
 
-cd ../py-server
+# Deploys client and server to App Engine
+cd ../server
 gcloud app deploy
 ```
