@@ -18,7 +18,7 @@ from langchain_google_vertexai import VertexAI
 from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
 from langchain_core.prompts import PromptTemplate
 
-from ..agents.agents import AgentState
+from agents.agents import AgentState
 
 
 def build_message_history_for_test(message_history: List[str]) -> list[BaseMessage]:

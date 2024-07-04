@@ -16,9 +16,9 @@
 import time
 import unittest
 from langchain_google_vertexai import VertexAI
+from utils.test_utils import evaluate, send_chat
 
 from .default_agent import DefaultAgent
-from ..utils.test_utils import evaluate, send_chat
 
 
 class DefaultAgentTest(unittest.TestCase):

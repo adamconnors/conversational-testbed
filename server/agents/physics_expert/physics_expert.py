@@ -21,7 +21,7 @@ import os
 from langchain_google_vertexai import ChatVertexAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.prompts import PromptTemplate
-from ..agents import AgentResponse, ConversationalAgent
+from agents.agents import AgentResponse, ConversationalAgent
 
 
 SYSTEM_PROMPT = """

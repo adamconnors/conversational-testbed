@@ -17,7 +17,7 @@ import json
 import logging
 import unittest
 
-from .main import app, build_message_history
+from main import app, build_message_history
 
 
 # Create a test class for the build_message_history function

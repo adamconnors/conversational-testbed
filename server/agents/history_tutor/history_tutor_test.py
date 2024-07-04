@@ -17,6 +17,7 @@ import json
 import unittest
 
 from langchain_google_vertexai import VertexAI
+from utils.test_utils import evaluate, send_chat
 
 from ..agents import AgentState
 from .history_tutor import (
@@ -24,7 +25,6 @@ from .history_tutor import (
     load_file,
     BLACK_DEATH_TUTOR_CONTEXT,
 )
-from ...utils.test_utils import evaluate, send_chat
 
 
 class TestHistoryTutor(unittest.TestCase):
