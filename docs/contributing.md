@@ -25,6 +25,14 @@ This project follows
 
 ## Contribution process
 
+Before submitting a pull request ensure formatting and linting run correctly:
+
+```sh
+cd server
+pylint .
+black .
+```
+
 ### Code reviews
 
 All submissions, including submissions by project members, require review. We
