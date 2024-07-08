@@ -60,7 +60,6 @@ npm run ng test
 ```
 
 ### Server tests:
-
 ```sh
 cd server
 
