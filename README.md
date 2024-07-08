@@ -9,7 +9,7 @@ The toolkit fronts a language model with automatic speech recognition (ASR) usin
 | Documentation                                           | Description                                     |
 | --------------------------------------------------------| ----------------------------------------------- |
 | [Getting Started](./docs/getting-started.md)            | How to get started, run locally and on cloud    |
-| [Adding a new Agent](./docs/adding-a-new-agent.md) |    | How to build and test a new agent               |
+| [Adding a new Agent](./docs/adding-a-new-agent.md)      | How to build and test a new agent               |
 | [Testing and Developing Agents](./docs/testing-and-developing.md) | Test and develop your agent           |
 | [Contributing](./docs/contributing.md)                  | How to contribute to this project               |
 | [Code of Conduct](./docs/code-of-conduct.md)            | Code of conduct for contributors                |
