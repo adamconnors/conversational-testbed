@@ -60,14 +60,14 @@ npm run ng test
 ```
 
 ### Server tests:
-From the **project root**:
-
 ```sh
+cd server
+
 # All tests
-python3 -m unittest discover -t . -s server -p "*_test.py"
+python3 -m unittest discover -t . -s . -p "*_test.py"
 
 # A specific test
-python3 -m unittest server.agents.fake_agent_test
+python3 -m unittest agents.fake_agent_test
 ```
 
 **Note**: Large language models (LLMs) are inherently non-determinate and so any tests that make calls to them are inherently flaky. If you see an AssertionError of
@@ -76,11 +76,13 @@ the form ```Evaluation of model response failed.``` it is likely a flaky test an
 If you're building an agent and want to assess the overall success rate for flaky tests
 you can use the ```run_tests.py``` convenience script to run each test multiple times.
 ```sh
+cd server
+
 # For all tests in a suite
-python3 -m server.scripts.run_tests --test_name fake_agent_test --run_count=10
+python3 -m scripts.run_tests --test_name fake_agent_test --run_count=10
 
 # For a specific test
-python3 -m server.scripts.run_tests --test_name fake_agent_test.test_chat --run_count=10
+python3 -m scripts.run_tests --test_name fake_agent_test.test_chat --run_count=10
 ```
 
 A fuller discussion of building and testing agents can be found in [Adding a New Agent](./adding-a-new-agent.md)

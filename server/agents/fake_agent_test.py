@@ -14,9 +14,9 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 
 import unittest
+from utils.test_utils import build_message_history_for_test
 from .agents import AgentState
 from .fake_agent import FakeAgent
-from ..utils.test_utils import build_message_history_for_test
 
 
 class TestFakeAgent(unittest.TestCase):

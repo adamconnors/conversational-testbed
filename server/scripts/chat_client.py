@@ -25,9 +25,9 @@ from langchain_core.messages import HumanMessage, AIMessage
 from model_alignment import single_run
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from ..agents.agents import AgentState
-from ..agents.registry import AgentRegistry
-from ..utils.model_aligner_helper import VertexModelHelper
+from agents.agents import AgentState
+from agents.registry import AgentRegistry
+from utils.model_aligner_helper import VertexModelHelper
 
 
 # Compensates for the speaker tag when setting the
