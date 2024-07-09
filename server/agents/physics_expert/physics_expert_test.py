@@ -16,6 +16,8 @@
 import logging
 import unittest
 from langchain_google_vertexai import VertexAI
+from utils.test_utils import evaluate, send_chat
+from .physics_expert import PhysicsExpert
 
 
 class PhysicsExpertTest(unittest.TestCase):
@@ -26,3 +28,33 @@ class PhysicsExpertTest(unittest.TestCase):
 
     def tearDown(self):
         logging.getLogger().setLevel(logging.INFO)
+
+    def test_low_intensity(self):
+        agent = PhysicsExpert()
+        transcript = [
+            "I've been reading about the double-slit \
+                experiment, can you help me understand \
+                it better?",
+            "Sure.",
+            "What evidence is there that only a single \
+                photon is passing through the detector \
+                at a time?",
+        ]
+
+        response, _ = send_chat(agent, transcript, None)
+        success = evaluate(
+            transcript,
+            response,
+            guidance="Explain what happens when using a low intensity \
+                light source.",
+            examples=[
+                "When using a low intensity light source, the light is \
+                so dim that only one photon passes through the detector \
+                at a time. This is how we know that light is a particle.",
+            ],
+            verbose=False,
+        )
+
+        self.assertTrue(
+            success, f"Evaluation of model response failed. Response was: {response}"
+        )
